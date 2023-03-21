@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = ['https://casagrande-production.up.railway.app/']
+
 # Assets Management
 ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/dashboard') 
 
