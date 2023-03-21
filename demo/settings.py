@@ -75,11 +75,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
 # Extra places for collectstatic to find static files.
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, 'db.sqlite3')
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'railway',
+            'USER': 'root',
+            'PASSWORD': 'ZAKPBw0zgLLsqoZy6AGn',
+            'HOST': 'containers-us-west-167.railway.app',
+            'PORT': '5729',
+        }
     }
-}
 
 if ENVIRONMENT == 'production':
     DEBUG = True
