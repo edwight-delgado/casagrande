@@ -56,7 +56,7 @@ class Slide(models.Model):
 class Category(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField()
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     image = models.ImageField()
     is_active = models.BooleanField(default=True)
 
@@ -71,7 +71,7 @@ class Category(models.Model):
 class Marca(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField()
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -85,10 +85,10 @@ class Marca(models.Model):
 class Item(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
-    quantity = models.DecimalField(max_digits=100,decimal_places=0)
+    quantity = models.DecimalField(max_digits=65, decimal_places=0)
     discount_price = models.FloatField(blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    marca = models.ForeignKey(Marca, on_delete=models.CASCADE, null=True)
+    marca = models.ForeignKey(Marca, on_delete=models.CASCADE, null=True, blank=True)
     label = models.CharField(choices=LABEL_CHOICES, max_length=1)
     slug = models.SlugField()
     stock_no = models.CharField(max_length=10, null=True)

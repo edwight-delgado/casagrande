@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class CoreConfig(AppConfig):
+class ShoppingConfig(AppConfig):
     name = 'shopping'

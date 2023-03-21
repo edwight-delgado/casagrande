@@ -93,8 +93,8 @@ DATABASES = {
             'NAME': 'shopping123',
             'USER': 'root_edwight_123',
             'PASSWORD': 'tUJRPrQgDqJ#n5d',
-            'HOST': ' db4free.net',
-            'PORT': '6147',
+            'HOST': 'db4free.net',
+            'PORT': '3306',
         }
     }
 
