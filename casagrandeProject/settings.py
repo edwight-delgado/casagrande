@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['https://casagrande-production.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['https://casagrande-production.up.railway.app']
 
 # Assets Management
 ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/dashboard') 
@@ -88,15 +88,11 @@ WSGI_APPLICATION = "casagrandeProject.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'railway',
-            'USER': 'root',
-            'PASSWORD': 'k41PlwKr3ajUSZ5tzikA',
-            'HOST': 'containers-us-west-186.railway.app',
-            'PORT': '6147',
-        }
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, 'db.sqlite3')
     }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
