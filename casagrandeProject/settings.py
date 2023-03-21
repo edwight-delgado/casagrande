@@ -90,10 +90,10 @@ WSGI_APPLICATION = "casagrandeProject.wsgi.application"
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'railway',
-            'USER': 'root',
-            'PASSWORD': 'k41PlwKr3ajUSZ5tzikA',
-            'HOST': 'containers-us-west-186.railway.app',
+            'NAME': 'shopping123',
+            'USER': 'root_edwight_123',
+            'PASSWORD': 'tUJRPrQgDqJ#n5d',
+            'HOST': ' db4free.net',
             'PORT': '6147',
         }
     }

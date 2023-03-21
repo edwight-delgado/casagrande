@@ -1,1 +1,1 @@
-web: gunicorn casagrandeProject.wsgi
+web: python manage.py migrate && gunicorn casagrandeProject.wsgi
