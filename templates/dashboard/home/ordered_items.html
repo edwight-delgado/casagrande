@@ -305,7 +305,7 @@
 							<div class="col-md-4">
 								<div class="card">
 									<div class="card-header">
-										<div class="card-title">Top Products</div>
+										<div class="card-title">Top Productos</div>
 									</div>
 									<div class="card-body pb-0">
 										<div class="d-flex">
@@ -313,8 +313,8 @@
 												<img src="/static/assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
 											</div>
 											<div class="flex-1 pt-1 ml-2">
-												<h6 class="fw-bold mb-1">CSS</h6>
-												<small class="text-muted">Cascading Style Sheets</small>
+												<h6 class="fw-bold mb-1">david</h6>
+												<small class="text-muted">Monto</small>
 											</div>
 											<div class="d-flex ml-auto align-items-center">
 												<h3 class="text-info fw-bold">+$17</h3>
@@ -356,15 +356,15 @@
 							<div class="col-md-4">
 								<div class="card">
 									<div class="card-body">
-										<div class="card-title fw-mediumbold">Suggested People</div>
+										<div class="card-title fw-mediumbold">TOP Clientes</div>
 										<div class="card-list">
 											<div class="item-list">
 												<div class="avatar">
 													<img src="/static/assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
 												</div>
 												<div class="info-user ml-3">
-													<div class="username">Jimmy Denis</div>
-													<div class="status">Graphic Designer</div>
+													<div class="username">Jimmy Denis <span class="badge badge-warning">$1000</span></div>
+													<div class="status">email</div>
 												</div>
 												<button class="btn btn-icon btn-primary btn-round btn-xs">
 													<i class="fa fa-plus"></i>
@@ -643,13 +643,14 @@
 										<div class="row">
 											<div class="col-md-12" id="update_order_item">
 												
+													
+												</form>
 											</div>
 											
 										</div>
 									</div>
 						</div>
 						<div class="modal-footer">
-                        <a href="received/{{order.id}}">dddddddd</a>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 						</div>
 					</div>
@@ -674,7 +675,7 @@
         function detalles(order_id) {
             //e.preventDefault();
             $.ajax({
-            url: "/dashboard/order_api/"+order_id,
+            url: "/dashboardorder_api/"+order_id,
             type: 'GET',
             dataType: 'json', // added data type
                 success: function(res) {
@@ -712,15 +713,18 @@
         //function update order
         function updateOrder(order_id) {
             template = `
-            <form class="form-group" method="get" action="received/${order_id}">
+            <form class="form-group" method="get" action="/dashboardreceived/${order_id}">
+				{% csrf_token %}
                 <label for="exampleFormControlTextarea1">Nota de Entrega</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="note"></textarea>
             
-                <button type="submit" class="btn btn-secondary" >Enviar</button>
+                <div class="form-group">
+					<button type="submit" class="btn btn-secondary">Enviar</button>
+				</div>
             </form>
             `; 
                         
-            document.getElementById("update_order_item").innerHTML += template;
+            document.getElementById("update_order_item").innerHTML = template;
         }
 
     </script>

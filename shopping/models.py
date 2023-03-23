@@ -32,8 +32,8 @@ LABEL_CHOICES = (
 )
 
 ADDRESS_CHOICES = (
-    ('R', 'Recoger'),
-    ('E', 'Entrega'),
+    ('recoger', 'Recoger'),
+    ('entrega', 'Entrega'),
 )
 
 METHODS_PAYMENT_CHOICES = (

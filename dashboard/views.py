@@ -37,18 +37,23 @@ class DashboardView(View):
     def get(self, *args, **kwargs):
         items = Item.objects.filter(is_active=True)
         cursor = connection.cursor()
-        cursor.execute('SELECT shopping_payment.id, methods, SUM(amount) AS Total from shopping_order join shopping_payment ON shopping_order.payment_id=shopping_payment.id WHERE shopping_order.received=1 GROUP BY methods')
+        cursor.execute('SELECT methods, SUM(amount) AS Total from shopping_order join shopping_payment ON shopping_order.payment_id=shopping_payment.id WHERE shopping_order.received=1 GROUP BY methods')
         payments = self.dictfetchall(cursor)
         cursor.close()
         cursor = connection.cursor()
         #payments = Payment.objects.raw('SELECT id, methods, SUM(amount) AS Total from shopping_payment GROUP BY methods')
-        cursor.execute('SELECT SUM(amount) AS Total from shopping_order join shopping_payment ON shopping_order.payment_id=shopping_payment.id WHERE shopping_order.received==1  GROUP BY methods')
+        cursor.execute('SELECT SUM(amount) AS Total from shopping_order join shopping_payment ON shopping_order.payment_id=shopping_payment.id WHERE shopping_order.received=1  GROUP BY methods')
         payment_total = cursor.fetchall()
+        cursor.close()
         order_total = Order.objects.filter(ordered=True).count()
         item_total = Item.objects.filter(is_active=True).count()
         user_total = User.objects.filter(is_active=True).count()
         payment_total = sum([x[0] for x in payment_total])
         orders = Order.objects.select_related('payment','user','billing_address').filter(ordered=1)
+        cursor = connection.cursor()
+        cursor.execute('SELECT username, email, SUM(amount) AS total FROM auth_user JOIN shopping_payment ON auth_user.id = shopping_payment.user_id GROUP BY user_id')
+        users = self.dictfetchall(cursor)
+        cursor.close()
         #my_book.authors.all()
         context = {
             'items': items,
@@ -57,7 +62,8 @@ class DashboardView(View):
             'order_total':order_total,
             'item_total': item_total,
             'user_total': user_total,
-            'payment_total':payment_total
+            'payment_total':payment_total,
+            'users':users
         }
         return render(self.request, "dashboard/home/index2.html", context)
 
@@ -139,6 +145,6 @@ def received(request, order_id):
         #data = serialize("json", order_items, fields=('title', ''))
         
         messages.error(request, "order update to received")
-        return redirect("/dashboard/ordered-items")
+        return redirect("dashboard:ordered_items")
 
 
