@@ -13,7 +13,8 @@ def update_order_items(sender, instance, **kwargs):
             for orderitem in instance.items.all():
                 if orderitem.quantity <= orderitem.item.quantity and orderitem.item.quantity > 0 and orderitem.item.is_active==True:
                     orderitem.item.quantity = abs(orderitem.quantity - orderitem.item.quantity )
-                    orderitem.item.is_active = False
+                    if orderitem.item.quantity < 1:
+                        orderitem.item.is_active = False
                     orderitem.item.save()
                     print("Update is called")
 

@@ -18,10 +18,14 @@
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 	}
+
+	.alert-error{
+		background-color:#dc3545;
+	}
 </style>
 
 	<!-- Title Page -->
-	<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(/static/images/heading-pages-02.jpg)	;">
+	<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(/static/images/bodegon.jpg)	;">
 		<h2 class="l-text2 t-center">
 			Shop
 		</h2>
@@ -58,7 +62,7 @@
 						
 						<div class="filter-price p-t-22 p-b-50 bo3">
 							<div class="m-text15 p-b-17">
-								Marca
+								Marcas
 							</div>
 							<ul class="p-b-54">
 								<li class="p-t-4">
@@ -67,7 +71,7 @@
 									</a>
 								</li>
 	
-								{% categories_li_a %}
+								
 	
 							</ul>
 						</div>
@@ -108,7 +112,7 @@
 						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
 							<!-- Block2 -->
 							<div class="block2">
-								<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
+								<div class="block2-img wrap-pic-w of-hidden pos-relative {% if item.is_active %} block2-labelnew {% else %} block2-labelsale {% endif %}">
 									<img src="{{ item.image.url }}" alt="IMG-PRODUCT" 
 								style="height: 360px;">
 
@@ -120,22 +124,31 @@
 
 										<div class="block2-btn-addcart w-size1 trans-0-4">
 											<!-- Button -->
+										{% if item.is_active %}
 										<a href="{{ item.get_add_to_cart_url }}">
 											<button  class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
 												Agregar
 											</button>
 										</a>
-											
-											
+										{% else %}
+											<button  class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
+												Agregar
+											</button>
+										{% endif %}
 										</div>
 									</div>
 								</div>
 
 								<div class="block2-txt p-t-20">
+									{% if item.is_active %}
 									<a href="{{item.get_absolute_url}}" class="block2-name dis-block s-text3 p-b-5">
 										{{item.title}}
 									</a>
-
+									{% else %}
+									<a href="#" class="block2-name dis-block s-text3 p-b-5">
+										{{item.title}}
+									</a>
+									{% endif %}
 									<span class="block2-price m-text6 p-r-5">
 										${{item.price}}
 									</span>
@@ -155,17 +168,17 @@
 				<!-- Pagination -->
 				{% if is_paginated %}
 				<div class="pagination flex-m flex-w p-t-26">
-					{% if page_obj.has_previous %}
-					<a class="page-link" href="?page={{ page_obj.previous_page_number}}" aria-label="Previous">
+					{% if items.has_previous %}
+					<a class="page-link" href="?page={{ items.previous_page_number}}" aria-label="Previous">
 						<span aria-hidden="true">&laquo;</span>
 						<span class="sr-only">Previous</span>
 					</a>
 					{% endif %}
-					<a href="?page={{ page_obj.number }}" class="item-pagination flex-c-m trans-0-4 active-pagination">{{page_obj.number}}</a>
+					<a href="?page={{ items.number }}" class="item-pagination flex-c-m trans-0-4 active-pagination">{{items.number}}</a>
 					
 					
-					{% if page_obj.has_next %}
-					<a class="page-link" href="?page={{ page_obj.next_page_number}}" aria-label="Next">
+					{% if items.has_next %}
+					<a class="page-link" href="?page={{ item.next_page_number}}" aria-label="Next">
 							<span aria-hidden="true">&raquo;</span>
 							<span class="sr-only">Next</span>
 						</a>

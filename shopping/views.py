@@ -62,12 +62,20 @@ class OrderSummaryView(LoginRequiredMixin, View):
 def MainSearch(request):
     if request.method == 'GET':
         search = request.GET.get('search')
-        print(search)
+        search = search.lower().strip()
         try:
             items = Item.objects.filter(title__contains=search)
             #total_comments = items.annotate(total=Sum('length')).values('total')
+            print(items)
+            if len(items) == 0:
+                print('vacio')
+                messages.error(request, "Producto no encontrado")
+                items = Item.objects.all()
+            else:
+                print('encotrado')
+                messages.success(request, 'producto encontrado')
         except Item.DoesNotExist:
-            return HttpResponse("Item no encontrado")
+            messages.error(request, "Producto no encontrado")
             items = Item.objects.all()
     return render(request, 'shop.html', {'items': items})
 
@@ -124,6 +132,7 @@ class CheckoutView(View):
 
     def post(self, *args, **kwargs):
         form = CheckoutForm(self.request.POST or None)
+        print(form)
         try:
             order = Order.objects.get(user=self.request.user, ordered=False)
            
@@ -211,7 +220,10 @@ def add_to_cart(request, slug):
     if order_qs.exists():
         order = order_qs[0]
         if order.items.filter(item__slug=item.slug).exists():
-            order_item.quantity += 1
+            if item.quantity <= order_item.quantity:
+                order_item.quantity = item.quantity
+            else:
+                order_item.quantity += 1
             order_item.save()
             messages.info(request, "Item qty was updated.")
             return redirect("shopping:order-summary")

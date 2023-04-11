@@ -54,6 +54,7 @@
           <span class="text-muted">${{ order_item.get_final_price }}</span>
         </li>
         {% endfor %}
+        <!--
         <li class="list-group-item d-flex justify-content-between bg-light">
           <div class="text-success">
             <h6 class="my-0">Promo code</h6>
@@ -61,23 +62,28 @@
           </div>
           <span class="text-success">-${{ order.coupon.amount }}</span>
         </li>
+        -->
         <li class="list-group-item d-flex justify-content-between">
           <span>Total (CLP)</span>
           <strong>${{ order.get_total }}</strong>
         </li>
       </ul>
+      <!-- 
+        {% if DISPLAY_COUPON_FORM %}
+          <form method="POST" action="{% url 'shopping:add-coupon' %}" class="card p-2">
+            {% csrf_token %}
+            <div class="input-group">
+              {{ couponform.code }}
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-secondary">Redeem</button>
+              </div>
+            </div>
+          </form>
+          {% endif %}
+        
+
+      -->
       
-      {% if DISPLAY_COUPON_FORM %}
-      <form method="POST" action="{% url 'shopping:add-coupon' %}" class="card p-2">
-        {% csrf_token %}
-        <div class="input-group">
-          {{ couponform.code }}
-          <div class="input-group-append">
-            <button type="submit" class="btn btn-secondary">Redeem</button>
-          </div>
-        </div>
-      </form>
-      {% endif %}
     </div>
 
   

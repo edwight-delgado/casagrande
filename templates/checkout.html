@@ -105,12 +105,129 @@
       color: #d6dce9;
       border-color: #d6dce9;
     }
+    #map{
+    height: 50vh;
+    width: 100%;
+    margin-bottom: 10px;
+    display: none;
+    }
     @media (max-width: 360px) {
       .wizard li {
         color: transparent;
       }
     }
+
     </style>
+<style>
+
+/* nav */
+.this-card {
+ /* max-width: 25rem; */
+  padding: 0;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.this-card a.active {
+  border-bottom: 2px solid #55c57a;
+}
+
+.this-card .nav-link {
+  color: rgb(110, 110, 110);
+  font-weight: 500;
+}
+.this-card .nav-link:hover {
+  color: #55c57a;
+}
+
+.this-card .nav-pills .nav-link.active {
+  color: black;
+  background-color: white;
+  border-radius: 0.5rem 0.5rem 0 0;
+  font-weight: 600;
+}
+
+.this-card .tab-content {
+  padding-bottom: 1.3rem;
+}
+
+.this-card .form-control {
+  background-color: rgb(241, 243, 247);
+  border: none;
+}
+
+/* 3nd card */
+.this-card span {
+  margin-left: 0.5rem;
+  padding: 1px 10px;
+  color: white;
+  background-color: rgb(143, 143, 143);
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.this-card .third {
+  padding: 0 1.5rem 0 1.5rem;
+}
+
+.this-card label {
+  font-weight: 500;
+  color: rgb(104, 104, 104);
+}
+
+.this-card .btn-success {
+  float: right;
+}
+
+.this-card .form-control:focus {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 7px rgba(0, 0, 0, 0.2);
+}
+
+.this-card select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+}
+
+/* 1st card */
+
+.this-card ul {
+  list-style: none;
+  margin-top: 1rem;
+  padding-inline-start: 0;
+}
+
+.this-card .search {
+  padding: 0 1rem 0 1rem;
+}
+
+.this-card .ccontent li .wrapp {
+  padding: 0.3rem 1rem 0.001rem 1rem;
+}
+
+.this-card .ccontent li .wrapp div {
+  font-weight: 600;
+}
+
+.this-card .ccontent li .wrapp p {
+  font-weight: 360;
+} 
+
+.this-card .ccontent li:hover {
+  background-color: rgb(117, 93, 255);
+  color: white;
+}
+
+/* 2nd card */
+
+.this-card .addinfo {
+  padding: 0 1rem;
+}
+
+</style>
+
+ 
     <ul class="wizard">
       <li class="">Paso 1</li>
       <li class="active">Paso 2</li>
@@ -122,7 +239,7 @@
   <div class="py-5 text-center">
     <img class="d-block mx-auto mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
     <h2>formulario de pago</h2>
-    <p class="lead">A continuación se muestra un formulario de ejemplo construido completamente con los controles de formulario de Bootstrap. Cada grupo de formulario requerido tiene un estado de validación que se puede activar al intentar enviar el formulario sin completarlo.</p>
+    
   </div>
 
   <div class="row">
@@ -134,38 +251,80 @@
       <form method="POST" class="needs-validation" novalidate>
       	{% csrf_token %}
         <div class="mb-3">
-          <label for="address">Dirección</label>
-          {{ form.street_address }}
-        </div>
-
-        <div class="mb-3">
-          <label for="address2">Dirección 2 <span class="text-muted">(Optional)</span></label>
-          {{ form.apartment_address }}
-        </div>
-
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="country">Departamento Numero</label>
-           		{{ form.apartment_number }}
-            <div class="invalid-feedback">
-              Numero de Departamento es requerido.
-            </div>
-          </div>
-        
-          <div class="col-md-6 mb-3">
-            <label for="zip">Numero de Telefono</label>
-            {{ form.phone }}
-            <div class="invalid-feedback">
-              Numero de Telefono es requerido.
-            </div>
-          </div>
-        </div>
-        <hr class="mb-4">
-        <div class="custom-control custom-checkbox">
-          <input {% if form.same_shipping_address.value %}checked{% endif %} type="checkbox" class="custom-control-input" id="same_shipping_address">
+          <div id="map"></div>
           
-          <label class="custom-control-label" for="same_shipping_address">Shipping address is the same as my billing address</label>
         </div>
+        <div class="container this-card shadow justify-content-center mt-5" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <!-- nav options -->
+          <ul class="nav nav-pills mb-3 shadow-sm" id="pills-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Dirección</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Telefono</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Pago</a>
+            </li>
+          </ul>
+      
+          <!-- content -->
+          <div class="tab-content" id="pills-tabContent p-3">
+            <!-- 1st card -->
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+              <div class="form-group addinfo">
+                <label for="exampleFormControlTextarea1">Dirección de Domicilio</label>
+                <button type="button" class="btn btn-primary" onclick="get_ubication()" style="float:right; margin: 5px; position: relative;">
+                  usar mi ubicación 
+                </button>
+
+                  {{ form.street_address }}
+                
+              </div>
+              
+              <ul class="ccontent" id="address-list">
+                
+                
+              </ul>
+              <div class="form-group addinfo">
+                <label for="exampleFormControlTextarea1">Numero de Domicilio</label>
+                {{ form.apartment_number }}
+              </div>
+            </div>
+            <!-- 2nd card -->
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+              <div class="form-group addinfo">
+                <label for="exampleFormControlTextarea1">Telefono</label>
+                {{ form.phone}}
+                
+              </div>
+             
+            </div>
+            <!-- 3nd card -->
+            <div class="tab-pane fade third" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+              <div class="form">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1">Metodo de Pago<span>i</span></label>
+                  
+                  <select class="form-control round" id="payment_option"  name="payment_option">
+                    {% for value, name in form.fields.payment_option.choices %}
+                    <option value="{{ value }}">{{ name }}</option>
+                    {% endfor %}
+                    
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Información Adicional.</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <hr class="mb-4">
+       
         <div class="custom-control custom-checkbox">
           <input {% if form.save_info.value %}checked{% endif %} type="checkbox" class="custom-control-input" id="save-info"  checked="true">
           
@@ -173,16 +332,7 @@
         </div>
         <hr class="mb-4">
 
-        <h4 class="mb-3">Método de pago</h4>
-
-        <div class="d-block my-3">
-        	{% for value, name in form.fields.payment_option.choices %}
-          <div class="custom-control custom-radio">
-            <input id="{{ name }}" name="payment_option" value="{{ value }}" type="radio" class="custom-control-input"  required>
-            <label class="custom-control-label" for="{{name}}">{{ name }}</label>
-          </div>
-          {% endfor %}
-        </div>
+        
         <h4 class="mb-3">Método de Entrega</h4>
         <div class="d-block my-3">
         	{% for value, name in form.fields.payment_shipping.choices %}
@@ -204,6 +354,235 @@
 
   </div>
 
+  
 
-</div>
+
+<script
+  src="https://code.jquery.com/jquery-3.6.4.min.js"
+  integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.css"></script>
+  <script src="https://unpkg.com/popper.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvZHH8PoRPayr4FWxEpkZ1lLqo1NFsvN8"></script>
+
+
+
+
+<script>
+  const mapArea = document.getElementById('map');
+
+
+const direccion = document.getElementById('direccion');
+const locationsAvailable = document.getElementById('locationList');
+let Gmap, Gmarker;
+
+const __KEY = "AIzaSyAvZHH8PoRPayr4FWxEpkZ1lLqo1NFsvN8";
+
+get_select_result = (result, number_address) =>{
+  //document.getElementById("address").value = ''
+  document.getElementById("address-search").value = result
+  document.getElementById("address_number").value = number_address
+  document.getElementById("address-list").style.display = 'none'
+  //console.log(result)
+};
+
+get_ubication = () =>{
+  // hide the button 
+  //actionBtn.style.display = "";
+
+  // get the user's position
+  getLocation();
+ 
+  getMapLocation();
+};
+
+getLocation = () => {
+  if (navigator.geolocation) {
+    console.log('localizacion')
+    navigator.geolocation.getCurrentPosition(displayLocation, showError, options)
+
+  }
+  else {
+    console.log('Sorry, your browser does not support this feature... Please Update your Browser to enjoy it');
+  }
+}
+
+// displayLocation
+displayLocation = (position) => {
+  const lat = position.coords.latitude;
+  const lng = position.coords.longitude;
+
+  const latlng = { lat, lng }
+  console.log(latlng)
+  showMap(latlng, lat, lng);
+  createMarker(latlng);
+  const mapArea = document.getElementById('map');
+  mapArea.style.display = "block";
+  getGeolocation(lat, lng);
+
+}
+
+// Recreates the map
+showMap = (latlng, lat, lng) => {
+  let mapOptions = {
+    center: latlng,
+    zoom: 17
+  };
+
+  Gmap = new google.maps.Map(mapArea, mapOptions);
+
+  Gmap.addListener('drag', function () {
+    Gmarker.setPosition(this.getCenter()); // set marker position to map center
+  });
+
+  Gmap.addListener('dragend', function () {
+    Gmarker.setPosition(this.getCenter()); // set marker position to map center
+  });
+
+  Gmap.addListener('idle', function () {
+
+    Gmarker.setPosition(this.getCenter()); // set marker position to map center
+
+    if (Gmarker.getPosition().lat() !== lat || Gmarker.getPosition().lng() !== lng) {
+      setTimeout(() => {
+        // console.log("I have to get new geocode here!")
+        updatePosition(this.getCenter().lat(), this.getCenter().lng()); // update position display
+      }, 2000);
+    }
+  });
+
+}
+
+// Displays the different error messages
+showError = (error) => {
+  mapArea.style.display = "block"
+  switch (error.code) {
+    case error.PERMISSION_DENIED:
+      mapArea.innerHTML = "You denied the request for your location."
+      break;
+    case error.POSITION_UNAVAILABLE:
+      mapArea.innerHTML = "Your Location information is unavailable."
+      break;
+    case error.TIMEOUT:
+      mapArea.innerHTML = "Your request timed out. Please try again"
+      break;
+    case error.UNKNOWN_ERROR:
+      mapArea.innerHTML = "An unknown error occurred please try again after some time."
+      break;
+  }
+}
+
+const options = {
+  enableHighAccuracy: true
+}
+
+// displayLocation
+displayLocation = (position) => {
+  const lat = position.coords.latitude;
+  const lng = position.coords.longitude;
+
+  const latlng = { lat, lng }
+
+  //showMap(latlng, lat, lng);
+  //createMarker(latlng);
+  //mapArea.style.display = "block";
+  getGeolocation(lat, lng);
+
+}
+
+  getGeolocation = (lat, lng) => {
+
+  const latlng = lat + "," + lng;
+
+  fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&key=${__KEY}`)
+
+    .then(res => res.json())
+    .then(data => populateCard(data.results));
+
+  }
+
+  populateCard = (geoResults) => {
+  // check if a the container has a child node to force re-render of dom
+  let template = ''
+  document.getElementById("address-list").innerHTML = template;
+  geoResults.map(geoResult => {
+    let address = geoResult.formatted_address
+    let number_address = geoResult.address_components[0].short_name
+    address = address.toString()
+   
+    template = 
+    `
+      <li  onclick="get_select_result('${address}','${number_address}')">
+            <div class="wrapp">
+              <div>${geoResult.address_components[0].short_name}</div>
+              <p>${geoResult.formatted_address}</p>
+            </div>
+        </li>`
+        //console.log(geoResult)
+        document.getElementById("address-list").innerHTML += template;
+    })
+
+  }
+
+
+</script>
+
+<script>
+  function myFunction() {
+    document.getElementById("address-list").style.display = 'list-item'
+    let inputValue = document.getElementById('address-search').value
+    console.log(inputValue)
+    inputValue=inputValue.toLowerCase();
+    ul = document.getElementById("address-list");
+    x = ul.getElementsByTagName('li');
+      
+    for (i = 0; i < x.length; i++) { 
+        if (!x[i].innerHTML.toLowerCase().includes(inputValue)) {
+            x[i].style.display="none";
+        }
+        else {
+            x[i].style.display="list-item";                 
+        }
+    }
+  }
+   
+  </script>
+
+<script type="text/javascript">
+getMapLocation = () =>{
+  var locations = [
+      ['Bondi Beach', -33.890542, 151.274856, 4],
+      ['Coogee Beach', -33.923036, 151.259052, 5],
+      ['Cronulla Beach', -34.028249, 151.157507, 3],
+      ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+      ['Maroubra Beach', -33.950198, 151.259302, 1]
+    ];
+    let mapCanvas = document.getElementById('map')
+    mapCanvas.style.display = 'block'
+    var map = new google.maps.Map(mapCanvas, {
+      zoom: 10,
+      center: new google.maps.LatLng(-33.92, 151.25),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+}
+</script>
 {% endblock content %}

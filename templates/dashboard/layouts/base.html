@@ -32,7 +32,10 @@
 	<link rel="stylesheet" href="/static/assets/css/demo.css">
 
     <!-- Specific Page CSS goes HERE  -->
-    {% block stylesheets %}{% endblock stylesheets %}
+    {% block stylesheets %}
+	<link rel="stylesheet" href="/static/assets/css/daterangepicker.css">
+	daterangepicker.css
+	{% endblock stylesheets %}
 
 </head>
 <body data-background-color="dark">
@@ -62,7 +65,9 @@
 	{% include 'dashboard/includes/scripts.html' %}
 
     <!-- Specific Page JS goes HERE  -->
-    {% block javascripts %}{% endblock javascripts %}
+    {% block javascripts %}
+	
+	{% endblock javascripts %}
 
 </body>
 </html>

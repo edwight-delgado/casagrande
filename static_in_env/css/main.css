@@ -1661,12 +1661,12 @@ li.sale-noti > a {
 
 .block2-labelsale::before {
   background-color: #e65540;
-  content: 'Sale';
+  content: 'Agotado';
 }
 
 .block2-labelnew::before {
   background-color: #66a8a6;
-  content: 'New';
+  content: 'Venta';
 }
 
 /* ------------------------------------ */
