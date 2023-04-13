@@ -32,7 +32,7 @@
 				<div class="topbar-child2">
 					<span class="topbar-email">
 						<a href="#">
-							{{user }}
+							{{user}}
 					    </a>
 					</span>
 
@@ -98,29 +98,13 @@
 
 						<!-- Header cart noti -->
 						<div class="header-cart header-dropdown">
-							<ul class="header-cart-wrapitem">
-								{% for order_item in object.items.all %}
-								<li class="header-cart-item">
-									<div class="header-cart-item-img">
-										<img src="{{ order_item.item.image.url }}" alt="IMG" width="320" height="320">
-									</div>
-
-									<div class="header-cart-item-txt">
-										<a href="#" class="header-cart-item-name">
-											{{ order_item.item.title }}
-										</a>
-
-										<span class="header-cart-item-info">
-											{{ order_item.quantity }} x $ {{ order_item.item.price }}
-										</span>
-									</div>
-								</li>
-								{% endfor %}
+							<ul class="header-cart-wrapitem" id="shopping_cart">
+								
 
 							</ul>
 
 							<div class="header-cart-total">
-								Total: ${{ object.get_total }}
+								Total: $ <strong id="shopping_cart_total"></strong>
 							</div>
 
 							<div class="header-cart-buttons">
@@ -133,8 +117,8 @@
 
 								<div class="header-cart-wrapbtn">
 									<!-- Button -->
-									<a href="/checkout" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-										Check Out
+									<a href="{% url 'shopping:checkout' %}" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+										pago
 									</a>
 								</div>
 							</div>
@@ -170,13 +154,14 @@
 
 					<span class="linedivide2"></span>
 
-					<div class="header-wrapicon2">
+					<div class="header-wrapicon2" >
 						<img src="{% static 'images/icons/icon-header-02.png' %}" class="header-icon1 js-show-header-dropdown" alt="ICON">
 						<span class="header-icons-noti">0</span>
 
 						<!-- Header cart noti -->
 						<div class="header-cart header-dropdown">
-							<ul class="header-cart-wrapitem">
+							<ul class="header-cart-wrapitem" id="shopping_carts">
+
 								<li class="header-cart-item">
 									<div class="header-cart-item-img">
 										<img src="{% static 'images/item-cart-01.jpg' %}" alt="IMG">
@@ -325,3 +310,46 @@
 			</nav>
 		</div>
 	</header>
+
+<script>
+	window.onload = function() {
+		
+            //e.preventDefault();
+            $.ajax({
+            url: "/shopping-card-api",
+            type: 'GET',
+            dataType: 'json', // added data type
+                success: function(res) {
+                    console.log(res);
+                    let template = ''
+                    document.getElementById("shopping_cart").innerHTML = template
+					document.getElementById("shopping_cart_total").innerHTML = ''
+                    for (var key in res.items) {
+                        template = `
+							
+							<li class="header-cart-item">
+								<div class="header-cart-item-img">
+									<img src="{% static 'images/item-cart-01.jpg' %}" alt="IMG">
+									<img src="/media/${res.items[key]['img']}" style="width: 60px;">
+								</div>
+
+								<div class="header-cart-item-txt">
+									<a href="#" class="header-cart-item-name">
+										${res.items[key]['title']}
+									</a>
+
+									<span class="header-cart-item-info">
+										${res.items[key]['quantity']} x $${res.items[key]['price']}
+									</span>
+								</div>
+							</li>`; 
+                        
+                        document.getElementById("shopping_cart").innerHTML += template;
+					
+                    }
+					document.getElementById("shopping_cart_total").innerHTML = res.total
+				}
+			})
+		}
+
+</script>

@@ -11,7 +11,7 @@ from .forms import CheckoutForm, CouponForm, RefundForm
 from .models import Item, OrderItem, Order, BillingAddress, Payment, Coupon, Refund, Category
 from django.http import HttpResponseRedirect
 #from django.shortcuts import render as render_to_response
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 # Create your views here.
 import random
 import string
@@ -55,7 +55,7 @@ class OrderSummaryView(LoginRequiredMixin, View):
             }
             return render(self.request, 'order_summary.html', context)
         except ObjectDoesNotExist:
-            messages.error(self.request, "You do not have an active order")
+            messages.error(self.request, "No tienes un pedido activo")
             return redirect("/")
 
 
@@ -128,7 +128,7 @@ class CheckoutView(View):
 
         except ObjectDoesNotExist:
             messages.info(self.request, "You do not have an active order")
-            return redirect("shopping:checkout")
+            return redirect("shopping:shop")
 
     def post(self, *args, **kwargs):
         form = CheckoutForm(self.request.POST or None)
@@ -178,7 +178,7 @@ class CheckoutView(View):
                 order.save()
 
                 
-                messages.success(self.request, "Su orden fue exitosa")
+                messages.success(self.request, "Su orden fue exitosa Order Confirmation")
                 return redirect("/")
                 # end ----------------- nuevo --------------------
                 # add redirect to the selected payment option
@@ -364,4 +364,21 @@ class RequestRefundView(View):
                 return redirect("shopping:request-refund")
 
 
+@login_required
+def shopping_card_api(request):
 
+    try:
+        order = Order.objects.get(user=request.user, ordered=False)
+
+        response = {
+                'items': list([ {'title':x.item.title, 'price':x.item.price, 'quantity':x.quantity, 'img':str(x.item.image)} for x in order.items.all()]),
+                'total': order.get_total(),
+        }
+        return JsonResponse(response)
+    except:
+        response = {
+                'items': 0,
+                'total': 0
+                
+        }
+        return JsonResponse(response)

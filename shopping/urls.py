@@ -12,7 +12,8 @@ from .views import (
     AddCouponView,
     RequestRefundView,
     CategoryView,
-    MainSearch
+    MainSearch,
+    shopping_card_api
 )
 
 app_name = 'shopping'
@@ -32,5 +33,6 @@ urlpatterns = [
          name='remove-single-item-from-cart'),
     path('payment/<payment_option>/', PaymentView.as_view(), name='payment'),
     path('request-refund/', RequestRefundView.as_view(), name='request-refund'),
+    path('shopping-card-api', shopping_card_api, name='shopping-card-api'),
     
 ]
