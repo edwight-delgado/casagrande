@@ -1,4 +1,4 @@
-{% extends "dashboard/layouts/base.html" %}
+{% extends "main.html" %}
 
 {% block title %} Dashboard {% endblock %} 
 
@@ -6,627 +6,617 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-			
-	<div class="content">
-		<div class="panel-header bg-primary-gradient">
-			<div class="page-inner py-5">
-				<div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
-					<div>
-						<h2 class="text-white pb-2 fw-bold">Dashboard</h2>
-						<h5 class="text-white op-7 mb-2">Free Bootstrap 4 Admin Dashboard</h5>
-					</div>
-					<div class="ml-md-auto py-2 py-md-0">
-						<a href="#" class="btn btn-white btn-border btn-round mr-2">Manage</a>
-						<a href="#" class="btn btn-secondary btn-round">Add Customer</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="page-inner mt--5">
-			<div class="row mt--2">
-				<div class="col-md-6">
-					<div class="card full-height">
-						<div class="card-body">
-							<div class="card-title">Overall statistics</div>
-							<div class="card-category">Daily information about statistics in system</div>
-							<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 
-								<div class="px-2 pb-2 pb-md-0 text-center">
-									<div id="circles-1"></div>
-									<h6 class="fw-bold mt-3 mb-0">Efectivo</h6>
-								</div>
-								<div class="px-2 pb-2 pb-md-0 text-center">
-									<div id="circles-2"></div>
-									<h6 class="fw-bold mt-3 mb-0">Tarjeta</h6>
-								</div>
-								<div class="px-2 pb-2 pb-md-0 text-center">
-									<div id="circles-3"></div>
-									<h6 class="fw-bold mt-3 mb-0">Transferencia</h6>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="card full-height">
-						<div class="card-body">
-							<div class="card-title">Estadísticas de ingresos y gastos totales</div>
-							<div class="row py-3">
-								<div class="col-md-4 d-flex flex-column justify-content-around">
-									<div>
-										<h6 class="fw-bold text-uppercase text-success op-8">Total Ingresos</h6>
-										<h3 class="fw-bold">$9.782</h3>
-									</div>
-									<div>
-										<h6 class="fw-bold text-uppercase text-danger op-8">Total Gastos</h6>
-										<h3 class="fw-bold">$1,248</h3>
-									</div>
-								</div>
-								<div class="col-md-8">
-									<div id="chart-container">
-										<canvas id="totalIncomeChart"></canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-8">
-					<div class="card">
-						<div class="card-header">
-							<div class="card-head-row">
-								<div class="card-title">User Statistics</div>
-								<div class="card-tools">
-									<a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2">
-										<span class="btn-label">
-											<i class="fa fa-pencil"></i>
-										</span>
-										Export
-									</a>
-									<a href="#" class="btn btn-info btn-border btn-round btn-sm">
-										<span class="btn-label">
-											<i class="fa fa-print"></i>
-										</span>
-										Print
-									</a>
-								</div>
-							</div>
-						</div>
-						<div class="card-body">
-							<div class="chart-container" style="min-height: 375px">
-								<canvas id="statisticsChart"></canvas>
-							</div>
-							<div id="myChartLegend"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card card-primary">
-						<div class="card-header">
-							<div class="card-title">Daily Sales</div>
-							<div class="card-category">March 25 - April 02</div>
-						</div>
-						<div class="card-body pb-0">
-							<div class="mb-4 mt-2">
-								<h1>$4,578.58</h1>
-							</div>
-							<div class="pull-in">
-								<canvas id="dailySalesChart"></canvas>
-							</div>
-						</div>
-					</div>
-					<div class="card">
-						<div class="card-body pb-0">
-							<div class="h1 fw-bold float-right text-warning">+7%</div>
-							<h2 class="mb-2">213</h2>
-							<p class="text-muted">Transactions</p>
-							<div class="pull-in sparkline-fix">
-								<div id="lineChart"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row row-card-no-pd">
-				<div class="col-md-12">
-					<div class="card">
-						<div class="card-header">
-							<div class="card-head-row card-tools-still-right">
-								<h4 class="card-title">Users Geolocation</h4>
-								<div class="card-tools">
-									<button class="btn btn-icon btn-link btn-primary btn-xs"><span class="fa fa-angle-down"></span></button>
-									<button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card"><span class="fa fa-sync-alt"></span></button>
-									<button class="btn btn-icon btn-link btn-primary btn-xs"><span class="fa fa-times"></span></button>
-								</div>
-							</div>
-							<p class="card-category">
-							Map of the distribution of users around the world</p>
-						</div>
-						<div class="card-body">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="table-responsive table-hover table-sales">
-										<table class="table">
-											<tbody>
-												<tr>
-													<td>
-														<div class="flag">
-															<img src="/static/assets/img/flags/id.png" alt="indonesia">
-														</div>
-													</td>
-													<td>Indonesia</td>
-													<td class="text-right">
-														2.320
-													</td>
-													<td class="text-right">
-														42.18%
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<div class="flag">
-															<img src="/static/assets/img/flags/us.png" alt="united states">
-														</div>
-													</td>
-													<td>USA</td>
-													<td class="text-right">
-														240
-													</td>
-													<td class="text-right">
-														4.36%
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<div class="flag">
-															<img src="/static/assets/img/flags/au.png" alt="australia">
-														</div>
-													</td>
-													<td>Australia</td>
-													<td class="text-right">
-														119
-													</td>
-													<td class="text-right">
-														2.16%
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<div class="flag">
-															<img src="/static/assets/img/flags/ru.png" alt="russia">
-														</div>
-													</td>
-													<td>Russia</td>
-													<td class="text-right">
-														1.081
-													</td>
-													<td class="text-right">
-														19.65%
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<div class="flag">
-															<img src="/static/assets/img/flags/cn.png" alt="china">
-														</div>
-													</td>
-													<td>China</td>
-													<td class="text-right">
-														1.100
-													</td>
-													<td class="text-right">
-														20%
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<div class="flag">
-															<img src="/static/assets/img/flags/br.png" alt="brazil">
-														</div>
-													</td>
-													<td>Brasil</td>
-													<td class="text-right">
-														640
-													</td>
-													<td class="text-right">
-														11.63%
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="mapcontainer">
-										<div id="map-example" class="vmap"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<div class="card">
-						<div class="card-header">
-							<div class="card-title">Top Products</div>
-						</div>
-						<div class="card-body pb-0">
-							<div class="d-flex">
-								<div class="avatar">
-									<img src="/static/assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
-								</div>
-								<div class="flex-1 pt-1 ml-2">
-									<h6 class="fw-bold mb-1">CSS</h6>
-									<small class="text-muted">Cascading Style Sheets</small>
-								</div>
-								<div class="d-flex ml-auto align-items-center">
-									<h3 class="text-info fw-bold">+$17</h3>
-								</div>
-							</div>
-							<div class="separator-dashed"></div>
-							<div class="d-flex">
-								<div class="avatar">
-									<img src="/static/assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
-								</div>
-								<div class="flex-1 pt-1 ml-2">
-									<h6 class="fw-bold mb-1">J.CO Donuts</h6>
-									<small class="text-muted">The Best Donuts</small>
-								</div>
-								<div class="d-flex ml-auto align-items-center">
-									<h3 class="text-info fw-bold">+$300</h3>
-								</div>
-							</div>
-							<div class="separator-dashed"></div>
-							<div class="d-flex">
-								<div class="avatar">
-									<img src="/static/assets/img/logoproduct3.svg" alt="..." class="avatar-img rounded-circle">
-								</div>
-								<div class="flex-1 pt-1 ml-2">
-									<h6 class="fw-bold mb-1">Ready Pro</h6>
-									<small class="text-muted">Bootstrap 4 Admin Dashboard</small>
-								</div>
-								<div class="d-flex ml-auto align-items-center">
-									<h3 class="text-info fw-bold">+$350</h3>
-								</div>
-							</div>
-							<div class="separator-dashed"></div>
-							<div class="pull-in">
-								<canvas id="topProductsChart"></canvas>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card">
-						<div class="card-body">
-							<div class="card-title fw-mediumbold">Lista de Clientes</div>
-							<div class="card-list">
-								<div class="item-list">
-									<div class="avatar">
-										<img src="/static/assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
-									</div>
-									<div class="info-user ml-3">
-										<div class="username">Jimmy Denis</div>
-										<div class="status">Graphic Designer</div>
-									</div>
-									<button class="btn btn-icon btn-primary btn-round btn-xs">
-										<i class="fa fa-plus"></i>
-									</button>
-								</div>
-								<div class="item-list">
-									<div class="avatar">
-										<img src="/static/assets/img/chadengle.jpg" alt="..." class="avatar-img rounded-circle">
-									</div>
-									<div class="info-user ml-3">
-										<div class="username">Chad</div>
-										<div class="status">CEO Zeleaf</div>
-									</div>
-									<button class="btn btn-icon btn-primary btn-round btn-xs">
-										<i class="fa fa-plus"></i>
-									</button>
-								</div>
-								<div class="item-list">
-									<div class="avatar">
-										<img src="/static/assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
-									</div>
-									<div class="info-user ml-3">
-										<div class="username">Talha</div>
-										<div class="status">Front End Designer</div>
-									</div>
-									<button class="btn btn-icon btn-primary btn-round btn-xs">
-										<i class="fa fa-plus"></i>
-									</button>
-								</div>
-								<div class="item-list">
-									<div class="avatar">
-										<img src="/static/assets/img/mlane.jpg" alt="..." class="avatar-img rounded-circle">
-									</div>
-									<div class="info-user ml-3">
-										<div class="username">John Doe</div>
-										<div class="status">Back End Developer</div>
-									</div>
-									<button class="btn btn-icon btn-primary btn-round btn-xs">
-										<i class="fa fa-plus"></i>
-									</button>
-								</div>
-								<div class="item-list">
-									<div class="avatar">
-										<img src="/static/assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
-									</div>
-									<div class="info-user ml-3">
-										<div class="username">Talha</div>
-										<div class="status">Front End Designer</div>
-									</div>
-									<button class="btn btn-icon btn-primary btn-round btn-xs">
-										<i class="fa fa-plus"></i>
-									</button>
-								</div>
-								<div class="item-list">
-									<div class="avatar">
-										<img src="/static/assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
-									</div>
-									<div class="info-user ml-3">
-										<div class="username">Jimmy Denis</div>
-										<div class="status">Graphic Designer</div>
-									</div>
-									<button class="btn btn-icon btn-primary btn-round btn-xs">
-										<i class="fa fa-plus"></i>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card card-primary bg-primary-gradient">
-						<div class="card-body">
-							<h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Active user right now</h4>
-							<h1 class="mb-4 fw-bold">17</h1>
-							<h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Page view per minutes</h4>
-							<div id="activeUsersChart"></div>
-							<h4 class="mt-5 pb-3 mb-0 fw-bold">Top active pages</h4>
-							<ul class="list-unstyled">
-								<li class="d-flex justify-content-between pb-1 pt-1"><small>/product/readypro/index.html</small> <span>7</span></li>
-								<li class="d-flex justify-content-between pb-1 pt-1"><small>/product/atlantis/demo.html</small> <span>10</span></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<div class="card full-height">
-						<div class="card-header">
-							<div class="card-title">Feed Activity</div>
-						</div>
-						<div class="card-body">
-							<ol class="activity-feed">
-								<li class="feed-item feed-item-secondary">
-									<time class="date" datetime="9-25">Sep 25</time>
-									<span class="text">Responded to need <a href="#">"Volunteer opportunity"</a></span>
-								</li>
-								<li class="feed-item feed-item-success">
-									<time class="date" datetime="9-24">Sep 24</time>
-									<span class="text">Added an interest <a href="#">"Volunteer Activities"</a></span>
-								</li>
-								<li class="feed-item feed-item-info">
-									<time class="date" datetime="9-23">Sep 23</time>
-									<span class="text">Joined the group <a href="single-group.php">"Boardsmanship Forum"</a></span>
-								</li>
-								<li class="feed-item feed-item-warning">
-									<time class="date" datetime="9-21">Sep 21</time>
-									<span class="text">Responded to need <a href="#">"In-Kind Opportunity"</a></span>
-								</li>
-								<li class="feed-item feed-item-danger">
-									<time class="date" datetime="9-18">Sep 18</time>
-									<span class="text">Created need <a href="#">"Volunteer Opportunity"</a></span>
-								</li>
-								<li class="feed-item">
-									<time class="date" datetime="9-17">Sep 17</time>
-									<span class="text">Attending the event <a href="single-event.php">"Some New Event"</a></span>
-								</li>
-							</ol>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="card full-height">
-						<div class="card-header">
-							<div class="card-head-row">
-								<div class="card-title">Support Tickets</div>
-								<div class="card-tools">
-									<ul class="nav nav-pills nav-secondary nav-pills-no-bd nav-sm" id="pills-tab" role="tablist">
-										<li class="nav-item">
-											<a class="nav-link" id="pills-today" data-toggle="pill" href="#pills-today" role="tab" aria-selected="true">Today</a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link active" id="pills-week" data-toggle="pill" href="#pills-week" role="tab" aria-selected="false">Week</a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" id="pills-month" data-toggle="pill" href="#pills-month" role="tab" aria-selected="false">Month</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="card-body">
-							<div class="d-flex">
-								<div class="avatar avatar-online">
-									<span class="avatar-title rounded-circle border border-white bg-info">J</span>
-								</div>
-								<div class="flex-1 ml-3 pt-1">
-									<h6 class="text-uppercase fw-bold mb-1">Joko Subianto <span class="text-warning pl-3">pending</span></h6>
-									<span class="text-muted">I am facing some trouble with my viewport. When i start my</span>
-								</div>
-								<div class="float-right pt-1">
-									<small class="text-muted">8:40 PM</small>
-								</div>
-							</div>
-							<div class="separator-dashed"></div>
-							<div class="d-flex">
-								<div class="avatar avatar-offline">
-									<span class="avatar-title rounded-circle border border-white bg-secondary">P</span>
-								</div>
-								<div class="flex-1 ml-3 pt-1">
-									<h6 class="text-uppercase fw-bold mb-1">Prabowo Widodo <span class="text-success pl-3">open</span></h6>
-									<span class="text-muted">I have some query regarding the license issue.</span>
-								</div>
-								<div class="float-right pt-1">
-									<small class="text-muted">1 Day Ago</small>
-								</div>
-							</div>
-							<div class="separator-dashed"></div>
-							<div class="d-flex">
-								<div class="avatar avatar-away">
-									<span class="avatar-title rounded-circle border border-white bg-danger">L</span>
-								</div>
-								<div class="flex-1 ml-3 pt-1">
-									<h6 class="text-uppercase fw-bold mb-1">Lee Chong Wei <span class="text-muted pl-3">closed</span></h6>
-									<span class="text-muted">Is there any update plan for RTL version near future?</span>
-								</div>
-								<div class="float-right pt-1">
-									<small class="text-muted">2 Days Ago</small>
-								</div>
-							</div>
-							<div class="separator-dashed"></div>
-							<div class="d-flex">
-								<div class="avatar avatar-offline">
-									<span class="avatar-title rounded-circle border border-white bg-secondary">P</span>
-								</div>
-								<div class="flex-1 ml-3 pt-1">
-									<h6 class="text-uppercase fw-bold mb-1">Peter Parker <span class="text-success pl-3">open</span></h6>
-									<span class="text-muted">I have some query regarding the license issue.</span>
-								</div>
-								<div class="float-right pt-1">
-									<small class="text-muted">2 Day Ago</small>
-								</div>
-							</div>
-							<div class="separator-dashed"></div>
-							<div class="d-flex">
-								<div class="avatar avatar-away">
-									<span class="avatar-title rounded-circle border border-white bg-danger">L</span>
-								</div>
-								<div class="flex-1 ml-3 pt-1">
-									<h6 class="text-uppercase fw-bold mb-1">Logan Paul <span class="text-muted pl-3">closed</span></h6>
-									<span class="text-muted">Is there any update plan for RTL version near future?</span>
-								</div>
-								<div class="float-right pt-1">
-									<small class="text-muted">2 Days Ago</small>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
-{% endblock content %}
+<body inmaintabuse="1">
+    <!-- main -->
+    <div>
+    <nav class="navbar navbar-expand-lg navbar-glass">
+    	<div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <div class="d-flex align-items-center">
 
-<!-- Specific Page JS goes HERE  -->
-{% block javascripts %}
+                <a class="text-inherit d-block d-xl-none me-4" data-bs-toggle="offcanvas" href="#" role="button" aria-controls="offcanvasExample">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-text-indent-right" viewBox="0 0 16 16">
+                    <path d="M2 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm10.646 2.146a.5.5 0 0 1 .708.708L11.707 8l1.647 1.646a.5.5 0 0 1-.708.708l-2-2a.5.5 0 0 1 0-.708l2-2zM2 6.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"></path>
+                  </svg>
+            </a>
 
-	<!-- Atlantis DEMO methods, don't include it in your project! -->
-	<script src="/static/assets/js/setting-demo.js"></script>
-	<script src="/static/assets/js/demo.js"></script>
+                <form role="search">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
 
-	<script>
-		Circles.create({
-			id:'circles-1',
-			radius:45,
-			value:60,
-			maxValue:100,
-			width:7,
-			text: 15,
-			colors:['#f1f1f1', '#FF9E27'],
-			duration:400,
-			wrpClass:'circles-wrp',
-			textClass:'circles-text',
-			styleWrapper:true,
-			styleText:true
-		})
+                </form>
+            </div>
+            <div>
+                <ul class="list-unstyled d-flex align-items-center mb-0 ms-5 ms-lg-0">
 
-		Circles.create({
-			id:'circles-2',
-			radius:45,
-			value:70,
-			maxValue:100,
-			width:7,
-			text: 36,
-			colors:['#f1f1f1', '#2BB930'],
-			duration:400,
-			wrpClass:'circles-wrp',
-			textClass:'circles-text',
-			styleWrapper:true,
-			styleText:true
-		})
+                    <li class="dropdown ">
+                        <a class="position-relative btn-icon btn-ghost-secondary btn rounded-circle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bell fs-5"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger mt-2 ms-n2">
+                                2
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg p-0 border-0 ">
+                            <div class="border-bottom p-5 d-flex
+              justify-content-between align-items-center">
+              <div>
+                                <h5 class="mb-1">Notifications</h5>
+                                <p class="mb-0 small">You have 2 unread messages</p>
+                            </div>
+                                <a href="https://freshcart.codescandy.com/dashboard/index.html#!" class="text-muted">
+                                    </a><a href="https://freshcart.codescandy.com/dashboard/index.html#" class="btn btn-ghost-secondary btn-icon rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Mark all as read">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-check2-all text-success" viewBox="0 0 16 16">
+                                            <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z"></path>
+                                            <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"></path>
+                                          </svg>
+                                        </a>
+                                
+                            </div>
+                            <div data-simplebar="init" style="height: 250px;"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: auto; overflow: hidden;"><div class="simplebar-content" style="padding: 0px;">
+                                <!-- List group -->
+                                <ul class="list-group list-group-flush notification-list-scroll fs-6">
+                                    <!-- List group item -->
+                                    <li class="list-group-item px-5 py-4 list-group-item-action active">
+                                        <a href="https://freshcart.codescandy.com/dashboard/index.html#!" class="text-muted">
+                                            <div class="d-flex">
+                                           <img src="./Dashboard_files/avatar-1.jpg" alt="" class="avatar avatar-md rounded-circle ">
+                                           <div class="ms-4">
+                                           <p class="mb-1">
+                                                <span class="text-dark">Your order is placed</span> waiting for shipping
+                                            </p>
+                                           <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-clock text-muted" viewBox="0 0 16 16">
+                                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"></path>
+                                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"></path>
+                                          </svg><small class="ms-2">1 minute ago</small></span>
+                                        </div>
+                                            </div>
+                                        </a>
 
-		Circles.create({
-			id:'circles-3',
-			radius:45,
-			value:40,
-			maxValue:100,
-			width:7,
-			text: 12,
-			colors:['#f1f1f1', '#F25961'],
-			duration:400,
-			wrpClass:'circles-wrp',
-			textClass:'circles-text',
-			styleWrapper:true,
-			styleText:true
-		})
 
-		var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
 
-		var mytotalIncomeChart = new Chart(totalIncomeChart, {
-			type: 'bar',
-			data: {
-				labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
-				datasets : [{
-					label: "Total Income",
-					backgroundColor: '#ff9e27',
-					borderColor: 'rgb(23, 125, 255)',
-					data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
-				}],
-			},
-			options: {
-				responsive: true,
-				maintainAspectRatio: false,
-				legend: {
-					display: false,
-				},
-				scales: {
-					yAxes: [{
-						ticks: {
-							display: false //this will remove only the label
-						},
-						gridLines : {
-							drawBorder: false,
-							display : false
-						}
-					}],
-					xAxes : [ {
-						gridLines : {
-							drawBorder: false,
-							display : false
-						}
-					}]
-				},
-			}
-		});
+                                    </li>
+                                    <li class="list-group-item  px-5 py-4 list-group-item-action">
+                                        <a href="https://freshcart.codescandy.com/dashboard/index.html#!" class="text-muted">
+                                            <div class="d-flex">
+                                           <img src="./Dashboard_files/avatar-5.jpg" alt="" class="avatar avatar-md rounded-circle ">
+                                           <div class="ms-4">
+                                           <p class="mb-1">
+                                                <span class="text-dark">Jitu Chauhan </span> answered to your pending order list with notes
+                                            </p>
+                                           <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-clock text-muted" viewBox="0 0 16 16">
+                                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"></path>
+                                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"></path>
+                                          </svg><small class="ms-2">2 days ago</small></span>
+                                        </div>
+                                            </div>
+                                        </a>
 
-		$('#lineChart').sparkline([105,103,123,100,95,105,115], {
-			type: 'line',
-			height: '70',
-			width: '100%',
-			lineWidth: '2',
-			lineColor: '#ffa534',
-			fillColor: 'rgba(255, 165, 52, .14)'
-		});
-	</script>
 
-{% endblock javascripts %}
+
+                                    </li>
+                                    <li class="list-group-item px-5 py-4 list-group-item-action">
+                                        <a href="https://freshcart.codescandy.com/dashboard/index.html#!" class="text-muted">
+                                            <div class="d-flex">
+                                           <img src="./Dashboard_files/avatar-2.jpg" alt="" class="avatar avatar-md rounded-circle ">
+                                           <div class="ms-4">
+                                           <p class="mb-1">
+                                                <span class="text-dark">You have new messages</span> 2 unread messages
+                                            </p>
+                                           <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-clock text-muted" viewBox="0 0 16 16">
+                                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"></path>
+                                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"></path>
+                                          </svg><small class="ms-2">3 days ago</small></span>
+                                        </div>
+                                            </div>
+                                        </a>
+
+
+
+                                    </li>
+
+                                </ul>
+                            </div></div></div></div><div class="simplebar-placeholder" style="width: 0px; height: 0px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: hidden;"><div class="simplebar-scrollbar" style="height: 0px; display: none;"></div></div></div>
+                            <div class="border-top px-5 py-4 text-center">
+                                <a href="https://freshcart.codescandy.com/dashboard/index.html#!" class=" ">
+                                    View All
+                                </a>
+                            </div>
+                        </div>
+
+        </li>
+        <li class="dropdown ms-4">
+            <a href="https://freshcart.codescandy.com/dashboard/index.html#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="./Dashboard_files/avatar-1.jpg" alt="" class="avatar avatar-md rounded-circle">
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-end p-0">
+
+
+
+                    <div class="lh-1 px-5 py-4 border-bottom">
+                        <h5 class="mb-1 h6">FreshCart Admin</h5>
+                        <small>admindemo@email.com</small>
+                    </div>
+
+
+
+                <ul class="list-unstyled px-2 py-3">
+
+                    <li>
+                        <a class="dropdown-item" href="https://freshcart.codescandy.com/dashboard/index.html#!">
+                           Home
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="https://freshcart.codescandy.com/dashboard/index.html#!">
+                        Profile
+                        </a>
+
+
+                    </li>
+
+
+                    <li>
+                        <a class="dropdown-item" href="https://freshcart.codescandy.com/dashboard/index.html#!">
+
+                           Settings
+                        </a>
+                    </li>
+
+                </ul>
+                <div class="border-top px-5 py-3">
+
+                    <a href="https://freshcart.codescandy.com/dashboard/index.html#">Log Out</a>
+                </div>
+
+
+
+            </div>
+
+        </li>
+        </ul>
+
+    </div>
+
+    </div>
+    </div>
+</nav>
+
+        <div class="main-wrapper">
+            <!-- navbar vertical -->
+            
+			{% include 'dashboard/includes/navigation.html' %}
+    
+
+            <!-- main wrapper -->
+            <main class="main-content-wrapper">
+                <section class="container">
+                    <!-- row -->
+                    <div class="row mb-8">
+                        <div class="col-md-12">
+                            <!-- card -->
+                            <div class="card bg-light border-0 rounded-4" style="background-image: url(../assets/images/slider/slider-image-1.jpg); background-repeat: no-repeat; background-size: cover; background-position: right;">
+                                <div class="card-body p-lg-12">
+                                    <h1>¡Bienvenido de nuevo! Carrito fresco
+                                    </h1>
+                                    <p>FreshCart is simple &amp; clean design for developer and
+                                        designer.</p>
+                                    <a href="#" class="btn btn-primary">
+                                        Crear producto
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- table -->
+                 
+                        <div class="row">
+                            <div class="col-lg-4 col-12 mb-6">
+                                <!-- card -->
+                                <div class="card h-100 card-lg">
+                                    <!-- card body -->
+                                    <div class="card-body p-6">
+                                        <!-- heading -->
+                                        <div class="d-flex justify-content-between align-items-center mb-6">
+                                            <div>
+                                                <h4 class="mb-0 fs-5">Ganancias</h4>
+                                            </div>
+                                            <div class="icon-shape icon-md bg-light-danger text-dark-danger rounded-circle">
+                                                <i class="bi bi-currency-dollar fs-5"></i>
+                                            </div>
+                                        </div>
+                                        <!-- project number -->
+                                        <div class="lh-1">
+                                            <h1 class=" mb-2 fw-bold fs-2">${{payment_total}}</h1>
+                                            <span>Ganancia mensual</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-12 mb-6">
+                                <!-- card -->
+                                <div class="card h-100 card-lg">
+                                    <!-- card body -->
+                                    <div class="card-body p-6">
+                                        <!-- heading -->
+                                        <div class="d-flex justify-content-between align-items-center mb-6">
+                                            <div>
+                                                <h4 class="mb-0 fs-5">Pedidos</h4>
+                                            </div>
+                                            <div class="icon-shape icon-md bg-light-warning text-dark-warning rounded-circle">
+                                                <i class="bi bi-cart fs-5"></i>
+                                            </div>
+                                        </div>
+                                        <!-- project number -->
+                                        <div class="lh-1">
+                                            <h1 class=" mb-2 fw-bold fs-2">{{order_total}}</h1>
+                                            <span><span class="text-dark me-1">35+</span>Nuevas Ventas</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-12 mb-6">
+                                <!-- card -->
+                                <div class="card h-100 card-lg">
+                                    <!-- card body -->
+                                    <div class="card-body p-6">
+                                        <!-- heading -->
+                                        <div class="d-flex justify-content-between align-items-center mb-6">
+                                            <div>
+                                                <h4 class="mb-0 fs-5">Clientes</h4>
+                                            </div>
+                                            <div class="icon-shape icon-md bg-light-info text-dark-info rounded-circle">
+                                                <i class="bi bi-people fs-5"></i>
+                                            </div>
+                                        </div>
+                                        <!-- project number -->
+                                        <div class="lh-1">
+                                            <h1 class=" mb-2 fw-bold fs-2">{{user_total}}</h1>
+                                            <span><span class="text-dark me-1">30+</span>nuevos en 2 días</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                   
+                    <!-- row -->
+                    <div class="row ">
+                        <div class="col-xl-8 col-lg-6 col-md-12 col-12 mb-6">
+                            <!-- card -->
+                            <div class="card h-100 card-lg">
+                                <div class="card-body p-6">
+                                    <!-- heading -->
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h3 class="mb-1 fs-5">Ganancia</h3>
+                                            <small>(+63%) than last year</small>
+                                        </div>
+                                        <div>
+                                            <!-- select option -->
+                                            <select class="form-select ">
+                                                <option selected="">2019</option>
+                                                <option value="2023">2020</option>
+                                                <option value="2024">2021</option>
+                                                <option value="2025">2022</option>
+                                                <option value="2025">2023</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <!-- chart -->
+                                    <div id="revenueChart" class="mt-6" style="min-height: 365px;">
+										<div id="apexcharts5mxsyh3s" class="apexcharts-canvas apexcharts5mxsyh3s apexcharts-theme-light" style="width: 808px; height: 350px;"><svg id="SvgjsSvg1001" width="808" height="350" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg apexcharts-zoomable" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><foreignobject x="0" y="0" width="808" height="350"><div class="apexcharts-legend apexcharts-align-center apx-legend-position-top" xmlns="http://www.w3.org/1999/xhtml" style="right: 0px; position: absolute; left: 0px; top: 4px; max-height: 175px;"><div class="apexcharts-legend-series" rel="1" seriesname="TotalxIncome" data:collapsed="false" style="margin: 2px 5px;"><span class="apexcharts-legend-marker" rel="1" data:collapsed="false" style="background: rgb(10, 173, 10) !important; color: rgb(10, 173, 10); height: 8px; width: 8px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 12px;"></span><span class="apexcharts-legend-text" rel="1" i="0" data:default-text="Total%20Income" data:collapsed="false" style="color: var(--fc-gray-600); font-size: 12px; font-weight: 600; font-family: Helvetica, Arial, sans-serif;">Total Income</span></div><div class="apexcharts-legend-series" rel="2" seriesname="TotalxExpense" data:collapsed="false" style="margin: 2px 5px;"><span class="apexcharts-legend-marker" rel="2" data:collapsed="false" style="background: rgb(255, 193, 7) !important; color: rgb(255, 193, 7); height: 8px; width: 8px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 12px;"></span><span class="apexcharts-legend-text" rel="2" i="1" data:default-text="Total%20Expense" data:collapsed="false" style="color: var(--fc-gray-600); font-size: 12px; font-weight: 600; font-family: Helvetica, Arial, sans-serif;">Total Expense</span></div></div><style type="text/css">	
+    	
+      .apexcharts-legend {	
+        display: flex;	
+        overflow: auto;	
+        padding: 0 10px;	
+      }	
+      .apexcharts-legend.apx-legend-position-bottom, .apexcharts-legend.apx-legend-position-top {	
+        flex-wrap: wrap	
+      }	
+      .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {	
+        flex-direction: column;	
+        bottom: 0;	
+      }	
+      .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-left, .apexcharts-legend.apx-legend-position-top.apexcharts-align-left, .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {	
+        justify-content: flex-start;	
+      }	
+      .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-center, .apexcharts-legend.apx-legend-position-top.apexcharts-align-center {	
+        justify-content: center;  	
+      }	
+      .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-right, .apexcharts-legend.apx-legend-position-top.apexcharts-align-right {	
+        justify-content: flex-end;	
+      }	
+      .apexcharts-legend-series {	
+        cursor: pointer;	
+        line-height: normal;	
+      }	
+      .apexcharts-legend.apx-legend-position-bottom .apexcharts-legend-series, .apexcharts-legend.apx-legend-position-top .apexcharts-legend-series{	
+        display: flex;	
+        align-items: center;	
+      }	
+      .apexcharts-legend-text {	
+        position: relative;	
+        font-size: 14px;	
+      }	
+      .apexcharts-legend-text *, .apexcharts-legend-marker * {	
+        pointer-events: none;	
+      }	
+      .apexcharts-legend-marker {	
+        position: relative;	
+        display: inline-block;	
+        cursor: pointer;	
+        margin-right: 3px;	
+        border-style: solid;
+      }	
+      	
+      .apexcharts-legend.apexcharts-align-right .apexcharts-legend-series, .apexcharts-legend.apexcharts-align-left .apexcharts-legend-series{	
+        display: inline-block;	
+      }	
+      .apexcharts-legend-series.apexcharts-no-click {	
+        cursor: auto;	
+      }	
+      .apexcharts-legend .apexcharts-hidden-zero-series, .apexcharts-legend .apexcharts-hidden-null-series {	
+        display: none !important;	
+      }	
+      .apexcharts-inactive-legend {	
+        opacity: 0.45;	
+      }</style></foreignobject><g id="SvgjsG1003" class="apexcharts-inner apexcharts-graphical" transform="translate(54.78216552734375, 48)"><defs id="SvgjsDefs1002"><clippath id="gridRectMask5mxsyh3s"><rect id="SvgjsRect1009" width="749.2178344726562" height="266.348" x="-3" y="-1" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clippath><clippath id="forecastMask5mxsyh3s"></clippath><clippath id="nonForecastMask5mxsyh3s"></clippath><clippath id="gridRectMarkerMask5mxsyh3s"><rect id="SvgjsRect1010" width="783.2178344726562" height="304.348" x="-20" y="-20" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clippath><lineargradient id="SvgjsLinearGradient1028" x1="0" y1="0" x2="0" y2="1"><stop id="SvgjsStop1029" stop-opacity="0.65" stop-color="rgba(10,173,10,0.65)" offset="0"></stop><stop id="SvgjsStop1030" stop-opacity="0.5" stop-color="rgba(133,214,133,0.5)" offset="1"></stop><stop id="SvgjsStop1031" stop-opacity="0.5" stop-color="rgba(133,214,133,0.5)" offset="1"></stop></lineargradient><lineargradient id="SvgjsLinearGradient1050" x1="0" y1="0" x2="0" y2="1"><stop id="SvgjsStop1051" stop-opacity="0.65" stop-color="rgba(255,193,7,0.65)" offset="0"></stop><stop id="SvgjsStop1052" stop-opacity="0.5" stop-color="rgba(255,224,131,0.5)" offset="1"></stop><stop id="SvgjsStop1053" stop-opacity="0.5" stop-color="rgba(255,224,131,0.5)" offset="1"></stop></lineargradient></defs><line id="SvgjsLine1008" x1="0" y1="0" x2="0" y2="264.348" stroke="#b6b6b6" stroke-dasharray="3" stroke-linecap="butt" class="apexcharts-xcrosshairs" x="0" y="0" width="1" height="264.348" fill="#b1b9c4" filter="none" fill-opacity="0.9" stroke-width="1"></line><g id="SvgjsG1068" class="apexcharts-xaxis" transform="translate(0, 0)"><g id="SvgjsG1069" class="apexcharts-xaxis-texts-g" transform="translate(0, -4)"><text id="SvgjsText1071" font-family="&quot;Inter&quot;, &quot;sans-serif&quot;" x="0" y="293.348" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="var(--fc-gray-600)" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Inter, &quot;sans-serif&quot;;"><tspan id="SvgjsTspan1072">Jan</tspan><title>Jan</title></text><text id="SvgjsText1074" font-family="&quot;Inter&quot;, &quot;sans-serif&quot;" x="123.86963907877603" y="293.348" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Inter, &quot;sans-serif&quot;;"><tspan id="SvgjsTspan1075">Feb</tspan><title>Feb</title></text><text id="SvgjsText1077" font-family="&quot;Inter&quot;, &quot;sans-serif&quot;" x="247.7392781575521" y="293.348" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Inter, &quot;sans-serif&quot;;"><tspan id="SvgjsTspan1078">March</tspan><title>March</title></text><text id="SvgjsText1080" font-family="&quot;Inter&quot;, &quot;sans-serif&quot;" x="371.6089172363282" y="293.348" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Inter, &quot;sans-serif&quot;;"><tspan id="SvgjsTspan1081">April</tspan><title>April</title></text><text id="SvgjsText1083" font-family="&quot;Inter&quot;, &quot;sans-serif&quot;" x="495.4785563151042" y="293.348" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Inter, &quot;sans-serif&quot;;"><tspan id="SvgjsTspan1084">May</tspan><title>May</title></text><text id="SvgjsText1086" font-family="&quot;Inter&quot;, &quot;sans-serif&quot;" x="619.3481953938801" y="293.348" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Inter, &quot;sans-serif&quot;;"><tspan id="SvgjsTspan1087">Jun</tspan><title>Jun</title></text><text id="SvgjsText1089" font-family="&quot;Inter&quot;, &quot;sans-serif&quot;" x="743.2178344726561" y="293.348" text-anchor="middle" dominant-baseline="auto" font-size="12px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-xaxis-label " style="font-family: Inter, &quot;sans-serif&quot;;"><tspan id="SvgjsTspan1090">Jul</tspan><title>Jul</title></text></g></g><g id="SvgjsG1056" class="apexcharts-grid"><g id="SvgjsG1057" class="apexcharts-gridlines-horizontal"><line id="SvgjsLine1061" x1="0" y1="52.869600000000005" x2="743.2178344726562" y2="52.869600000000005" stroke="var(--fc-gray-300)" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1062" x1="0" y1="105.73920000000001" x2="743.2178344726562" y2="105.73920000000001" stroke="var(--fc-gray-300)" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1063" x1="0" y1="158.60880000000003" x2="743.2178344726562" y2="158.60880000000003" stroke="var(--fc-gray-300)" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1064" x1="0" y1="211.47840000000002" x2="743.2178344726562" y2="211.47840000000002" stroke="var(--fc-gray-300)" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line></g><g id="SvgjsG1058" class="apexcharts-gridlines-vertical"></g><line id="SvgjsLine1067" x1="0" y1="264.348" x2="743.2178344726562" y2="264.348" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line><line id="SvgjsLine1066" x1="0" y1="1" x2="0" y2="264.348" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line></g><g id="SvgjsG1011" class="apexcharts-area-series apexcharts-plot-series"><g id="SvgjsG1012" class="apexcharts-series" seriesName="TotalxIncome" data:longestSeries="true" rel="1" data:realIndex="0"><path id="SvgjsPath1032" d="M0 264.348L0 235.26972C43.35437367757161 235.26972 80.51526540120443 211.4784 123.86963907877603 211.4784C167.22401275634763 211.4784 204.38490447998046 243.20015999999998 247.73927815755206 243.20015999999998C291.0936518351237 243.20015999999998 328.2545435587565 182.40012 371.6089172363281 182.40012C414.96329091389975 182.40012 452.1241826375325 206.19144 495.47855631510413 206.19144C538.8329299926758 206.19144 575.9938217163086 140.10443999999998 619.3481953938802 140.10443999999998C662.7025690714519 140.10443999999998 699.8634607950846 52.86959999999999 743.2178344726562 52.86959999999999C743.2178344726562 52.86959999999999 743.2178344726562 52.86959999999999 743.2178344726562 264.348M743.2178344726562 52.86959999999999C743.2178344726562 52.86959999999999 743.2178344726562 52.86959999999999 743.2178344726562 52.86959999999999 " fill="url(#SvgjsLinearGradient1028)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-area" index="0" clip-path="url(#gridRectMask5mxsyh3s)" pathTo="M 0 264.348 L 0 235.26972C 43.35437367757161 235.26972 80.51526540120443 211.4784 123.86963907877603 211.4784C 167.22401275634763 211.4784 204.38490447998046 243.20015999999998 247.73927815755206 243.20015999999998C 291.0936518351237 243.20015999999998 328.2545435587565 182.40012 371.6089172363281 182.40012C 414.96329091389975 182.40012 452.1241826375325 206.19144 495.47855631510413 206.19144C 538.8329299926758 206.19144 575.9938217163086 140.10443999999998 619.3481953938802 140.10443999999998C 662.7025690714519 140.10443999999998 699.8634607950846 52.86959999999999 743.2178344726562 52.86959999999999C 743.2178344726562 52.86959999999999 743.2178344726562 52.86959999999999 743.2178344726562 264.348M 743.2178344726562 52.86959999999999z" pathFrom="M -1 317.2176 L -1 317.2176 L 123.86963907877603 317.2176 L 247.73927815755206 317.2176 L 371.6089172363281 317.2176 L 495.47855631510413 317.2176 L 619.3481953938802 317.2176 L 743.2178344726562 317.2176"></path><path id="SvgjsPath1033" d="M0 235.26972C43.35437367757161 235.26972 80.51526540120443 211.4784 123.86963907877603 211.4784C167.22401275634763 211.4784 204.38490447998046 243.20015999999998 247.73927815755206 243.20015999999998C291.0936518351237 243.20015999999998 328.2545435587565 182.40012 371.6089172363281 182.40012C414.96329091389975 182.40012 452.1241826375325 206.19144 495.47855631510413 206.19144C538.8329299926758 206.19144 575.9938217163086 140.10443999999998 619.3481953938802 140.10443999999998C662.7025690714519 140.10443999999998 699.8634607950846 52.86959999999999 743.2178344726562 52.86959999999999C743.2178344726562 52.86959999999999 743.2178344726562 52.86959999999999 743.2178344726562 52.86959999999999 " fill="none" fill-opacity="1" stroke="#0aad0a" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-area" index="0" clip-path="url(#gridRectMask5mxsyh3s)" pathTo="M 0 235.26972C 43.35437367757161 235.26972 80.51526540120443 211.4784 123.86963907877603 211.4784C 167.22401275634763 211.4784 204.38490447998046 243.20015999999998 247.73927815755206 243.20015999999998C 291.0936518351237 243.20015999999998 328.2545435587565 182.40012 371.6089172363281 182.40012C 414.96329091389975 182.40012 452.1241826375325 206.19144 495.47855631510413 206.19144C 538.8329299926758 206.19144 575.9938217163086 140.10443999999998 619.3481953938802 140.10443999999998C 662.7025690714519 140.10443999999998 699.8634607950846 52.86959999999999 743.2178344726562 52.86959999999999" pathFrom="M -1 317.2176 L -1 317.2176 L 123.86963907877603 317.2176 L 247.73927815755206 317.2176 L 371.6089172363281 317.2176 L 495.47855631510413 317.2176 L 619.3481953938802 317.2176 L 743.2178344726562 317.2176" fill-rule="evenodd"></path><g id="SvgjsG1013" class="apexcharts-series-markers-wrap" data:realIndex="0"><g id="SvgjsG1015" class="apexcharts-series-markers" clip-path="url(#gridRectMarkerMask5mxsyh3s)"><circle id="SvgjsCircle1016" r="5" cx="0" cy="235.26972" class="apexcharts-marker no-pointer-events waxx6j74h" stroke="#ffffff" fill="#0aad0a" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" rel="0" j="0" index="0" default-marker-size="5"></circle><circle id="SvgjsCircle1017" r="5" cx="123.86963907877603" cy="211.4784" class="apexcharts-marker no-pointer-events w146t8m7n" stroke="#ffffff" fill="#0aad0a" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" rel="1" j="1" index="0" default-marker-size="5"></circle></g><g id="SvgjsG1018" class="apexcharts-series-markers" clip-path="url(#gridRectMarkerMask5mxsyh3s)"><circle id="SvgjsCircle1019" r="5" cx="247.73927815755206" cy="243.20015999999998" class="apexcharts-marker no-pointer-events w2zhyuwpzi" stroke="#ffffff" fill="#0aad0a" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" rel="2" j="2" index="0" default-marker-size="5"></circle></g><g id="SvgjsG1020" class="apexcharts-series-markers" clip-path="url(#gridRectMarkerMask5mxsyh3s)"><circle id="SvgjsCircle1021" r="5" cx="371.6089172363281" cy="182.40012" class="apexcharts-marker no-pointer-events w0so5uuu7" stroke="#ffffff" fill="#0aad0a" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" rel="3" j="3" index="0" default-marker-size="5"></circle></g><g id="SvgjsG1022" class="apexcharts-series-markers" clip-path="url(#gridRectMarkerMask5mxsyh3s)"><circle id="SvgjsCircle1023" r="5" cx="495.47855631510413" cy="206.19144" class="apexcharts-marker no-pointer-events wfesrphqz" stroke="#ffffff" fill="#0aad0a" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" rel="4" j="4" index="0" default-marker-size="5"></circle></g><g id="SvgjsG1024" class="apexcharts-series-markers" clip-path="url(#gridRectMarkerMask5mxsyh3s)"><circle id="SvgjsCircle1025" r="5" cx="619.3481953938802" cy="140.10443999999998" class="apexcharts-marker no-pointer-events w6rgdm6zj" stroke="#ffffff" fill="#0aad0a" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" rel="5" j="5" index="0" default-marker-size="5"></circle></g><g id="SvgjsG1026" class="apexcharts-series-markers" clip-path="url(#gridRectMarkerMask5mxsyh3s)"><circle id="SvgjsCircle1027" r="5" cx="743.2178344726562" cy="52.86959999999999" class="apexcharts-marker no-pointer-events w4vi1vm8n" stroke="#ffffff" fill="#0aad0a" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" rel="6" j="6" index="0" default-marker-size="5"></circle></g></g></g><g id="SvgjsG1034" class="apexcharts-series" seriesName="TotalxExpense" data:longestSeries="true" rel="2" data:realIndex="1"><path id="SvgjsPath1054" d="M0 264.348L0 111.02615999999998C43.35437367757161 111.02615999999998 80.51526540120443 232.62624 123.86963907877603 232.62624C167.22401275634763 232.62624 204.38490447998046 198.261 247.73927815755206 198.261C291.0936518351237 198.261 328.2545435587565 108.38268 371.6089172363281 108.38268C414.96329091389975 108.38268 452.1241826375325 227.33928 495.47855631510413 227.33928C538.8329299926758 227.33928 575.9938217163086 200.90447999999998 619.3481953938802 200.90447999999998C662.7025690714519 200.90447999999998 699.8634607950846 216.76536 743.2178344726562 216.76536C743.2178344726562 216.76536 743.2178344726562 216.76536 743.2178344726562 264.348M743.2178344726562 216.76536C743.2178344726562 216.76536 743.2178344726562 216.76536 743.2178344726562 216.76536 " fill="url(#SvgjsLinearGradient1050)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-area" index="1" clip-path="url(#gridRectMask5mxsyh3s)" pathTo="M 0 264.348 L 0 111.02615999999998C 43.35437367757161 111.02615999999998 80.51526540120443 232.62624 123.86963907877603 232.62624C 167.22401275634763 232.62624 204.38490447998046 198.261 247.73927815755206 198.261C 291.0936518351237 198.261 328.2545435587565 108.38268 371.6089172363281 108.38268C 414.96329091389975 108.38268 452.1241826375325 227.33928 495.47855631510413 227.33928C 538.8329299926758 227.33928 575.9938217163086 200.90447999999998 619.3481953938802 200.90447999999998C 662.7025690714519 200.90447999999998 699.8634607950846 216.76536 743.2178344726562 216.76536C 743.2178344726562 216.76536 743.2178344726562 216.76536 743.2178344726562 264.348M 743.2178344726562 216.76536z" pathFrom="M -1 317.2176 L -1 317.2176 L 123.86963907877603 317.2176 L 247.73927815755206 317.2176 L 371.6089172363281 317.2176 L 495.47855631510413 317.2176 L 619.3481953938802 317.2176 L 743.2178344726562 317.2176"></path><path id="SvgjsPath1055" d="M0 111.02615999999998C43.35437367757161 111.02615999999998 80.51526540120443 232.62624 123.86963907877603 232.62624C167.22401275634763 232.62624 204.38490447998046 198.261 247.73927815755206 198.261C291.0936518351237 198.261 328.2545435587565 108.38268 371.6089172363281 108.38268C414.96329091389975 108.38268 452.1241826375325 227.33928 495.47855631510413 227.33928C538.8329299926758 227.33928 575.9938217163086 200.90447999999998 619.3481953938802 200.90447999999998C662.7025690714519 200.90447999999998 699.8634607950846 216.76536 743.2178344726562 216.76536C743.2178344726562 216.76536 743.2178344726562 216.76536 743.2178344726562 216.76536 " fill="none" fill-opacity="1" stroke="#ffc107" stroke-opacity="1" stroke-linecap="butt" stroke-width="2" stroke-dasharray="0" class="apexcharts-area" index="1" clip-path="url(#gridRectMask5mxsyh3s)" pathTo="M 0 111.02615999999998C 43.35437367757161 111.02615999999998 80.51526540120443 232.62624 123.86963907877603 232.62624C 167.22401275634763 232.62624 204.38490447998046 198.261 247.73927815755206 198.261C 291.0936518351237 198.261 328.2545435587565 108.38268 371.6089172363281 108.38268C 414.96329091389975 108.38268 452.1241826375325 227.33928 495.47855631510413 227.33928C 538.8329299926758 227.33928 575.9938217163086 200.90447999999998 619.3481953938802 200.90447999999998C 662.7025690714519 200.90447999999998 699.8634607950846 216.76536 743.2178344726562 216.76536" pathFrom="M -1 317.2176 L -1 317.2176 L 123.86963907877603 317.2176 L 247.73927815755206 317.2176 L 371.6089172363281 317.2176 L 495.47855631510413 317.2176 L 619.3481953938802 317.2176 L 743.2178344726562 317.2176" fill-rule="evenodd"></path><g id="SvgjsG1035" class="apexcharts-series-markers-wrap" data:realIndex="1"><g id="SvgjsG1037" class="apexcharts-series-markers" clip-path="url(#gridRectMarkerMask5mxsyh3s)"><circle id="SvgjsCircle1038" r="5" cx="0" cy="111.02615999999998" class="apexcharts-marker no-pointer-events wdhkxe6xz" stroke="#ffffff" fill="#ffc107" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" rel="0" j="0" index="1" default-marker-size="5"></circle><circle id="SvgjsCircle1039" r="5" cx="123.86963907877603" cy="232.62624" class="apexcharts-marker no-pointer-events w6w8ugwfr" stroke="#ffffff" fill="#ffc107" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" rel="1" j="1" index="1" default-marker-size="5"></circle></g><g id="SvgjsG1040" class="apexcharts-series-markers" clip-path="url(#gridRectMarkerMask5mxsyh3s)"><circle id="SvgjsCircle1041" r="5" cx="247.73927815755206" cy="198.261" class="apexcharts-marker no-pointer-events wuibssdlkg" stroke="#ffffff" fill="#ffc107" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" rel="2" j="2" index="1" default-marker-size="5"></circle></g><g id="SvgjsG1042" class="apexcharts-series-markers" clip-path="url(#gridRectMarkerMask5mxsyh3s)"><circle id="SvgjsCircle1043" r="5" cx="371.6089172363281" cy="108.38268" class="apexcharts-marker no-pointer-events wt5w9hurb" stroke="#ffffff" fill="#ffc107" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" rel="3" j="3" index="1" default-marker-size="5"></circle></g><g id="SvgjsG1044" class="apexcharts-series-markers" clip-path="url(#gridRectMarkerMask5mxsyh3s)"><circle id="SvgjsCircle1045" r="5" cx="495.47855631510413" cy="227.33928" class="apexcharts-marker no-pointer-events w6x6lztr" stroke="#ffffff" fill="#ffc107" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" rel="4" j="4" index="1" default-marker-size="5"></circle></g><g id="SvgjsG1046" class="apexcharts-series-markers" clip-path="url(#gridRectMarkerMask5mxsyh3s)"><circle id="SvgjsCircle1047" r="5" cx="619.3481953938802" cy="200.90447999999998" class="apexcharts-marker no-pointer-events w6cn2kp7o" stroke="#ffffff" fill="#ffc107" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" rel="5" j="5" index="1" default-marker-size="5"></circle></g><g id="SvgjsG1048" class="apexcharts-series-markers" clip-path="url(#gridRectMarkerMask5mxsyh3s)"><circle id="SvgjsCircle1049" r="5" cx="743.2178344726562" cy="216.76536" class="apexcharts-marker no-pointer-events wvqe6pz2k" stroke="#ffffff" fill="#ffc107" fill-opacity="1" stroke-width="2" stroke-opacity="0.9" rel="6" j="6" index="1" default-marker-size="5"></circle></g></g></g><g id="SvgjsG1014" class="apexcharts-datalabels" data:realIndex="0"></g><g id="SvgjsG1036" class="apexcharts-datalabels" data:realIndex="1"></g></g><g id="SvgjsG1059" class="apexcharts-grid-borders"><line id="SvgjsLine1060" x1="0" y1="0" x2="743.2178344726562" y2="0" stroke="var(--fc-gray-300)" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1065" x1="0" y1="264.348" x2="743.2178344726562" y2="264.348" stroke="var(--fc-gray-300)" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1091" x1="0" y1="265.348" x2="743.2178344726562" y2="265.348" stroke="var(--fc-gray-300)" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt"></line></g><line id="SvgjsLine1112" x1="0" y1="0" x2="743.2178344726562" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine1113" x1="0" y1="0" x2="743.2178344726562" y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line><g id="SvgjsG1114" class="apexcharts-yaxis-annotations"></g><g id="SvgjsG1115" class="apexcharts-xaxis-annotations"></g><g id="SvgjsG1116" class="apexcharts-point-annotations"></g><rect id="SvgjsRect1117" width="0" height="0" x="0" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fefefe" class="apexcharts-zoom-rect"></rect><rect id="SvgjsRect1118" width="0" height="0" x="0" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fefefe" class="apexcharts-selection-rect"></rect></g><rect id="SvgjsRect1007" width="0" height="0" x="0" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fefefe"></rect><g id="SvgjsG1092" class="apexcharts-yaxis" rel="0" transform="translate(24.78216552734375, 0)"><g id="SvgjsG1093" class="apexcharts-yaxis-texts-g"><text id="SvgjsText1095" font-family="&quot;Inter&quot;, &quot;sans-serif&quot;" x="20" y="49.5" text-anchor="end" dominant-baseline="auto" font-size="12px" font-weight="400" fill="var(--fc-gray-600)" class="apexcharts-text apexcharts-yaxis-label " style="font-family: Inter, &quot;sans-serif&quot;;"><tspan id="SvgjsTspan1096">120k</tspan><title>120k</title></text><text id="SvgjsText1098" font-family="&quot;Inter&quot;, &quot;sans-serif&quot;" x="20" y="102.3696" text-anchor="end" dominant-baseline="auto" font-size="12px" font-weight="400" fill="var(--fc-gray-600)" class="apexcharts-text apexcharts-yaxis-label " style="font-family: Inter, &quot;sans-serif&quot;;"><tspan id="SvgjsTspan1099">100k</tspan><title>100k</title></text><text id="SvgjsText1101" font-family="&quot;Inter&quot;, &quot;sans-serif&quot;" x="20" y="155.2392" text-anchor="end" dominant-baseline="auto" font-size="12px" font-weight="400" fill="var(--fc-gray-600)" class="apexcharts-text apexcharts-yaxis-label " style="font-family: Inter, &quot;sans-serif&quot;;"><tspan id="SvgjsTspan1102">80k</tspan><title>80k</title></text><text id="SvgjsText1104" font-family="&quot;Inter&quot;, &quot;sans-serif&quot;" x="20" y="208.10880000000003" text-anchor="end" dominant-baseline="auto" font-size="12px" font-weight="400" fill="var(--fc-gray-600)" class="apexcharts-text apexcharts-yaxis-label " style="font-family: Inter, &quot;sans-serif&quot;;"><tspan id="SvgjsTspan1105">60k</tspan><title>60k</title></text><text id="SvgjsText1107" font-family="&quot;Inter&quot;, &quot;sans-serif&quot;" x="20" y="260.9784" text-anchor="end" dominant-baseline="auto" font-size="12px" font-weight="400" fill="var(--fc-gray-600)" class="apexcharts-text apexcharts-yaxis-label " style="font-family: Inter, &quot;sans-serif&quot;;"><tspan id="SvgjsTspan1108">40k</tspan><title>40k</title></text><text id="SvgjsText1110" font-family="&quot;Inter&quot;, &quot;sans-serif&quot;" x="20" y="313.848" text-anchor="end" dominant-baseline="auto" font-size="12px" font-weight="400" fill="var(--fc-gray-600)" class="apexcharts-text apexcharts-yaxis-label " style="font-family: Inter, &quot;sans-serif&quot;;"><tspan id="SvgjsTspan1111">20k</tspan><title>20k</title></text></g></g><g id="SvgjsG1004" class="apexcharts-annotations"></g></svg><div class="apexcharts-tooltip apexcharts-theme-light"><div class="apexcharts-tooltip-title" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"></div><div class="apexcharts-tooltip-series-group" style="order: 1;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(10, 173, 10);"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label"></span><span class="apexcharts-tooltip-text-y-value"></span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div><div class="apexcharts-tooltip-series-group" style="order: 2;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(255, 193, 7);"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label"></span><span class="apexcharts-tooltip-text-y-value"></span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div></div><div class="apexcharts-xaxistooltip apexcharts-xaxistooltip-bottom apexcharts-theme-light"><div class="apexcharts-xaxistooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"></div></div><div class="apexcharts-yaxistooltip apexcharts-yaxistooltip-0 apexcharts-yaxistooltip-left apexcharts-theme-light"><div class="apexcharts-yaxistooltip-text"></div></div></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-12 mb-6">
+                            <!-- card -->
+                            <div class="card h-100 card-lg">
+                                <!-- card body -->
+                                <div class="card-body p-6">
+                                    <!-- heading -->
+                                    <h3 class="mb-0 fs-5">Ventas totales</h3>
+                                    <div id="totalSale" class="mt-6 d-flex justify-content-center" style="min-height: 262.8px;"><div id="apexchartsj031mn33" class="apexcharts-canvas apexchartsj031mn33 apexcharts-theme-light" style="width: 368px; height: 262.8px;"><svg id="SvgjsSvg1119" width="368" height="262.8" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><g id="SvgjsG1121" class="apexcharts-inner apexcharts-graphical" transform="translate(57, 0)"><defs id="SvgjsDefs1120"><clippath id="gridRectMaskj031mn33"><rect id="SvgjsRect1123" width="260" height="278" x="-2" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clippath><clippath id="forecastMaskj031mn33"></clippath><clippath id="nonForecastMaskj031mn33"></clippath><clippath id="gridRectMarkerMaskj031mn33"><rect id="SvgjsRect1124" width="260" height="282" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clippath></defs><g id="SvgjsG1125" class="apexcharts-pie"><g id="SvgjsG1126" transform="translate(0, 0) scale(1)"><circle id="SvgjsCircle1127" r="102.74634146341465" cx="128" cy="128" fill="transparent"></circle><g id="SvgjsG1128" class="apexcharts-slices"><g id="SvgjsG1129" class="apexcharts-series apexcharts-pie-series" seriesName="Shippings" rel="1" data:realIndex="0"><path id="SvgjsPath1130" d="M 128 7.121951219512184 A 120.87804878048782 120.87804878048782 0 1 1 42.5263120107188 213.47368798928122 L 55.34736520911096 200.65263479088904 A 102.74634146341465 102.74634146341465 0 1 0 128 25.25365853658535 L 128 7.121951219512184 z" fill="rgba(10,173,10,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-donut-slice-0" index="0" j="0" data:angle="225" data:startAngle="0" data:strokeWidth="0" data:value="6000" data:pathOrig="M 128 7.121951219512184 A 120.87804878048782 120.87804878048782 0 1 1 42.5263120107188 213.47368798928122 L 55.34736520911096 200.65263479088904 A 102.74634146341465 102.74634146341465 0 1 0 128 25.25365853658535 L 128 7.121951219512184 z"></path></g><g id="SvgjsG1131" class="apexcharts-series apexcharts-pie-series" seriesName="Refunds" rel="2" data:realIndex="1"><path id="SvgjsPath1132" d="M 42.5263120107188 213.47368798928122 A 120.87804878048782 120.87804878048782 0 0 1 23.31653899620298 67.56097560975607 L 39.01905814677252 76.62682926829265 A 102.74634146341465 102.74634146341465 0 0 0 55.34736520911096 200.65263479088904 L 42.5263120107188 213.47368798928122 z" fill="rgba(255,193,7,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-donut-slice-1" index="0" j="1" data:angle="75" data:startAngle="225" data:strokeWidth="0" data:value="2000" data:pathOrig="M 42.5263120107188 213.47368798928122 A 120.87804878048782 120.87804878048782 0 0 1 23.31653899620298 67.56097560975607 L 39.01905814677252 76.62682926829265 A 102.74634146341465 102.74634146341465 0 0 0 55.34736520911096 200.65263479088904 L 42.5263120107188 213.47368798928122 z"></path></g><g id="SvgjsG1133" class="apexcharts-series apexcharts-pie-series" seriesName="Order" rel="3" data:realIndex="2"><path id="SvgjsPath1134" d="M 23.31653899620298 67.56097560975607 A 120.87804878048782 120.87804878048782 0 0 1 81.7419733950882 16.323244801806382 L 88.68067738582496 33.07475808153542 A 102.74634146341465 102.74634146341465 0 0 0 39.01905814677252 76.62682926829265 L 23.31653899620298 67.56097560975607 z" fill="rgba(219,48,48,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-donut-slice-2" index="0" j="2" data:angle="37.5" data:startAngle="300" data:strokeWidth="0" data:value="1000" data:pathOrig="M 23.31653899620298 67.56097560975607 A 120.87804878048782 120.87804878048782 0 0 1 81.7419733950882 16.323244801806382 L 88.68067738582496 33.07475808153542 A 102.74634146341465 102.74634146341465 0 0 0 39.01905814677252 76.62682926829265 L 23.31653899620298 67.56097560975607 z"></path></g><g id="SvgjsG1135" class="apexcharts-series apexcharts-pie-series" seriesName="Income" rel="4" data:realIndex="3"><path id="SvgjsPath1136" d="M 81.7419733950882 16.323244801806382 A 120.87804878048782 120.87804878048782 0 0 1 127.97890280066103 7.121953060590144 L 127.98206738056187 25.25366010150161 A 102.74634146341465 102.74634146341465 0 0 0 88.68067738582496 33.07475808153542 L 81.7419733950882 16.323244801806382 z" fill="rgba(1,107,248,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="butt" stroke-width="0" stroke-dasharray="0" class="apexcharts-pie-area apexcharts-donut-slice-3" index="0" j="3" data:angle="22.5" data:startAngle="337.5" data:strokeWidth="0" data:value="600" data:pathOrig="M 81.7419733950882 16.323244801806382 A 120.87804878048782 120.87804878048782 0 0 1 127.97890280066103 7.121953060590144 L 127.98206738056187 25.25366010150161 A 102.74634146341465 102.74634146341465 0 0 0 88.68067738582496 33.07475808153542 L 81.7419733950882 16.323244801806382 z"></path></g></g></g><g id="SvgjsG1137" class="apexcharts-datalabels-group" transform="translate(0, 0) scale(1)" style="opacity: 1;"><text id="SvgjsText1138" font-family="&quot;Inter&quot;, &quot;sans-serif&quot;" x="128" y="118" text-anchor="middle" dominant-baseline="auto" font-size="16px" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-datalabel-label" style="font-family: Inter, &quot;sans-serif&quot;; fill: rgb(10, 173, 10);">Total Sales</text><text id="SvgjsText1139" font-family="&quot;Inter&quot;, &quot;sans-serif&quot;" x="128" y="152" text-anchor="middle" dominant-baseline="auto" font-size="24px" font-weight="800" fill="#373d3f" class="apexcharts-text apexcharts-datalabel-value" style="font-family: Inter, &quot;sans-serif&quot;;">9600</text></g></g><line id="SvgjsLine1140" x1="0" y1="0" x2="256" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine1141" x1="0" y1="0" x2="256" y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line></g><g id="SvgjsG1122" class="apexcharts-annotations"></g></svg><div class="apexcharts-legend"></div><div class="apexcharts-tooltip apexcharts-theme-dark" style="left: 110.961px; top: 195.031px;"><div class="apexcharts-tooltip-series-group apexcharts-active" style="order: 1; display: flex; background-color: rgb(10, 173, 10);"><span class="apexcharts-tooltip-marker" style="background-color: rgb(10, 173, 10); display: none;"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label">Shippings: </span><span class="apexcharts-tooltip-text-y-value">6000</span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div><div class="apexcharts-tooltip-series-group" style="order: 2; display: none; background-color: rgb(10, 173, 10);"><span class="apexcharts-tooltip-marker" style="background-color: rgb(10, 173, 10); display: none;"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label">Shippings: </span><span class="apexcharts-tooltip-text-y-value">6000</span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div><div class="apexcharts-tooltip-series-group" style="order: 3; display: none; background-color: rgb(10, 173, 10);"><span class="apexcharts-tooltip-marker" style="background-color: rgb(10, 173, 10); display: none;"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label">Shippings: </span><span class="apexcharts-tooltip-text-y-value">6000</span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div><div class="apexcharts-tooltip-series-group" style="order: 4; display: none; background-color: rgb(10, 173, 10);"><span class="apexcharts-tooltip-marker" style="background-color: rgb(10, 173, 10); display: none;"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label">Shippings: </span><span class="apexcharts-tooltip-text-y-value">6000</span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div></div></div></div>
+                                    <div class="mt-4">
+                                        <!-- list -->
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-circle-fill text-primary" viewBox="0 0 16 16">
+                                                    <circle cx="8" cy="8" r="8"></circle>
+                                                </svg> <span class="ms-1"><span class="text-dark">Shippings
+                                                        $32.98</span> (2%)</span></li>
+                                            <li class="mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-circle-fill text-warning" viewBox="0 0 16 16">
+                                                    <circle cx="8" cy="8" r="8"></circle>
+                                                </svg> <span class="ms-1"><span class="text-dark">Refunds $11</span>
+                                                    (11%)</span></li>
+                                            <li class="mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-circle-fill text-danger" viewBox="0 0 16 16">
+                                                    <circle cx="8" cy="8" r="8"></circle>
+                                                </svg> <span class="ms-1"><span class="text-dark">Order $14.87</span>
+                                                    (1%)</span></li>
+                                            <li><svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-circle-fill text-info" viewBox="0 0 16 16">
+                                                    <circle cx="8" cy="8" r="8"></circle>
+                                                </svg> <span class="ms-1"><span class="text-dark">Income 3,271</span>
+                                                    (86%)</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- row -->
+                    <div class="row ">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-12 mb-6">
+                            <!-- card -->
+                            <div class="card h-100 card-lg">
+                                <!-- card body -->
+                                <div class="card-body p-6">
+                                    <h3 class="mb-0 fs-5">Sales Overview </h3>
+                                    <div class="mt-6">
+                                        <!-- text -->
+                                        <div class="mb-5">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <h5 class="fs-6">Total Profit</h5>
+                                                <span><span class="me-1 text-dark">$1,619</span> (8.6%)</span>
+                                            </div>
+                                            <!-- main wrapper -->
+                                            <div>
+                                                <!-- progressbar -->
+                                                <div class="progress bg-light-primary" style="height: 6px;">
+                                                    <div class="progress-bar bg-primary" role="progressbar" aria-label="Example 1px high" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-5">
+                                            <!-- text -->
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <h5 class="fs-6">Total Income</h5>
+                                                <span><span class="me-1 text-dark">$3,571</span> (86.4%)</span>
+                                            </div>
+                                            <div>
+                                                <!-- progressbar -->
+                                                <div class="progress bg-info-soft" style="height: 6px;">
+                                                    <div class="progress-bar bg-info" role="progressbar" aria-label="Example 1px high" style="width: 88%;" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <!-- text -->
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <h5 class="fs-6">Total Expenses</h5>
+                                                <span><span class="me-1 text-dark">$3,430</span> (74.5%)</span>
+                                            </div>
+                                            <div>
+                                                <!-- progressbar -->
+                                                <div class="progress bg-light-danger" style="height: 6px;">
+                                                    <div class="progress-bar bg-danger" role="progressbar" aria-label="Example 1px high" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-12 mb-6">
+                            <div class=" position-relative h-100">
+                                <!-- card -->
+                                <div class="card card-lg mb-6">
+                                    <!-- card body -->
+                                    <div class="card-body px-6 py-8">
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <!-- svg -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bell text-warning" viewBox="0 0 16 16">
+                                                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"></path>
+                                                </svg>
+                                            </div>
+                                            <!-- text -->
+                                            <div class="ms-4">
+                                                <h5 class="mb-1">Start your day with New Notification.</h5>
+                                                <p class="mb-0">You have <a class="link-info" href="https://freshcart.codescandy.com/dashboard/index.html#!">2 new
+                                                        notification</a></p>
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                                <!-- card -->
+                                <div class="card card-lg">
+                                    <!-- card body -->
+                                    <div class="card-body px-6 py-8">
+                                        <div class="d-flex align-items-center">
+                                            <!-- svg -->
+                                            <div>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-lightbulb text-success" viewBox="0 0 16 16">
+                                                    <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13a.5.5 0 0 1 0 1 .5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1 0-1 .5.5 0 0 1 0-1 .5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6zm6-5a5 5 0 0 0-3.479 8.592c.263.254.514.564.676.941L5.83 12h4.342l.632-1.467c.162-.377.413-.687.676-.941A5 5 0 0 0 8 1z"></path>
+                                                </svg>
+                                            </div>
+                                            <!-- text -->
+                                            <div class="ms-4">
+                                                <h5 class="mb-1">Monitor your Sales and Profitability</h5>
+                                                <p class="mb-0"> <a class="link-info" href="https://freshcart.codescandy.com/dashboard/index.html#!">View Performance</a></p>
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- row -->
+                    <div class="row ">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-12 mb-6">
+                            <div class="card h-100 card-lg">
+                                <!-- heading -->
+                                <div class="p-6">
+                                    <h3 class="mb-0 fs-5">Pedidos Reciente</h3>
+                                </div>
+                                <div class="card-body p-0">
+                                    <!-- table -->
+                                    <div class="table-responsive">
+                                        <table class="table table-centered table-borderless text-nowrap table-hover">
+                                            <thead class="bg-light">
+                                                <tr>
+                                                    <th scope="col">Número de Pedido</th>
+                                                    <th scope="col">nombre del producto</th>
+                                                    <th scope="col">Fecha</th>
+                                                    <th scope="col">Total</th>
+                                                    <th scope="col">Status</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+												{% for order in orders %}
+                                                <tr>
+
+                                                    <td>#FC0005</td>
+                                                    <td>
+														<a href="dashboard/order/details/{{order.user.id}}">
+															{{order.user.username}}
+														</a>
+													</td>
+                                                    <td>{{order.ordered_date}}</td>
+                                                    <td>${{order.payment.amount}}</td>
+                                                    <td>
+													{%if order.received == 1 %}
+														<span class="badge bg-light-primary text-dark-primary">Entregado</span>
+                                                                        
+                                                    {% else %}
+														<span class="badge bg-light-warning text-dark-warning">Pendiente</span>
+                                                                        
+                                                    {% endif %}
+                                                        
+                                                    </td>
+                                                </tr>
+												{% endfor %}
+                                                <tr>
+
+                                                    <td>#FC0004</td>
+                                                    <td>NutriChoice Digestive</td>
+                                                    <td>24 March 2023</td>
+                                                    <td>$24.00</td>
+                                                    <td>
+                                                        <span class="badge bg-light-warning text-dark-warning">Pending</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+
+                                                    <td>#FC0003</td>
+                                                    <td>Onion Flavour Potato</td>
+                                                    <td>8 Feb 2023</td>
+                                                    <td>$9.00</td>
+                                                    <td>
+                                                        <span class="badge bg-light-danger text-dark-danger">Cancel</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+
+                                                    <td>#FC0002</td>
+                                                    <td>Blueberry Greek Yogurt</td>
+                                                    <td>20 Jan 2023</td>
+                                                    <td>$12.00</td>
+                                                    <td>
+                                                        <span class="badge bg-light-warning text-dark-warning">Pending</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+
+                                                    <td>#FC0001</td>
+                                                    <td>Slurrp Millet Chocolate</td>
+                                                    <td>14 Jan 2023</td>
+                                                    <td>$8.00</td>
+                                                    <td>
+                                                        <span class="badge bg-light-info text-dark-info">Processing</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Libs JS -->
+<script src="./Dashboard_files/jquery.min.js"></script>
+<script src="./Dashboard_files/bootstrap.bundle.min.js"></script>
+<script src="./Dashboard_files/simplebar.min.js"></script>
+
+<!-- Theme JS -->
+<script src="./Dashboard_files/theme.min.js"></script>
+    <script src="./Dashboard_files/apexcharts.min.js"></script>
+    <script src="./Dashboard_files/chart.js"></script>
+
+<svg id="SvgjsSvg1142" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1143"></defs><polyline id="SvgjsPolyline1144" points="0,0"></polyline><path id="SvgjsPath1145" d="M-1 317.2176L-1 317.2176C-1 317.2176 123.86963907877603 317.2176 123.86963907877603 317.2176C123.86963907877603 317.2176 247.73927815755206 317.2176 247.73927815755206 317.2176C247.73927815755206 317.2176 371.6089172363281 317.2176 371.6089172363281 317.2176C371.6089172363281 317.2176 495.47855631510413 317.2176 495.47855631510413 317.2176C495.47855631510413 317.2176 619.3481953938802 317.2176 619.3481953938802 317.2176C619.3481953938802 317.2176 743.2178344726562 317.2176 743.2178344726562 317.2176C743.2178344726562 317.2176 743.2178344726562 317.2176 743.2178344726562 317.2176 "></path></svg>
+
+<script src="chrome-extension://lopnbnfpjmgpbppclhclehhgafnifija/aiscripts/t.js"></script><script src="chrome-extension://lopnbnfpjmgpbppclhclehhgafnifija/sm.bundle.js" data-pname="ag-translate-mv3" data-asset-path="https://atm3.s3.ap-northeast-2.amazonaws.com"></script><script src="chrome-extension://lopnbnfpjmgpbppclhclehhgafnifija/aiscripts/script-main.js"></script></body></html>
+
+{% endblock content  %}

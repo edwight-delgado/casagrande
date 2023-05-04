@@ -66,7 +66,6 @@ def excel_item(wb):
         
         valores = [row.title, row.price, float(row.quantity), (float(row.price) * float(row.quantity)), row.is_active, row.category.title]
         row_num += 1
-        print(valores)
         for valor in valores:
             ws_itens.write(row_num, col_num, valor, font_style)
             col_num += 1
@@ -79,7 +78,6 @@ def excel_item(wb):
     row_num = 1
     col_num = 0
     for key,value in mydic.items():
-        print(key,value)
         col_num += 1
         ws_itens.write(row_num, col_num, key, font_style)
         ws_itens.write(row_num+1, col_num, value, font_style)
@@ -112,10 +110,10 @@ def export_users_xls(request):
     for row in rows:
         fecha = row.ordered_date
         fecha = fecha.strftime('%d/%m/%Y')
-        print(fecha)
+
         valores = [row.user.username, row.payment.amount, row.payment.methods, row.ordered, row.received,row.billing_address.zip, row.billing_address.street_address, row.note]
         row_num += 1
-        print(valores)
+
         for valor in valores:
             ws.write(row_num, col_num, valor, font_style)
             col_num += 1
@@ -129,7 +127,6 @@ def export_users_xls(request):
     row_num = 1
     col_num = 0
     for key,value in mydic.items():
-        print(key,value)
         col_num += 1
         ws.write(row_num, col_num, key, font_style)
         ws.write(row_num+1, col_num, value, font_style)
@@ -185,7 +182,7 @@ class DashboardView(View):
             'payment_total':payment_total,
             'users':users
         }
-        return render(self.request, "dashboard/home/index2.html", context)
+        return render(self.request, "dashboard/home/index.html", context)
 
 
 class DashboardProductView(View):
@@ -240,7 +237,7 @@ class DashboardOrderInvoiceView(View):
 class DashboardOrderDetailsView(View):
     def get(self, *args, **kwargs):
         user=self.kwargs['user_id']
-        print(user)
+
         
         userQuery = User.objects.filter(is_active=True).get(id=user)
         orders = Order.objects.select_related('payment','user','billing_address').filter(user_id=user)

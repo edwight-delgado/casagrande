@@ -20,7 +20,7 @@ class CheckoutForm(forms.Form):
             #raise Exception
         return cleaned_data
 
-    street_address = forms.CharField(widget=forms.TextInput(attrs={
+    street_address = forms.CharField(required=False, widget=forms.TextInput(attrs={
         'placeholder': 'pedro edificio santa isabel 754',
         'class': 'form-control mr-sm-2',
         'id': 'address-search',
@@ -32,6 +32,12 @@ class CheckoutForm(forms.Form):
         'placeholder': 'Apartment or suite',
         'class': 'form-control'
     }))
+    tag = forms.CharField(required=True, widget=forms.TextInput(attrs={
+        'placeholder': 'domicilio',
+        'class': 'form-control',
+        'id': 'tag',
+        'value':'domicilio',
+    }))
     apartment_number = forms.CharField(required=True, widget=forms.TextInput(attrs={
         'placeholder': '1205',
         'class': 'form-control',
@@ -41,6 +47,18 @@ class CheckoutForm(forms.Form):
         'class': 'form-control',
         'placeholder': '+56 9 4534 567',
     }))
+    phone = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': '+56 9 4534 567',
+        'id': 'phone'
+    }))
+    latitude = forms.CharField(widget = forms.HiddenInput(attrs={
+        'id': 'latitude'
+    }), required = False)
+    longitude = forms.CharField(widget = forms.HiddenInput(attrs={
+        'id': 'longitude'
+    }), required = False)
+
     #same_shipping_address = forms.BooleanField(required=False)
     save_info = forms.BooleanField(required=False)
     payment_option = forms.ChoiceField(

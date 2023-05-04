@@ -1,4 +1,4 @@
-{% extends "account/base.html" %}
+{% extends "main.html" %}
 
 {% load i18n %}
 {% load account socialaccount %}
@@ -8,59 +8,89 @@
 
 {% block content %}
 
-<style type="text/css">
-  input {
-
-    border: 1px solid #ced4da !important;
-
-}
-</style>
 
 
-<div class="container">
-  <div class="row">
 
-    <div class="col-md-6 mt-5 offset-3">
-      <h1>{% trans "Sign In" %}</h1>
-
-{% get_providers as socialaccount_providers %}
-
-{% if socialaccount_providers %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
-
-<div class="socialaccount_ballot">
-
-  <ul class="socialaccount_providers">
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
-
-  <div class="login-or">{% trans 'or' %}</div>
-
-</div>
-
-{% include "socialaccount/snippets/login_extra.html" %}
-
-{% else %}
-<p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}" class="text-primary">sign up</a> first.{% endblocktrans %}</p>
-{% endif %}
-
-<form class="login" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  {% if redirect_field_value %}
-
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-  {% endif %}
-  <a class="btn btn-outline-dark" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
-</form>
-
+<div class="border-bottom shadow-sm">
+  <nav class="navbar navbar-light py-2">
+    <div class="container justify-content-center justify-content-lg-between">
+      <a class="navbar-brand" href="https://freshcart.codescandy.com/index.html">
+        <img src="./login_files/freshcart-logo.svg" alt="" class="d-inline-block align-text-top">
+      </a>
+      <span class="navbar-text">
+        Already have an account? <a href="https://freshcart.codescandy.com/pages/signin.html">Inicia Sesión</a>
+      </span>
     </div>
-  </div>
+  </nav>
 </div>
 
+ 
+  <main>
+  <!-- section -->
+  <section class="my-lg-14 my-8">
+    <div class="container">
+      <!-- row -->
+      <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-md-6 col-lg-4 order-lg-1 order-2">
+          <!-- img -->
+          <img src="./login_files/signin-g.svg" alt="" class="img-fluid">
+        </div>
+        <!-- col -->
+        <div class="col-12 col-md-6 offset-lg-1 col-lg-4 order-lg-2 order-1">
+          <div class="mb-lg-9 mb-5">
+            <h1 class="mb-1 h2 fw-bold">{% trans "Inicia sesión" %}</h1>
+
+            {% get_providers as socialaccount_providers %}
+            
+            {% if socialaccount_providers %}
+            <p>{% blocktrans with site.name as site_name %} Inicie sesión con una de sus cuentas de terceros existentes. 
+              O bien, <a href="{{ signup_url }}">regístrese</a> para obtener una cuenta {{ site_name }} e inicie sesión a continuación: 
+            {% endblocktrans %}</p>
+            <div class="socialaccount_ballot">
+
+              <ul class="socialaccount_providers">
+                {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+              </ul>
+            
+              <div class="login-or">{% trans 'or' %}</div>
+            
+            </div>
+            {% else %}
+            <p>{% blocktrans %}If you have not created an account yet, then please
+            <a href="{{ signup_url }}" class="text-primary">sign up</a> first.{% endblocktrans %}</p>
+            {% endif %}
+
+            <p>Bienvenido a FreshCart! Enter your email to get started.</p>
+          </div>
+
+          <form class="login" method="POST" action="{% url 'account_login' %}">
+            
+            <div class="row g-3">
+              <!-- row -->
+
+              <div class="col-12">
+                <!-- input -->
+                
+                  {% csrf_token %}
+                  {{ form|crispy }}
+                  {% if redirect_field_value %}
+                
+                  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                  {% endif %}
+                  <a class="btn btn-outline-dark" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+                  <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+                
+
+               
+
+            </div>
+              
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
 
 {% endblock %}

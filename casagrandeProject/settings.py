@@ -95,7 +95,7 @@ WSGI_APPLICATION = "casagrandeProject.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
+DATABASES_PRODUCTION = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'shopping123',
@@ -105,7 +105,13 @@ DATABASES = {
             'PORT': '3306',
         }
     }
-
+DATABASES  = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'shopping123',
+            
+        }
+    }
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -151,3 +157,41 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # CRISPY FORM
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+#ACCOUNT_SIGNUP_REDIRECT_URL = "/thanks/"
+LOGIN_REDIRECT_URL = "/"
+
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'edwightdelgado@gmail.com' 
+EMAIL_HOST_PASSWORD = 'ed19252368'
+
+
+
+# Auth
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+)
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+#ACCOUNT_SIGNUP_REDIRECT_URL = "/thanks/"
+
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '123',
+            'secret': '456',
+            'key': '666'
+        }
+    }
+}

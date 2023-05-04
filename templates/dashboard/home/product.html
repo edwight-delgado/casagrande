@@ -1,4 +1,4 @@
-{% extends "dashboard/layouts/base.html" %}
+{% extends "main.html" %}
 
 {% block title %} UI Datatables {% endblock %} 
 
@@ -7,92 +7,326 @@
 
 {% block content %}
 
-	<div class="content">
-		<div class="page-inner">
-			<div class="page-header">
-				<h4 class="page-title">Productos</h4>
-				<ul class="breadcrumbs">
-					<li class="nav-home">
-						<a href="#">
-							<i class="flaticon-home"></i>
-						</a>
-					</li>
-					<li class="separator">
-						<i class="flaticon-right-arrow"></i>
-					</li>
-					<li class="nav-item">
-						<a href="#">Tables</a>
-					</li>
-					<li class="separator">
-						<i class="flaticon-right-arrow"></i>
-					</li>
-					<li class="nav-item">
-						<a href="#">Productos</a>
-					</li>
-				</ul>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="card">
-						<div class="card-header">
-							<h4 class="card-title">Inventarios</h4>
-						</div>
-						<div class="card-body">
-							<div class="table-responsive">
-								<table id="basic-datatables" class="display table table-striped table-hover" >
-									<thead>
-										<tr>
-											<th>Titulo</th>
-											<th>Precio</th>
-											<th>Cantidad</th>
-											<th>Categoria</th>
-											<th>Marca</th>
-											<th>Acción</th>
-										</tr>
-									</thead>
-									<tfoot>
-										<tr>
-											<th>Titulo</th>
-											<th>Precio</th>
-											<th>Cantidad</th>
-											<th>Categoria</th>
-											<th>Marca</th>
-											<th>Acción</th>
-										</tr>
-									</tfoot>
-									<tbody>
-										{% for item in items %}
-										<tr>
-											<td>{{item.title}}</td>
-											<td>{{item.price}}</td>
-											<td>{{item.quantity}}</td>
-											<td>{{item.category.title}}</td>
-											<td>{{item.marca}}</td>
-											<td>
-												<div class="form-button-action">
-													<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-														<i class="fa fa-edit"></i>
-													</button>
-													<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-														<i class="fa fa-times"></i>
-													</button>
-												</div>
-											</td>
-										</tr>
-										{% endfor %}
-										
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
+<body inmaintabuse="1">
+    <!-- main -->
+    <div>
+    <nav class="navbar navbar-expand-lg navbar-glass">
+    	<div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <div class="d-flex align-items-center">
 
-				
+                <a class="text-inherit d-block d-xl-none me-4" data-bs-toggle="offcanvas" href="#" role="button" aria-controls="offcanvasExample">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-text-indent-right" viewBox="0 0 16 16">
+                    <path d="M2 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm10.646 2.146a.5.5 0 0 1 .708.708L11.707 8l1.647 1.646a.5.5 0 0 1-.708.708l-2-2a.5.5 0 0 1 0-.708l2-2zM2 6.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"></path>
+                  </svg>
+            </a>
+
+                <form role="search">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+
+                </form>
+            </div>
+            <div>
+                <ul class="list-unstyled d-flex align-items-center mb-0 ms-5 ms-lg-0">
+
+                    <li class="dropdown ">
+                        <a class="position-relative btn-icon btn-ghost-secondary btn rounded-circle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bell fs-5"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger mt-2 ms-n2">
+                                2
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg p-0 border-0 ">
+                            <div class="border-bottom p-5 d-flex
+              justify-content-between align-items-center">
+              <div>
+                                <h5 class="mb-1">Notifications</h5>
+                                <p class="mb-0 small">You have 2 unread messages</p>
+                            </div>
+                                <a href="https://freshcart.codescandy.com/dashboard/index.html#!" class="text-muted">
+                                    </a><a href="https://freshcart.codescandy.com/dashboard/index.html#" class="btn btn-ghost-secondary btn-icon rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Mark all as read">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-check2-all text-success" viewBox="0 0 16 16">
+                                            <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z"></path>
+                                            <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"></path>
+                                          </svg>
+                                        </a>
+                                
+                            </div>
+                            <div data-simplebar="init" style="height: 250px;"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: auto; overflow: hidden;"><div class="simplebar-content" style="padding: 0px;">
+                                <!-- List group -->
+                                <ul class="list-group list-group-flush notification-list-scroll fs-6">
+                                    <!-- List group item -->
+                                    <li class="list-group-item px-5 py-4 list-group-item-action active">
+                                        <a href="https://freshcart.codescandy.com/dashboard/index.html#!" class="text-muted">
+                                            <div class="d-flex">
+                                           <img src="./Dashboard_files/avatar-1.jpg" alt="" class="avatar avatar-md rounded-circle ">
+                                           <div class="ms-4">
+                                           <p class="mb-1">
+                                                <span class="text-dark">Your order is placed</span> waiting for shipping
+                                            </p>
+                                           <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-clock text-muted" viewBox="0 0 16 16">
+                                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"></path>
+                                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"></path>
+                                          </svg><small class="ms-2">1 minute ago</small></span>
+                                        </div>
+                                            </div>
+                                        </a>
+
+
+
+                                    </li>
+                                    <li class="list-group-item  px-5 py-4 list-group-item-action">
+                                        <a href="https://freshcart.codescandy.com/dashboard/index.html#!" class="text-muted">
+                                            <div class="d-flex">
+                                           <img src="./Dashboard_files/avatar-5.jpg" alt="" class="avatar avatar-md rounded-circle ">
+                                           <div class="ms-4">
+                                           <p class="mb-1">
+                                                <span class="text-dark">Jitu Chauhan </span> answered to your pending order list with notes
+                                            </p>
+                                           <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-clock text-muted" viewBox="0 0 16 16">
+                                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"></path>
+                                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"></path>
+                                          </svg><small class="ms-2">2 days ago</small></span>
+                                        </div>
+                                            </div>
+                                        </a>
+
+
+
+                                    </li>
+                                    <li class="list-group-item px-5 py-4 list-group-item-action">
+                                        <a href="https://freshcart.codescandy.com/dashboard/index.html#!" class="text-muted">
+                                            <div class="d-flex">
+                                           <img src="./Dashboard_files/avatar-2.jpg" alt="" class="avatar avatar-md rounded-circle ">
+                                           <div class="ms-4">
+                                           <p class="mb-1">
+                                                <span class="text-dark">You have new messages</span> 2 unread messages
+                                            </p>
+                                           <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-clock text-muted" viewBox="0 0 16 16">
+                                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"></path>
+                                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"></path>
+                                          </svg><small class="ms-2">3 days ago</small></span>
+                                        </div>
+                                            </div>
+                                        </a>
+
+
+
+                                    </li>
+
+                                </ul>
+                            </div></div></div></div><div class="simplebar-placeholder" style="width: 0px; height: 0px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: hidden;"><div class="simplebar-scrollbar" style="height: 0px; display: none;"></div></div></div>
+                            <div class="border-top px-5 py-4 text-center">
+                                <a href="https://freshcart.codescandy.com/dashboard/index.html#!" class=" ">
+                                    View All
+                                </a>
+                            </div>
+                        </div>
+
+        </li>
+        <li class="dropdown ms-4">
+            <a href="https://freshcart.codescandy.com/dashboard/index.html#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="./Dashboard_files/avatar-1.jpg" alt="" class="avatar avatar-md rounded-circle">
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-end p-0">
+
+
+
+                    <div class="lh-1 px-5 py-4 border-bottom">
+                        <h5 class="mb-1 h6">FreshCart Admin</h5>
+                        <small>admindemo@email.com</small>
+                    </div>
+
+
+
+                <ul class="list-unstyled px-2 py-3">
+
+                    <li>
+                        <a class="dropdown-item" href="https://freshcart.codescandy.com/dashboard/index.html#!">
+                           Home
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="https://freshcart.codescandy.com/dashboard/index.html#!">
+                        Profile
+                        </a>
+
+
+                    </li>
+
+
+                    <li>
+                        <a class="dropdown-item" href="https://freshcart.codescandy.com/dashboard/index.html#!">
+
+                           Settings
+                        </a>
+                    </li>
+
+                </ul>
+                <div class="border-top px-5 py-3">
+
+                    <a href="https://freshcart.codescandy.com/dashboard/index.html#">Log Out</a>
+                </div>
+
+
+
+            </div>
+
+        </li>
+        </ul>
+
+    </div>
+
+    </div>
+    </div>
+</nav>
+<div class="main-wrapper">
+	<!-- navbar vertical -->
+	
+	{% include 'dashboard/includes/navigation.html' %}
+
+
+ <!-- main -->
+ <main class="main-content-wrapper">
+	<div class="container">
+	  <div class="row mb-8">
+		<div class="col-md-12">
+		  <!-- page header -->
+		  <div class="d-md-flex justify-content-between align-items-center">
+			<div>
+			  <h2>Products</h2>
+				<!-- breacrumb -->
+				<nav aria-label="breadcrumb">
+				<ol class="breadcrumb mb-0">
+				  <li class="breadcrumb-item"><a href="#" class="text-inherit">Dashboard</a></li>
+				  <li class="breadcrumb-item active" aria-current="page">Products</li>
+				</ol>
+			  </nav>
 			</div>
+			<!-- button -->
+			<div>
+			  <a href="#" class="btn btn-primary">Nuevo Producto</a>
+			</div>
+		  </div>
 		</div>
-	</div>
+	  </div>
+	  <!-- row -->
+	  <div class="row ">
+		<div class="col-xl-12 col-12 mb-5">
+		  <!-- card -->
+		  <div class="card h-100 card-lg">
+			<div class="px-6 py-6 ">
+			  <div class="row justify-content-between">
+				<!-- form -->
+				<div class="col-lg-4 col-md-6 col-12 mb-2 mb-lg-0">
+				  <form class="d-flex" role="search">
+					<input class="form-control" type="search" placeholder="Search Products" aria-label="Search">
+				  </form>
+				</div>
+				<!-- select option -->
+				<div class="col-lg-2 col-md-4 col-12">
+				  <select class="form-select">
+					<option selected="">Status</option>
+					<option value="1">Active</option>
+					<option value="2">Deactive</option>
+					<option value="3">Draft</option>
+				  </select>
+				</div>
+			  </div>
+			</div>
+			<!-- card body -->
+			<div class="card-body p-0">
+			  <!-- table -->
+			  <div class="table-responsive">
+				<table class="table table-centered table-hover text-nowrap table-borderless mb-0 table-with-checkbox">
+				  <thead class="bg-light">
+					<tr>
+					  <th>
+						<div class="form-check">
+						  <input class="form-check-input" type="checkbox" value="" id="checkAll">
+						  <label class="form-check-label" for="checkAll">
 
+						  </label>
+						</div>
+					  </th>
+					  <th>Image</th>
+					  <th>Proudct Name</th>
+					  <th>Category</th>
+					  <th>Status</th>
+					  <th>Price</th>
+					  <th>Cantidad</th>
+					  <th></th>
+					</tr>
+				  </thead>
+				  <tbody>
+					{% for item in items %}
+					<tr>
+
+					  <td>
+						<div class="form-check">
+						  <input class="form-check-input" type="checkbox" value="" id="productOne">
+						  <label class="form-check-label" for="productOne">
+
+						  </label>
+						</div>
+					  </td>
+					  <td>
+						<a href="#"> <img src="media/{{item.image}}" alt="" class="icon-shape icon-md"></a>
+					  </td>
+					  <td><a href="#" class="text-reset">{{item.title}}</a></td>
+					  <td>{{item.category.title}}</td>
+
+					  <td>
+						{% if item.is_active %}
+						<span class="badge bg-light-primary text-dark-primary">Disponible</span>
+						{% else %}
+						<span class="badge bg-light-danger text-dark-danger">Agotado</span>
+						{% endif %}
+					  </td>
+					  <td>${{item.price}}</td>
+					  <td>{{item.quantity}}</td>
+					  <td>
+						<div class="dropdown">
+						  <a href="https://freshcart.codescandy.com/dashboard/products.html#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="feather-icon icon-more-vertical fs-5"></i>
+						  </a>
+						  <ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="https://freshcart.codescandy.com/dashboard/products.html#"><i class="bi bi-trash me-3"></i>Delete</a></li>
+							<li><a class="dropdown-item" href="https://freshcart.codescandy.com/dashboard/products.html#"><i class="bi bi-pencil-square me-3 "></i>Edit</a>
+							</li>
+						  </ul>
+						</div>
+					  </td>
+					</tr>
+					{% endfor %}
+
+				  </tbody>
+				</table>
+
+			  </div>
+			</div>
+			<div class=" border-top d-md-flex justify-content-between align-items-center px-6 py-6">
+			  <span>Showing 1 to 8 of 12 entries</span>
+			  <nav class="mt-2 mt-md-0">
+				<ul class="pagination mb-0 ">
+				  <li class="page-item disabled"><a class="page-link " href="#">Previous</a></li>
+				  <li class="page-item"><a class="page-link active" href="#">1</a></li>
+				  <li class="page-item"><a class="page-link" href="#">2</a></li>
+				  <li class="page-item"><a class="page-link" href="#">3</a></li>
+				  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+				</ul>
+			  </nav>
+			</div>
+		  </div>
+
+		</div>
+
+	  </div>
+	</div>
+  </main>
+</div>
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
@@ -150,3 +384,5 @@
 	</script>
 
 {% endblock javascripts %}
+
+

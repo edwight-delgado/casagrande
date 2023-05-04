@@ -1,4 +1,4 @@
-{% extends "account/base.html" %}
+{% extends "main.html" %}
 
 {% load i18n %}
 {% load crispy_forms_tags %}
@@ -6,34 +6,67 @@
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
-<style type="text/css">
-  input {
-
-    border: 1px solid #ced4da !important;
-
-}
-</style>
 
 
-<div class="container">
-  <div class="row">
 
-    <div class="col-md-6 mt-5 offset-3">
-    <h1>{% trans "Crea tu cuenta" %}</h1>
-
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
-
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit" class="btn btn-primary">{% trans "Crea tu cuenta" %} &raquo;</button>
-</form>
-
-</div>
-</div>
+<div class="border-bottom shadow-sm">
+  <nav class="navbar navbar-light py-2">
+    <div class="container justify-content-center justify-content-lg-between">
+      <a class="navbar-brand" href="#">
+        <img src="./login_files/freshcart-logo.svg" alt="" class="d-inline-block align-text-top">
+      </a>
+      <span class="navbar-text">
+        Already have an account? <a href="#">Inicia Sesión</a>
+      </span>
+    </div>
+  </nav>
 </div>
 
+ 
+  <main>
+  <!-- section -->
+  <section class="my-lg-14 my-8">
+    <div class="container">
+      <!-- row -->
+      <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-md-6 col-lg-4 order-lg-1 order-2">
+          <!-- img -->
+          <img src="./login_files/signin-g.svg" alt="" class="img-fluid">
+        </div>
+        <!-- col -->
+        <div class="col-12 col-md-6 offset-lg-1 col-lg-4 order-lg-2 order-1">
+          <div class="mb-lg-9 mb-5">
+            <h1 class="mb-1 h2 fw-bold">{% trans "Crea tu cuenta" %}</h1>
+
+            <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+
+          </div>
+
+          <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+            
+            <div class="row g-3">
+              <!-- row -->
+
+              <div class="col-12">
+                <!-- input -->
+                
+                  {% csrf_token %}
+                  {{ form|crispy }}
+                  {% if redirect_field_value %}
+                
+                  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                  {% endif %}
+                  <button type="submit" class="btn btn-primary">{% trans "Crea tu cuenta" %} &raquo;</button>
+
+               
+
+            </div>
+              
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
 {% endblock %}

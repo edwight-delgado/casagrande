@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Item, OrderItem, Order, Payment, Coupon, Refund, BillingAddress, Category, Slide, Marca
+from .models import Item, OrderItem, Order, Payment, Coupon, Refund, BillingAddress, Category, Slide, Brand, SubCategory, Img
 
 
 # Register your models here.
@@ -50,12 +50,12 @@ class AddressAdmin(admin.ModelAdmin):
         'user',
         'street_address',
         'apartment_address',
-        'country',
-        'zip',
+        'number',
+        'phone',
         'address_type',
         'default'
     ]
-    list_filter = ['default', 'address_type', 'country']
+    list_filter = ['default', 'address_type', 'number']
     search_fields = ['user', 'street_address', 'apartment_address', 'zip']
 
 
@@ -87,8 +87,17 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ['title', 'is_active']
     prepopulated_fields = {"slug": ("title",)}
 
+class SubCategoryAdmin(admin.ModelAdmin):
+    list_display = [
+        'title',
+        'is_active'
+    ]
+    list_filter = ['title', 'is_active']
+    search_fields = ['title', 'is_active']
+    prepopulated_fields = {"slug": ("title",)}
 
-class MarcaAdmin(admin.ModelAdmin):
+
+class BrandAdmin(admin.ModelAdmin):
     list_display = [
         'title',
         'is_active'
@@ -100,7 +109,8 @@ class MarcaAdmin(admin.ModelAdmin):
 
 admin.site.register(Item, ItemAdmin)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Marca, MarcaAdmin)
+admin.site.register(SubCategory, SubCategoryAdmin)
+admin.site.register(Brand, BrandAdmin)
 admin.site.register(Slide)
 admin.site.register(OrderItem)
 admin.site.register(Order, OrderAdmin)

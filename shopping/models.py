@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Sum
 from django.shortcuts import reverse
-
+#from pictures.models import PictureField
 from django.db import models
 from django.db.models import signals
 
@@ -19,17 +19,21 @@ def update_order_items(sender, instance, **kwargs):
                     print("Update is called")
 
 # Create your models here.
-CATEGORY_CHOICES = (
-    ('SB', 'Shirts And Blouses'),
-    ('TS', 'T-Shirts'),
-    ('SK', 'Skirts'),
-    ('HS', 'Hoodies&Sweatshirts')
-)
 
 LABEL_CHOICES = (
-    ('S', 'venta'),
-    ('N', 'nuevo'),
-    ('P', 'promoción')
+    ('venta', 'venta'),
+    ('nuevo', 'nuevo'),
+    ('agotado', 'agotado'),
+)
+
+UNIT_CHOICES = (
+    ('kilo', 'kilo'),
+    ('gramos', 'gramos'),
+    ('onza', 'onza'),
+    ('litros', 'litros'),
+    ('centimetros', 'centimetros'),
+    ('metros', 'metros'),
+    ('unidad', 'unidad'),
 )
 
 ADDRESS_CHOICES = (
@@ -48,11 +52,12 @@ class Slide(models.Model):
     caption1 = models.CharField(max_length=100)
     caption2 = models.CharField(max_length=100)
     link = models.CharField(max_length=100)
-    image = models.ImageField(help_text="Size: 1920x570")
+    image = models.ImageField(help_text="Size: 960x125")
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return "{} - {}".format(self.caption1, self.caption2)
+
 
 class Category(models.Model):
     title = models.CharField(max_length=100)
@@ -69,7 +74,21 @@ class Category(models.Model):
             'slug': self.slug
         })
 
-class Marca(models.Model):
+class SubCategory(models.Model):
+    title = models.CharField(max_length=100)
+    slug = models.SlugField()
+    is_active = models.BooleanField(default=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='subcategory')
+    
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse("shopping:subcategory", kwargs={
+            'slug': self.slug
+        })
+
+class Brand(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField()
     description = models.TextField(blank=True, null=True)
@@ -83,19 +102,27 @@ class Marca(models.Model):
             'slug': self.slug
         })
 
+
+
 class Item(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
-    quantity = models.DecimalField(max_digits=65, decimal_places=0)
+    quantity = models.IntegerField(default=1)
     discount_price = models.FloatField(blank=True, null=True)
+    peso = models.FloatField(blank=True, null=True)
+    unit = models.CharField(blank=True, null=True, choices=UNIT_CHOICES, max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    marca = models.ForeignKey(Marca, on_delete=models.CASCADE, null=True, blank=True)
-    label = models.CharField(choices=LABEL_CHOICES, max_length=1)
+    subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True, blank=True)
+    label = models.CharField(choices=LABEL_CHOICES, max_length=50)
     slug = models.SlugField()
     stock_no = models.CharField(max_length=10, null=True)
     description_short = models.CharField(max_length=50)
     description_long = models.TextField()
-    image = models.ImageField()
+    image = models.ImageField(upload_to="images", width_field='item_img_height', height_field='item_img_width')
+    item_img_height = models.IntegerField(default=190)
+    item_img_width = models.IntegerField(default=190)
+    #image = ImageWithThumbsField(upload_to='images', sizes=((190,190),(525,390)))
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -116,6 +143,16 @@ class Item(models.Model):
             'slug': self.slug
         })
 
+
+class Img(models.Model):
+    title = models.CharField(max_length=100)
+    #picture = PictureField(upload_to="images")
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+
+
+    def __str__(self):
+        return self.title
 
 class OrderItem(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -188,15 +225,18 @@ class Order(models.Model):
 
 
 class BillingAddress(models.Model):
+    tag = models.CharField(max_length=100, default='domicilio')
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
-    zip = models.CharField(max_length=100)
+    number = models.CharField(max_length=100)
+    phone = models.CharField(max_length=100)
     address_type = models.CharField(max_length=50, choices=ADDRESS_CHOICES)
     payment_method = models.CharField(max_length=50, choices=METHODS_PAYMENT_CHOICES)
     default = models.BooleanField(default=False)
+    latitude =  models.FloatField(blank=True, null=True)
+    longitude =  models.FloatField(blank=True, null=True)
 
     def __str__(self):
         return self.user.username
@@ -206,7 +246,7 @@ class BillingAddress(models.Model):
 
 
 class Payment(models.Model):
-    stripe_charge_id = models.CharField(max_length=50)
+    #stripe_charge_id = models.CharField(max_length=50)
     methods = models.CharField(choices=METHODS_PAYMENT_CHOICES, max_length=50)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.SET_NULL, blank=True, null=True)

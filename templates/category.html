@@ -1,186 +1,1046 @@
-{% extends 'base.html' %}
-{% load static %}
-{% load category_template_tags %}
-{% block content %}
-<style type="text/css">
-	.selection-2{
-	display: block;
-    width: 100%;
-    height: calc(1.5em + .75rem + 2px);
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da !important;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-	}
-</style>
-
-<!-- Title Page -->
-<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(/media/{{ category_image }});">
-	<h2 class="l-text2 t-center">
-		{{ category_title }}
-	</h2>
-	<p class="m-text13 t-center">
-		{{ category_description }}
-	</p>
-</section>
 
 
-	<!-- Content page -->
-	<section class="bgwhite p-t-55 p-b-65">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
-					<div class="leftbar p-r-20 p-r-0-sm">
-						<!--  -->
-						<h4 class="m-text14 p-b-7">
-							Categorías
-						</h4>
 
-						<ul class="p-b-54">
-							<li class="p-t-4">
-								<a href="/shop" class="s-text13 active1">
-									Todas
+
+
+
+
+
+
+
+		{% extends 'main.html' %}
+		{% load static %}
+		
+		{% block content %}
+		
+		{% include 'header2.html' %}
+		<!-- Modal -->
+		<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content p-4">
+			  <div class="modal-header border-0">
+				<h5 class="modal-title fs-3 fw-bold" id="userModalLabel">Sign Up</h5>
+		
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			  </div>
+			  <div class="modal-body">
+				<form>
+				  <div class="mb-3">
+					<label for="fullName" class="form-label">Nombre</label>
+					<input type="text" class="form-control" id="fullName" placeholder="Enter Your Name" required="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;">
+				  </div>
+				  <div class="mb-3">
+					<label for="email" class="form-label">Correo</label>
+					<input type="email" class="form-control" id="email" placeholder="Enter Email address" required="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;">
+				  </div>
+		
+				  <div class="mb-5">
+					<label for="password" class="form-label">Password</label>
+					<input type="password" class="form-control" id="password" placeholder="Enter Password" required="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;">
+					<small class="form-text">By Signup, you agree to our <a href="https://freshcart.codescandy.com/pages/shop-grid.html#!">Terms of Service</a> &amp; <a href="https://freshcart.codescandy.com/pages/shop-grid.html#!">Privacy Policy</a></small>
+				  </div>
+		
+				  <button type="submit" class="btn btn-primary">Sign Up</button>
+				</form>
+			  </div>
+			  <div class="modal-footer border-0 justify-content-center">
+		
+				Already have an account? <a href="https://freshcart.codescandy.com/pages/shop-grid.html#">Sign in</a>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		
+		
+		
+		<!-- Shop Cart -->
+		
+		<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+		  <div class="offcanvas-header border-bottom">
+			<div class="text-start">
+			  <h5 id="offcanvasRightLabel" class="mb-0 fs-4">Carrito de Compras</h5>
+			  <small>Location in 382480</small>
+			</div>
+			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		  </div>
+		  <div class="offcanvas-body">
+		
+			<div class="">
+			  <!-- alert -->
+			  <div class="alert alert-danger p-2" role="alert">
+				You’ve got FREE delivery. Start <a href="https://freshcart.codescandy.com/pages/shop-grid.html#!" class="alert-link">checkout now!</a>
+			  </div>
+			  <ul class="list-group list-group-flush">
+				<!-- list group -->
+				<li class="list-group-item py-3 ps-0 border-top">
+				  <!-- row -->
+				  <div class="row align-items-center">
+					<div class="col-3 col-md-2">
+					  <!-- img --> <img src="./product-img-1.jpg" alt="Ecommerce" class="img-fluid"></div>
+					<div class="col-4 col-md-6 col-lg-5">
+					  <!-- title -->
+					  <a href="https://freshcart.codescandy.com/pages/shop-single.html" class="text-inherit">
+						<h6 class="mb-0">Haldiram's Sev Bhujia</h6>
+					  </a>
+					  <span><small class="text-muted">.98 / lb</small></span>
+					  <!-- text -->
+					  <div class="mt-2 small lh-1"> <a href="https://freshcart.codescandy.com/pages/shop-grid.html#!" class="text-decoration-none text-inherit"> <span class="me-1 align-text-bottom">
+							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-success">
+							  <polyline points="3 6 5 6 21 6"></polyline>
+							  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+							  </path>
+							  <line x1="10" y1="11" x2="10" y2="17"></line>
+							  <line x1="14" y1="11" x2="14" y2="17"></line>
+							</svg></span><span class="text-muted">Remove</span></a></div>
+					</div>
+					<!-- input group -->
+					<div class="col-3 col-md-3 col-lg-3">
+					  <!-- input -->
+					  <!-- input -->
+					  <div class="input-group input-spinner  ">
+						<input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
+						<input type="number" step="1" max="10" value="1" name="quantity" class="quantity-field form-control-sm form-input   ">
+						<input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
+					  </div>
+		
+					</div>
+					<!-- price -->
+					<div class="col-2 text-lg-end text-start text-md-end col-md-2">
+					  <span class="fw-bold">$5.00</span>
+		
+					</div>
+				  </div>
+		
+				</li>
+				<!-- list group -->
+				<li class="list-group-item py-3 ps-0">
+				  <!-- row -->
+				  <div class="row align-items-center">
+					<div class="col-3 col-md-2">
+					  <!-- img --> <img src="./product-img-2.jpg" alt="Ecommerce" class="img-fluid"></div>
+					<div class="col-4 col-md-6 col-lg-5">
+					  <!-- title -->
+					  <a href="https://freshcart.codescandy.com/pages/shop-single.html" class="text-inherit">
+						<h6 class="mb-0">NutriChoice Digestive </h6>
+					  </a>
+					  <span><small class="text-muted">250g</small></span>
+					  <!-- text -->
+					  <div class="mt-2 small lh-1"> <a href="https://freshcart.codescandy.com/pages/shop-grid.html#!" class="text-decoration-none text-inherit"> <span class="me-1 align-text-bottom">
+							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-success">
+							  <polyline points="3 6 5 6 21 6"></polyline>
+							  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+							  </path>
+							  <line x1="10" y1="11" x2="10" y2="17"></line>
+							  <line x1="14" y1="11" x2="14" y2="17"></line>
+							</svg></span><span class="text-muted">Remove</span></a></div>
+					</div>
+					<!-- input group -->
+					<div class="col-3 col-md-3 col-lg-3">
+					  <!-- input -->
+					  <!-- input -->
+					  <div class="input-group input-spinner  ">
+						<input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
+						<input type="number" step="1" max="10" value="1" name="quantity" class="quantity-field form-control-sm form-input   ">
+						<input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
+					  </div>
+					</div>
+					<!-- price -->
+					<div class="col-2 text-lg-end text-start text-md-end col-md-2">
+					  <span class="fw-bold text-danger">$20.00</span>
+					  <div class="text-decoration-line-through text-muted small">$26.00</div>
+					</div>
+				  </div>
+		
+				</li>
+				<!-- list group -->
+				<li class="list-group-item py-3 ps-0">
+				  <!-- row -->
+				  <div class="row align-items-center">
+					<div class="col-3 col-md-2">
+					  <!-- img --> <img src="./product-img-3.jpg" alt="Ecommerce" class="img-fluid"></div>
+					<div class="col-4 col-md-6 col-lg-5">
+					  <!-- title -->
+					  <a href="https://freshcart.codescandy.com/pages/shop-single.html" class="text-inherit">
+						<h6 class="mb-0">Cadbury 5 Star Chocolate</h6>
+					  </a>
+					  <span><small class="text-muted">1 kg</small></span>
+					  <!-- text -->
+					  <div class="mt-2 small lh-1"> <a href="https://freshcart.codescandy.com/pages/shop-grid.html#!" class="text-decoration-none text-inherit"> <span class="me-1 align-text-bottom">
+							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-success">
+							  <polyline points="3 6 5 6 21 6"></polyline>
+							  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+							  </path>
+							  <line x1="10" y1="11" x2="10" y2="17"></line>
+							  <line x1="14" y1="11" x2="14" y2="17"></line>
+							</svg></span><span class="text-muted">Remove</span></a></div>
+					</div>
+					<!-- input group -->
+					<div class="col-3 col-md-3 col-lg-3">
+					  <!-- input -->
+					  <!-- input -->
+					  <div class="input-group input-spinner  ">
+						<input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
+						<input type="number" step="1" max="10" value="1" name="quantity" class="quantity-field form-control-sm form-input   ">
+						<input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
+					  </div>
+					</div>
+					<!-- price -->
+					<div class="col-2 text-lg-end text-start text-md-end col-md-2">
+					  <span class="fw-bold">$15.00</span>
+					  <div class="text-decoration-line-through text-muted small">$20.00</div>
+					</div>
+				  </div>
+		
+				</li>
+				<!-- list group -->
+				<li class="list-group-item py-3 ps-0">
+				  <!-- row -->
+				  <div class="row align-items-center">
+					<div class="col-3 col-md-2">
+					  <!-- img --> <img src="./product-img-4.jpg" alt="Ecommerce" class="img-fluid"></div>
+					<div class="col-4 col-md-6 col-lg-5">
+					  <!-- title -->
+					  <a href="https://freshcart.codescandy.com/pages/shop-single.html" class="text-inherit">
+						<h6 class="mb-0">Onion Flavour Potato</h6>
+					  </a>
+					  <span><small class="text-muted">250g</small></span>
+					  <!-- text -->
+					  <div class="mt-2 small lh-1"> <a href="https://freshcart.codescandy.com/pages/shop-grid.html#!" class="text-decoration-none text-inherit"> <span class="me-1 align-text-bottom">
+							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-success">
+							  <polyline points="3 6 5 6 21 6"></polyline>
+							  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+							  </path>
+							  <line x1="10" y1="11" x2="10" y2="17"></line>
+							  <line x1="14" y1="11" x2="14" y2="17"></line>
+							</svg></span><span class="text-muted">Remove</span></a></div>
+					</div>
+					<!-- input group -->
+					<div class="col-3 col-md-3 col-lg-3">
+					  <!-- input -->
+					  <!-- input -->
+					  <div class="input-group input-spinner  ">
+						<input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
+						<input type="number" step="1" max="10" value="1" name="quantity" class="quantity-field form-control-sm form-input   ">
+						<input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
+					  </div>
+					</div>
+					<!-- price -->
+					<div class="col-2 text-lg-end text-start text-md-end col-md-2">
+					  <span class="fw-bold">$15.00</span>
+					  <div class="text-decoration-line-through text-muted small">$20.00</div>
+					</div>
+				  </div>
+		
+				</li>
+				<!-- list group -->
+				<li class="list-group-item py-3 ps-0 border-bottom">
+				  <!-- row -->
+				  <div class="row align-items-center">
+					<div class="col-3 col-md-2">
+					  <!-- img --> <img src="./product-img-5.jpg" alt="Ecommerce" class="img-fluid"></div>
+					<div class="col-4 col-md-6 col-lg-5">
+					  <!-- title -->
+					  <a href="https://freshcart.codescandy.com/pages/shop-single.html" class="text-inherit">
+						<h6 class="mb-0">Salted Instant Popcorn </h6>
+					  </a>
+					  <span><small class="text-muted">100g</small></span>
+					  <!-- text -->
+					  <div class="mt-2 small lh-1"> <a href="https://freshcart.codescandy.com/pages/shop-grid.html#!" class="text-decoration-none text-inherit"> <span class="me-1 align-text-bottom">
+							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-success">
+							  <polyline points="3 6 5 6 21 6"></polyline>
+							  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+							  </path>
+							  <line x1="10" y1="11" x2="10" y2="17"></line>
+							  <line x1="14" y1="11" x2="14" y2="17"></line>
+							</svg></span><span class="text-muted">Remove</span></a></div>
+					</div>
+					<!-- input group -->
+					<div class="col-3 col-md-3 col-lg-3">
+					  <!-- input -->
+					  <!-- input -->
+					  <div class="input-group input-spinner  ">
+						<input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
+						<input type="number" step="1" max="10" value="1" name="quantity" class="quantity-field form-control-sm form-input   ">
+						<input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
+					  </div>
+					</div>
+					<!-- price -->
+					<div class="col-2 text-lg-end text-start text-md-end col-md-2">
+					  <span class="fw-bold">$15.00</span>
+					  <div class="text-decoration-line-through text-muted small">$25.00</div>
+					</div>
+				  </div>
+		
+				</li>
+		
+			  </ul>
+			  <!-- btn -->
+			  <div class="d-flex justify-content-between mt-4">
+				<a href="https://freshcart.codescandy.com/pages/shop-grid.html#!" class="btn btn-primary">Seguir comprando</a>
+				<a href="https://freshcart.codescandy.com/pages/shop-grid.html#!" class="btn btn-dark">Update Cart</a>
+			  </div>
+		
+			</div>
+		  </div>
+		</div>
+		
+		<!-- Modal -->
+		<div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-sm modal-dialog-centered">
+			<div class="modal-content">
+		
+			  <div class="modal-body p-6">
+				<div class="d-flex justify-content-between align-items-start ">
+				  <div>
+					<h5 class="mb-1" id="locationModalLabel">Choose your Delivery Location</h5>
+					<p class="mb-0 small">Enter your address and we will specify the offer you area. </p>
+				  </div>
+				  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="my-5">
+				  <input type="search" class="form-control" placeholder="Search your area">
+				</div>
+				<div class="d-flex justify-content-between align-items-center mb-2">
+				  <h6 class="mb-0">Select Location</h6>
+				  <a href="https://freshcart.codescandy.com/pages/shop-grid.html#" class="btn btn-outline-gray-400 text-muted btn-sm">Clear All</a>
+		
+		
+				</div>
+				<div>
+				  <div data-simplebar="init" style="height:300px;"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: auto; overflow: hidden;"><div class="simplebar-content" style="padding: 0px;">
+					<div class="list-group list-group-flush">
+		
+					  <a href="https://freshcart.codescandy.com/pages/shop-grid.html#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action active">
+						<span>Alabama</span><span>Min:$20</span></a>
+					  <a href="https://freshcart.codescandy.com/pages/shop-grid.html#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+						<span>Alaska</span><span>Min:$30</span></a>
+					  <a href="https://freshcart.codescandy.com/pages/shop-grid.html#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+						<span>Arizona</span><span>Min:$50</span></a>
+					  <a href="https://freshcart.codescandy.com/pages/shop-grid.html#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+						<span>California</span><span>Min:$29</span></a>
+					  <a href="https://freshcart.codescandy.com/pages/shop-grid.html#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+						<span>Colorado</span><span>Min:$80</span></a>
+					  <a href="https://freshcart.codescandy.com/pages/shop-grid.html#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+						<span>Florida</span><span>Min:$90</span></a>
+					  <a href="https://freshcart.codescandy.com/pages/shop-grid.html#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+						<span>Arizona</span><span>Min:$50</span></a>
+					  <a href="https://freshcart.codescandy.com/pages/shop-grid.html#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+						<span>California</span><span>Min:$29</span></a>
+					  <a href="https://freshcart.codescandy.com/pages/shop-grid.html#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+						<span>Colorado</span><span>Min:$80</span></a>
+					  <a href="https://freshcart.codescandy.com/pages/shop-grid.html#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
+						<span>Florida</span><span>Min:$90</span></a>
+					</div>
+				  </div></div></div></div><div class="simplebar-placeholder" style="width: 0px; height: 0px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: hidden;"><div class="simplebar-scrollbar" style="height: 0px; display: none;"></div></div></div>
+				</div>
+			  </div>
+		
+			</div>
+		  </div>
+		</div>
+		  <main>
+		  <!-- section-->
+		  <div class="mt-4">
+			<div class="container">
+			  <!-- row -->
+			  <div class="row ">
+				<!-- col -->
+				<div class="col-12">
+				  <!-- breadcrumb -->
+				  <nav aria-label="breadcrumb">
+					<ol class="breadcrumb mb-0">
+					  <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+					  <li class="breadcrumb-item"><a href="#">Categorias</a></li>
+					  <li class="breadcrumb-item active" aria-current="page" >{{ category_title }}</li>
+					</ol>
+				  </nav>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		  <!-- section -->
+		  <div class=" mt-8 mb-lg-14 mb-8">
+			<!-- container -->
+			<div class="container">
+			  <!-- row -->
+			  <div class="row gx-10">
+				<!-- col -->
+				<aside class="col-lg-3 col-md-4 mb-6 mb-md-0">
+				  <div class="offcanvas offcanvas-start offcanvas-collapse w-md-50 " tabindex="-1" id="offcanvasCategory" aria-labelledby="offcanvasCategoryLabel">
+		
+					<div class="offcanvas-header d-lg-none">
+					  <h5 class="offcanvas-title" id="offcanvasCategoryLabel">Filter</h5>
+					  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					<div class="offcanvas-body ps-lg-2 pt-lg-0">
+					<div class="mb-8">
+					<!-- title -->
+					<h5 class="mb-3">Categorías</h5>
+					<!-- nav -->
+					<ul class="nav nav-category" id="categoryCollapseMenu">
+					 
+					 
+		
+					</ul>
+				  </div>
+		
+				  <div class="mb-8">
+		
+					<h5 class="mb-3">Stores</h5>
+					<div class="my-4">
+					  <!-- input -->
+					  <input type="search" class="form-control" placeholder="Search by store">
+					</div>
+					<!-- form check -->
+					<div class="form-check mb-2">
+					  <!-- input -->
+					  <input class="form-check-input" type="checkbox" value="" id="eGrocery" checked="">
+					  <label class="form-check-label" for="eGrocery">
+						E-Grocery
+					  </label>
+					</div>
+					<!-- form check -->
+					<div class="form-check mb-2">
+					  <!-- input -->
+					  <input class="form-check-input" type="checkbox" value="" id="DealShare">
+					  <label class="form-check-label" for="DealShare">
+						DealShare
+					  </label>
+					</div>
+					<!-- form check -->
+					<div class="form-check mb-2">
+					  <!-- input -->
+					  <input class="form-check-input" type="checkbox" value="" id="Dmart">
+					  <label class="form-check-label" for="Dmart">
+						DMart
+					  </label>
+					</div>
+					<!-- form check -->
+					<div class="form-check mb-2">
+					  <!-- input -->
+					  <input class="form-check-input" type="checkbox" value="" id="Blinkit">
+					  <label class="form-check-label" for="Blinkit">
+						Blinkit
+					  </label>
+					</div>
+					<!-- form check -->
+					<div class="form-check mb-2">
+					  <!-- input -->
+					  <input class="form-check-input" type="checkbox" value="" id="BigBasket">
+					  <label class="form-check-label" for="BigBasket">
+						BigBasket
+					  </label>
+					</div>
+					<!-- form check -->
+					<div class="form-check mb-2">
+					  <!-- input -->
+					  <input class="form-check-input" type="checkbox" value="" id="StoreFront">
+					  <label class="form-check-label" for="StoreFront">
+						StoreFront
+					  </label>
+					</div>
+					<!-- form check -->
+					<div class="form-check mb-2">
+					  <!-- input -->
+					  <input class="form-check-input" type="checkbox" value="" id="Spencers">
+					  <label class="form-check-label" for="Spencers">
+						Spencers
+					  </label>
+					</div>
+					<!-- form check -->
+					<div class="form-check mb-2">
+					  <!-- input -->
+					  <input class="form-check-input" type="checkbox" value="" id="onlineGrocery">
+					  <label class="form-check-label" for="onlineGrocery">
+						Online Grocery
+					  </label>
+					</div>
+		
+				  </div>
+				  <div class="mb-8">
+					<!-- price -->
+					<h5 class="mb-3">Price</h5>
+					<div>
+					  <!-- range -->
+					  <div id="priceRange" class="mb-3 noUi-target noUi-ltr noUi-horizontal noUi-txt-dir-ltr"><div class="noUi-base"><div class="noUi-connects"><div class="noUi-connect" style="transform: translate(14.6259%, 0px) scale(0.510204, 1);"></div></div><div class="noUi-origin" style="transform: translate(-85.3741%, 0px); z-index: 5;"><div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0" role="slider" aria-orientation="horizontal" aria-valuemin="6.0" aria-valuemax="199.0" aria-valuenow="49.0" aria-valuetext="$49"><div class="noUi-touch-area"></div></div></div><div class="noUi-origin" style="transform: translate(-34.3537%, 0px); z-index: 4;"><div class="noUi-handle noUi-handle-upper" data-handle="1" tabindex="0" role="slider" aria-orientation="horizontal" aria-valuemin="49.0" aria-valuemax="300.0" aria-valuenow="199.0" aria-valuetext="$199"><div class="noUi-touch-area"></div></div></div></div></div>
+					  <small class="text-muted">Price:</small> <span id="priceRange-value" class="small">$49 - $199</span>
+		
+					</div>
+		
+		
+		
+				  </div>
+				  <!-- rating -->
+				  <div class="mb-8">
+		
+					<h5 class="mb-3">Rating</h5>
+					<div>
+					  <!-- form check -->
+					  <div class="form-check mb-2">
+						<!-- input -->
+						<input class="form-check-input" type="checkbox" value="" id="ratingFive">
+						<label class="form-check-label" for="ratingFive">
+						  <i class="bi bi-star-fill text-warning"></i>
+						  <i class="bi bi-star-fill text-warning "></i>
+						  <i class="bi bi-star-fill text-warning "></i>
+						  <i class="bi bi-star-fill text-warning "></i>
+						  <i class="bi bi-star-fill text-warning "></i>
+						</label>
+					  </div>
+					  <!-- form check -->
+					  <div class="form-check mb-2">
+						<!-- input -->
+						<input class="form-check-input" type="checkbox" value="" id="ratingFour" checked="">
+						<label class="form-check-label" for="ratingFour">
+						  <i class="bi bi-star-fill text-warning"></i>
+						  <i class="bi bi-star-fill text-warning "></i>
+						  <i class="bi bi-star-fill text-warning "></i>
+						  <i class="bi bi-star-fill text-warning "></i>
+						  <i class="bi bi-star text-warning"></i>
+						</label>
+					  </div>
+					  <!-- form check -->
+					  <div class="form-check mb-2">
+						<!-- input -->
+						<input class="form-check-input" type="checkbox" value="" id="ratingThree">
+						<label class="form-check-label" for="ratingThree">
+						  <i class="bi bi-star-fill text-warning"></i>
+						  <i class="bi bi-star-fill text-warning "></i>
+						  <i class="bi bi-star-fill text-warning "></i>
+						  <i class="bi bi-star text-warning"></i>
+						  <i class="bi bi-star text-warning"></i>
+						</label>
+					  </div>
+					  <!-- form check -->
+					  <div class="form-check mb-2">
+						<!-- input -->
+						<input class="form-check-input" type="checkbox" value="" id="ratingTwo">
+						<label class="form-check-label" for="ratingTwo">
+						  <i class="bi bi-star-fill text-warning"></i>
+						  <i class="bi bi-star-fill text-warning"></i>
+						  <i class="bi bi-star text-warning"></i>
+						  <i class="bi bi-star text-warning"></i>
+						  <i class="bi bi-star text-warning"></i>
+						</label>
+					  </div>
+					  <!-- form check -->
+					  <div class="form-check mb-2">
+						<!-- input -->
+						<input class="form-check-input" type="checkbox" value="" id="ratingOne">
+						<label class="form-check-label" for="ratingOne">
+						  <i class="bi bi-star-fill text-warning"></i>
+						  <i class="bi bi-star text-warning"></i>
+						  <i class="bi bi-star text-warning"></i>
+						  <i class="bi bi-star text-warning"></i>
+						  <i class="bi bi-star text-warning"></i>
+						</label>
+					  </div>
+					</div>
+		
+		
+				  </div>
+				  <div class="mb-8 position-relative">
+					<!-- Banner Design -->
+					<!-- Banner Content -->
+					<div class="position-absolute p-5 py-8">
+					  <h3 class="mb-0">Fresh Fruits </h3>
+					  <p>Get Upto 25% Off</p>
+					  <a href="https://freshcart.codescandy.com/pages/shop-grid.html#" class="btn btn-dark">Shop Now<i class="feather-icon icon-arrow-right ms-1"></i></a>
+					</div>
+					<!-- Banner Content -->
+					<!-- Banner Image -->
+					<!-- img --><img src="./assortment-citrus-fruits.png" alt="" class="img-fluid rounded ">
+					<!-- Banner Image -->
+				  </div>
+				  </div>
+				</div>
+				</aside>
+				<section class="col-lg-9 col-md-12">
+				  <!-- card -->
+				  <div class="card mb-4 bg-light border-0" style="background-image: url(/media/{{ category_image }});">
+					<!-- card body -->
+					<div class=" card-body p-9">
+					  <h2 class="mb-0 fs-1">{{ category_title }}</h2>
+					</div>
+				  </div>
+				  <!-- list icon -->
+				  <div class="d-lg-flex justify-content-between align-items-center">
+					<div class="mb-3 mb-lg-0">
+					  <p class="mb-0"> <span class="text-dark">24 </span> Productos Encontrados </p>
+					</div>
+		
+					<!-- icon -->
+					<div class="d-md-flex justify-content-between align-items-center">
+					  <div class="d-flex align-items-center justify-content-between">
+					  <div>
+		
+					  <a href="https://freshcart.codescandy.com/pages/shop-list.html" class="text-muted me-3"><i class="bi bi-list-ul"></i></a>
+					  <a href="https://freshcart.codescandy.com/pages/shop-grid.html" class=" me-3 active"><i class="bi bi-grid"></i></a>
+					  <a href="https://freshcart.codescandy.com/pages/shop-grid-3-column.html" class="me-3 text-muted"><i class="bi bi-grid-3x3-gap"></i></a>
+					  </div>
+					  <div class="ms-2 d-lg-none">
+						<a class="btn btn-outline-gray-400 text-muted" data-bs-toggle="offcanvas" href="https://freshcart.codescandy.com/pages/shop-grid.html#offcanvasCategory" role="button" aria-controls="offcanvasCategory"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter me-2">
+						  <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+						</svg> Filters</a>
+					  </div>
+					</div>
+		
+					  <div class="d-flex mt-2 mt-lg-0">
+						<div class="me-2 flex-grow-1">
+						  <!-- select option -->
+						  <select class="form-select">
+							<option selected="">Show: 50</option>
+							<option value="10">10</option>
+							<option value="20">20</option>
+							<option value="30">30</option>
+						  </select></div>
+						<div>
+						  <!-- select option -->
+						  <select class="form-select">
+							<option selected="">Sort by: Featured</option>
+							<option value="Low to High">Price: Low to High</option>
+							<option value="High to Low"> Price: High to Low</option>
+							<option value="Release Date"> Release Date</option>
+							<option value="Avg. Rating"> Avg. Rating</option>
+		
+						  </select></div>
+		
+					  </div>
+		
+					</div>
+				  </div>
+				  <!-- row -->
+				  <div class="row g-4 row-cols-xl-4 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2">
+					{% for item in object_list  %}
+					<!-- col -->
+					<div class="col">
+						<!-- card -->
+						<div class="card card-product">
+						  <div class="card-body">
+		  
+							<!-- badge -->
+							<div class="text-center position-relative " style="width: 160px; height: 172px;">
+							  <div class=" position-absolute top-0 start-0">
+								  {% if item.label == 'agotado' %}
+								  <span class="badge bg-danger">{{item.label}}</span>
+								  {% else %}
+								  <span class="badge bg-success">{{item.label}}</span>
+								  {% endif %}
+								
+							  </div>
+							  <a href="#" onclick="get_details({{item.id}})"  data-bs-toggle="modal" data-bs-target="#quickViewModal">
+								<!-- img --><img src="{{ item.image.url }}" alt="Grocery Ecommerce Template" class="mb-3 img-fluid"></a>
+							  <!-- action btn -->
+							  <div class="card-product-action">
+								<a href="#" class="btn-action" data-bs-toggle="modal" data-bs-target="#quickViewModal">
+								  <i class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true" aria-label="Quick View" data-bs-original-title="Quick View"></i></a>
+								<a href="#" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true" aria-label="Wishlist" data-bs-original-title="Wishlist"><i class="bi bi-heart"></i></a>
+								<a href="#" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true" aria-label="Compare" data-bs-original-title="Compare"><i class="bi bi-arrow-left-right"></i></a>
+							  </div>
+							</div>
+							<!-- heading -->
+							<div class="text-small mb-1"><a href="/category/{{item.category.slug}}" class="text-decoration-none text-muted"><small>{{item.category.title}}</small></a></div>
+							<h2 class="fs-6"><a href="#" class="text-inherit text-decoration-none">{{item.title}}</a></h2>
+							<div>
+							  <!-- rating -->
+							  <small class="text-warning"> <i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-fill"></i>
+								<i class="bi bi-star-half"></i></small> <span class="text-muted small">4.5(149)</span>
+							</div>
+							<!-- price -->
+							<div class="d-flex justify-content-between align-items-center mt-3">
+							  <div><span class="text-dark">${{item.price}}</span>
+							  </div>
+							  <!-- btn -->
+							  <div><a href="{{ item.get_add_to_cart_url }}" class="btn btn-primary btn-sm">
+								  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+									<line x1="12" y1="5" x2="12" y2="19"></line>
+									<line x1="5" y1="12" x2="19" y2="12"></line>
+								  </svg> Agregar</a></div>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					{% endfor %}
+					<!-- col -->
+					
+				  </div>
+				  <div class="row mt-8">
+					<div class="col">
+							 <!-- nav -->
+					  <nav>
+
+					{% if is_paginated %}
+						<ul class="pagination">
+						{% if page_obj.has_previous %}
+						  <li class="page-item disabled">
+							
+								<a class="page-link  mx-1 " href="?page={{ page_obj.previous_page_number}}" aria-label="Previous">
+								<i class="feather-icon icon-chevron-left"></i>
+								</a>
+						  </li>
+						  {% endif %}
+						  <li class="page-item "><a class="page-link  mx-1 active" href="?page={{ page_obj.number }}">{{page_obj.number}}</a></li>
+						  
+						  {% if page_obj.has_next %}
+							<li class="page-item">
+								<a class="page-link mx-1 text-body" href="?page={{ page_obj.next_page_number}}" aria-label="Next">
+								<i class="feather-icon icon-chevron-right"></i>
 								</a>
 							</li>
-
-							{% categories_li_a %}
-
+						  {% endif %}
 						</ul>
-
-						<!--  -->
-						
-						<div class="filter-price p-t-22 p-b-50 bo3">
-							<div class="m-text15 p-b-17">
-								Marca
-							</div>
-							<ul class="p-b-54">
-								<li class="p-t-4">
-									<a href="/shop" class="s-text13 active1">
-										Todas
-									</a>
-								</li>
-	
-								
-	
-							</ul>
-						</div>
-						
-
+					{% endif %}
+					  </nav>
 					</div>
+				  </div>
+				</section>
+			  </div>
+			</div>
+		  </div>
+		</main>
+		
+		  <!-- modal -->
+  <!-- Modal -->
+  <div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+	  <div class="modal-content">
+		<div class="modal-body p-8">
+		  <div class="position-absolute top-0 end-0 me-3 mt-3">
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		  </div>
+		  <div class="row">
+			<div class="col-lg-6" id="modal-detail_img">
+			  <!-- img slide -->
+			  <div class="tns-outer" id="productModal-ow"><div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">slide <span class="current">1</span>  of 4</div><div id="productModal-mw" class="tns-ovh"><div class="tns-inner" id="productModal-iw"><div class="product productModal  tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal" id="productModal" style="transition-duration: 0s; transform: translate3d(0%, 0px, 0px);">
+				<div class="zoom tns-item tns-slide-active" onmousemove="zoom(event)" style="
+					background-image: url(../assets/images/products/product-single-img-1.jpg);
+				  " id="productModal-item0">
+				  <!-- img -->
+				  <img src="./product-single-img-1.jpg" alt="">
 				</div>
-
-				<div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
-					<!--  -->
-					<!--- barra de busqueda -->
-					{% csrf_token %}
-					<form method="GET" action="/search">
-						<div class="search-product pos-relative bo4 of-hidden">
-							<input class="s-text7 size6 p-l-23 p-r-50" type="text" name="search" placeholder="Buscar productos...">
-				
-							<button type="submit" class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
-								<i class="fs-12 fa fa-search" aria-hidden="true"></i>
-							</button>
-						</div>
-					</form>
-					
-					<!-- end barra de busqueda -->
-					<div class="flex-sb-m flex-w p-b-35">
-						<div class="flex-w">
-						
-							<!-- filtos-->
-						</div>
-
-						<span class="s-text8 p-t-5 p-b-5">
-							Showing 1–12 of 16 results
-						</span>
+				<div class="tns-item" id="productModal-item1" aria-hidden="true" tabindex="-1">
+				  <div class="zoom" onmousemove="zoom(event)" style="
+					  background-image: url(../assets/images/products/product-single-img-2.jpg);
+					">
+					<!-- img -->
+					<img src="./product-single-img-2.jpg" alt="">
+				  </div>
+				</div>
+				<div class="tns-item" id="productModal-item2" aria-hidden="true" tabindex="-1">
+				  <div class="zoom" onmousemove="zoom(event)" style="
+					  background-image: url(../assets/images/products/product-single-img-3.jpg);
+					">
+					<!-- img -->
+					<img src="./product-single-img-3.jpg" alt="">
+				  </div>
+				</div>
+				<div class="tns-item" id="productModal-item3" aria-hidden="true" tabindex="-1">
+				  <div class="zoom" onmousemove="zoom(event)" style="
+					  background-image: url(../assets/images/products/product-single-img-4.jpg);
+					">
+					<!-- img -->
+					<img src="./product-single-img-4.jpg" alt="">
+				  </div>
+				</div>
+			  </div></div></div></div>
+			  <!-- product tools -->
+			  <div class="product-tools">
+				<div class="thumbnails row g-3" id="productModalThumbnails" aria-label="Carousel Pagination">
+				  <div class="col-3 tns-nav-active" data-nav="0" aria-label="Carousel Page 1 (Current Slide)" aria-controls="productModal">
+					<div class="thumbnails-img">
+					  <!-- img -->
+					  <img src="./product-single-img-1.jpg" alt="">
 					</div>
-
-					<!-- Product -->
-					<div class="row">
-						{% for item in object_list %}
-						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
-							<!-- Block2 -->
-							<div class="block2">
-								<div class="block2-img wrap-pic-w of-hidden pos-relative {% if item.is_active %} block2-labelnew {% else %} block2-labelsale {% endif %} ">
-									<img src="{{ item.image.url }}" alt="IMG-PRODUCT" 
-								style="height: 360px;">
-
-									<div class="block2-overlay trans-0-4">
-										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
-											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-										</a>
-
-										<div class="block2-btn-addcart w-size1 trans-0-4">
-											<!-- Button -->
-										<a href="{{ item.get_add_to_cart_url }}">
-											<button  class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
-												Agregar
-											</button>
-										</a>
+				  </div>
+				  <div class="col-3" data-nav="1" tabindex="-1" aria-label="Carousel Page 2" aria-controls="productModal">
+					<div class="thumbnails-img">
+					  <!-- img -->
+					  <img src="./product-single-img-2.jpg" alt="">
+					</div>
+				  </div>
+				  <div class="col-3" data-nav="2" tabindex="-1" aria-label="Carousel Page 3" aria-controls="productModal">
+					<div class="thumbnails-img">
+					  <!-- img -->
+					  <img src="./product-single-img-3.jpg" alt="">
+					</div>
+				  </div>
+				  <div class="col-3" data-nav="3" tabindex="-1" aria-label="Carousel Page 4" aria-controls="productModal">
+					<div class="thumbnails-img">
+					  <!-- img -->
+					  <img src="./product-single-img-4.jpg" alt="">
+					</div>
+				  </div>
+				</div>
+			  </div>
+			</div>
+			<div class="col-lg-6" id="modal-detail">
+			  
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </div>
+  
+		
+		
+		
+		<script>
+			function get_details(item_id) {
+				
+					//e.preventDefault();
+				$.ajax({
+					url: "/show_detail/"+item_id+"/",
+					type: 'GET',
+					dataType: 'json', // added data type
+						success: function(res) {
+							console.log(res);
+							console.log(res['data']['title']);
+							let template = ''
+							document.getElementById("modal-detail").innerHTML = template
+								template = `
+		
+											<div class="ps-lg-8 mt-6 mt-lg-0">
+												<a href="http://localhost:8000/category/${res['data']['category_url']}" class="mb-4 d-block">${res['data']['category']}</a>
+												<h2 class="mb-1 h1">${res['data']['title']}</h2>
+												<div class="mb-4">
+													<small class="text-warning">
+													<i class="bi bi-star-fill"></i>
+													<i class="bi bi-star-fill"></i>
+													<i class="bi bi-star-fill"></i>
+													<i class="bi bi-star-fill"></i>
+													<i class="bi bi-star-half"></i></small><a href="#" class="ms-2">(30 reviews)</a>
+												</div>
+												<div class="fs-4">
+													<span class="fw-bold text-dark">$ ${res['data']['price']}</span>
+													
+												</div>
+												<hr class="my-6">
+												<div class="mb-4">
+													<button type="button" class="btn btn-outline-secondary">
+														${res['data']['peso']} ${res['data']['unit']}
+													</button>
+													
+												</div>
+												<div>
+													<!-- input -->
+													<!-- input -->
+													<div class="input-group input-spinner">
+														<a href="remove-item-from-cart/${res['data']['slug']}/">
+															<input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
+														</a>
+														<input type="number" step="1" max="${res['data']['quantity']}" value="${res['data']['quantity_cart']}" name="quantity" class="quantity-field form-control-sm form-input">
+														<a href="/add-to-cart/${res['data']['slug']}/">
+															<input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
+														</a>
+													</div>
+												</div>
+												<div class="mt-3 row justify-content-start g-2 align-items-center">
+		
+													<div class="col-lg-4 col-md-5 col-6 d-grid">
+													<!-- button -->
+													<!-- btn -->
+													<a href="/add-to-cart/${res['data']['slug']}/">
+													<button type="button" class="btn btn-primary">
+														<i class="feather-icon icon-shopping-bag me-2"></i>
+														Agregar
+													</button>
+													</a>
+												</div>
+												<div class="col-md-4 col-5">
+													<!-- btn -->
+													<a class="btn btn-light" href="#" data-bs-toggle="tooltip" data-bs-html="true" aria-label="Compare"><i class="bi bi-arrow-left-right"></i></a>
+													<a class="btn btn-light" href="#" data-bs-toggle="tooltip" data-bs-html="true" aria-label="Wishlist"><i class="feather-icon icon-heart"></i></a>
+												</div>
+												<hr class="my-6">
+												<div>
+													<table class="table table-borderless">
+													<tbody>
+														<tr>
+														<td>Codigo:</td>
+														<td>${res['data']['code_bar']}</td>
+														</tr>
+														<tr>
+														<td>Disponibilidad:</td>
+														<td>En Stock</td>
+														</tr>
+														<tr>
+														<td>Marca:</td>
+														<td> ${res['data']['brand']}</td>
+														</tr>
+														<tr>
+														<td>Shipping:</td>
+														<td>
+															<small>01 day shipping.<span class="text-muted">( Free pickup today)</span></small>
+														</td>
+														</tr>
+													</tbody>
+													</table>
+												</div>
+		
+											</div>
 											
 											
+		
+									`; 
+								
+								document.getElementById("modal-detail").innerHTML = template;
+								let template_img =''
+								document.getElementById("modal-detail_img").innerHTML = template_img;
+								template_img = `
+								<!-- img slide -->
+									<div class="tns-outer" id="productModal-ow">
+										<div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">
+											slide <span class="current">1</span>  of 4</div>
+											<div id="productModal-mw" class="tns-ovh">
+												<div class="tns-inner" id="productModal-iw">
+													<div class="product productModal  tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal" id="productModal" style="transition-duration: 0s; transform: translate3d(0%, 0px, 0px);">
+									<div class="zoom tns-item tns-slide-active" onmousemove="zoom(event)" style="
+										background-image: url(/media/${res['data']['image']});
+										" id="productModal-item0">
+										<!-- img -->
+										<img src="/media/${res['data']['image']}" alt="">
+									</div>
+									<div class="tns-item" id="productModal-item1" aria-hidden="true" tabindex="-1">
+										<div class="zoom" onmousemove="zoom(event)" style="
+											background-image: url(/media/${res['data']['image']});
+										">
+										<!-- img -->
+										<img src="/media/${res['data']['image']}" alt="">
 										</div>
 									</div>
-								</div>
-
-								<div class="block2-txt p-t-20">
-									<a href="{{item.get_absolute_url}}" class="block2-name dis-block s-text3 p-b-5">
-										{{item.title}}
-									</a>
-
-									<span class="block2-price m-text6 p-r-5">
-										${{item.price}}
-									</span>
-								</div>
-							</div>
-						</div>
-						{% endfor %}
-
-						
-
-						
+									<div class="tns-item" id="productModal-item2" aria-hidden="true" tabindex="-1">
+										<div class="zoom" onmousemove="zoom(event)" style="
+											background-image: url(../assets/images/products/product-single-img-3.jpg);
+										">
+										<!-- img -->
+										<img src="./product-single-img-3.jpg" alt="">
+										</div>
+									</div>
+									<div class="tns-item" id="productModal-item3" aria-hidden="true" tabindex="-1">
+										<div class="zoom" onmousemove="zoom(event)" style="
+											background-image: url(/media/images/${res['data']['image']});
+										">
+										<!-- img -->
+										<img src="./product-single-img-4.jpg" alt="">
+										</div>
+									</div>
+									</div></div></div></div>
+									<!-- product tools -->
+									<div class="product-tools">
+									<div class="thumbnails row g-3" id="productModalThumbnails" aria-label="Carousel Pagination">
+										<div class="col-3 tns-nav-active" data-nav="0" aria-label="Carousel Page 1 (Current Slide)" aria-controls="productModal">
+										<div class="thumbnails-img">
+											<!-- img -->
+											<img src="/media/${res['data']['image']}" alt="">
+										</div>
+										</div>
+										<div class="col-3" data-nav="1" tabindex="-1" aria-label="Carousel Page 2" aria-controls="productModal">
+										<div class="thumbnails-img">
+											<!-- img -->
+											<img src="./product-single-img-2.jpg" alt="">
+										</div>
+										</div>
+										<div class="col-3" data-nav="2" tabindex="-1" aria-label="Carousel Page 3" aria-controls="productModal">
+										<div class="thumbnails-img">
+											<!-- img -->
+											<img src="./product-single-img-3.jpg" alt="">
+										</div>
+										</div>
+										<div class="col-3" data-nav="3" tabindex="-1" aria-label="Carousel Page 4" aria-controls="productModal">
+										<div class="thumbnails-img">
+											<!-- img -->
+											<img src="./product-single-img-4.jpg" alt="">
+										</div>
+										</div>
+									</div>
+									</div>`; 
+									document.getElementById("modal-detail_img").innerHTML = template_img;
+						}
+		
+				})
+			}
+		
+		</script>
+		
+		
+		
+		<script>
+			window.onload = function() {
 				
-				</div>
-				<!-- ---- row end ------- -->
-
-				<br>
-				<!-- Pagination -->
-				{% if is_paginated %}
-				<div class="pagination flex-m flex-w p-t-26">
-					{% if page_obj.has_previous %}
-					<a class="page-link" href="?page={{ page_obj.previous_page_number}}" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-						<span class="sr-only">Previous</span>
-					</a>
-					{% endif %}
-					<a href="?page={{ page_obj.number }}" class="item-pagination flex-c-m trans-0-4 active-pagination">{{page_obj.number}}</a>
-					
-					
-					{% if page_obj.has_next %}
-					<a class="page-link" href="?page={{ page_obj.next_page_number}}" aria-label="Next">
-							<span aria-hidden="true">&raquo;</span>
-							<span class="sr-only">Next</span>
-						</a>
-						{% endif %}
-				</div>
-				{% endif %}
-			</div>
-		</div>
-	</section>
-
-
+					//e.preventDefault();
+					$.ajax({
+					url: "/shopping-card-api",
+					type: 'GET',
+					dataType: 'json', // added data type
+						success: function(res) {
+							console.log(res);
+							let template = ''
+							document.getElementById("shopping_cart").innerHTML = template
+							//document.getElementById("shopping_cart_total").innerHTML = ''
+							for (var key in res.items) {
+								template = `
+								<!-- list group -->
+								<li class="list-group-item py-3 ps-0 border-top">
+								<!-- row -->
+								<div class="row align-items-center">
+									<div class="col-3 col-md-2">
+									<!-- img --> <img src="/media/${res.items[key]['img']}" alt="Ecommerce" class="img-fluid"></div>
+									<div class="col-4 col-md-6 col-lg-5">
+									<!-- title -->
+									<a href="#" class="text-inherit">
+										<h6 class="mb-0">${res.items[key]['title']}</h6>
+									</a>
+									<span><small class="text-muted">.98 / lb</small></span>
+									<!-- text -->
+									<div class="mt-2 small lh-1"> 
+										<a href="/remove-from-cart/${res.items[key]['slug']}/" class="text-decoration-none text-inherit"> <span class="me-1 align-text-bottom">
+											<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-success">
+											<polyline points="3 6 5 6 21 6"></polyline>
+											<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+											</path>
+											<line x1="10" y1="11" x2="10" y2="17"></line>
+											<line x1="14" y1="11" x2="14" y2="17"></line>
+											
+											</svg></span><span class="text-muted">Remove</span></a></div>
+									</div>
+									<!-- input group -->
+									<div class="col-3 col-md-3 col-lg-3">
+									<!-- input -->
+									<!-- input -->
+									<div class="input-group input-spinner  ">
+										<a href="remove-item-from-cart/${res.items[key]['slug']}/">
+											<input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
+										</a>
+										<input type="number" step="1" max="10" value="${res.items[key]['quantity']}" name="quantity" class="quantity-field form-control-sm form-input   ">
+										<a href="/add-to-cart/${res.items[key]['slug']}/">
+											<input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
+										</a>
+									</div>
+		
+									</div>
+									<!-- price -->
+									<div class="col-2 text-lg-end text-start text-md-end col-md-2">
+									<span class="fw-bold">$ ${res.items[key]['price']}</span>
+		
+									</div>
+								</div>
+		
+								</li>`; 
+								
+								document.getElementById("shopping_cart").innerHTML += template;
+							
+							}
+							//document.getElementById("shopping_cart_total").innerHTML = res.total
+						}
+					})
+				}
+		
+		</script>
 		{% endblock content %}
-
-
-
-
-
-
-
+		
+		
+			
