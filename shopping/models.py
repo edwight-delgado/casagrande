@@ -15,8 +15,11 @@ def update_order_items(sender, instance, **kwargs):
                     orderitem.item.quantity = abs(orderitem.quantity - orderitem.item.quantity )
                     if orderitem.item.quantity < 1:
                         orderitem.item.is_active = False
+                        orderitem.item.label = 'agotado'
                     orderitem.item.save()
                     print("Update is called")
+
+
 
 # Create your models here.
 
@@ -30,6 +33,7 @@ UNIT_CHOICES = (
     ('kilo', 'kilo'),
     ('gramos', 'gramos'),
     ('onza', 'onza'),
+    ('ml', 'ml'),
     ('litros', 'litros'),
     ('centimetros', 'centimetros'),
     ('metros', 'metros'),
@@ -114,7 +118,7 @@ class Item(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True, blank=True)
-    label = models.CharField(choices=LABEL_CHOICES, max_length=50)
+    label = models.CharField(choices=LABEL_CHOICES, max_length=50, default='venta')
     slug = models.SlugField()
     stock_no = models.CharField(max_length=10, null=True)
     description_short = models.CharField(max_length=50)
@@ -124,6 +128,7 @@ class Item(models.Model):
     item_img_width = models.IntegerField(default=190)
     #image = ImageWithThumbsField(upload_to='images', sizes=((190,190),(525,390)))
     is_active = models.BooleanField(default=True)
+    expiration_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -254,7 +259,7 @@ class Payment(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.username
+        return f'{self.user}, {self.amount}, {self.methods}' 
 
 
 class Coupon(models.Model):

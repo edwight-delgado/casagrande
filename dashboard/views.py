@@ -59,7 +59,7 @@ def excel_item(wb):
     font_style = xlwt.XFStyle()
 
     #rows = User.objects.all().values_list('username', 'first_name', 'last_name', 'email')
-    rows = Item.objects.select_related('category','marca').all()
+    rows = Item.objects.select_related('category').all()
     col_num = 0
 
     for row in rows:
@@ -94,7 +94,7 @@ def export_users_xls(request):
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
 
-    columns = ['Nombre', 'Total Pedido', 'Metodo de Pago', 'estatus ordenado','estatus recivido','telefono','dirección','nota']
+    columns = ['Nombre', 'Total Pedido', 'Metodo de Pago', 'estatus ordenado','estatus recivido','telefono','dirección','numero']
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style) # at 0 row 0 column 
@@ -111,7 +111,7 @@ def export_users_xls(request):
         fecha = row.ordered_date
         fecha = fecha.strftime('%d/%m/%Y')
 
-        valores = [row.user.username, row.payment.amount, row.payment.methods, row.ordered, row.received,row.billing_address.zip, row.billing_address.street_address, row.note]
+        valores = [row.user.username, row.payment.amount, row.payment.methods, row.ordered, row.received,row.billing_address.phone, row.billing_address.street_address, row.billing_address.number]
         row_num += 1
 
         for valor in valores:
@@ -122,8 +122,8 @@ def export_users_xls(request):
 
     order_total = Order.objects.filter(ordered=True).count()
     item_total = Item.objects.filter(is_active=True).count()
-    user_total = User.objects.filter(is_active=True).count()
-    mydic = {'pedidos totales':order_total,'productos totales':item_total,'total de clientes':user_total}
+    monto_total = Payment.objects.aggregate(Sum('amount')).get('amount__sum')
+    mydic = {'pedidos totales':order_total,'productos totales':item_total, 'Monto Acumulado':monto_total}
     row_num = 1
     col_num = 0
     for key,value in mydic.items():
@@ -212,6 +212,7 @@ class DashboardCustomerView(View):
     def get(self, *args, **kwargs):
         users = User.objects.filter(is_active=True)
         #orders = Order.objects.select_related('payment','user','billing_address').all()
+        #user_total = User.objects.filter(is_active=True).count()
         context = {
             #'orders': orders
             'users':users
@@ -257,7 +258,7 @@ class DashboardOrderDetailsView(View):
             'order_pendientes':order_pendientes,
             'order_received_total':received_total
         }
-        return render(self.request, "dashboard/home/orderdetails.html", context)
+        return render(self.request, "dashboard/home/userdetails.html", context)
     
 def DashboardOrderedItem(request):
     

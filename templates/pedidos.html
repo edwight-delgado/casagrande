@@ -25,7 +25,27 @@
           <div class="col-lg-3 col-md-4 col-12 border-end  d-none d-md-block">
             <div class="pt-10 pe-lg-10">
               <!-- nav -->
-              {% include 'layout/menu.html' %}>
+              <ul class="nav flex-column nav-pills nav-pills-dark">
+                <!-- nav item -->
+                <li class="nav-item">
+                  <!-- nav link -->
+                  <a class="nav-link" aria-current="page" href="/address"><i class="feather-icon icon-map-pin me-2"></i>Dirección</a>
+                </li>
+                <!-- nav item -->
+                <li class="nav-item">
+                  <a class="nav-link " href="/metodopago"><i class="feather-icon icon-credit-card me-2"></i>Método de Pago</a>
+                </li>
+                <!-- nav item -->
+                <li class="nav-item">
+                  <a class="nav-link active" href="/pedidos"><i class="feather-icon icon-shopping-bag me-2"></i>Tus Pedidos</a>
+                </li>
+                
+                <!-- nav item -->
+                <li class="nav-item">
+                  <hr>
+                </li>
+               
+              </ul>
             </div>
           </div>
           <div class="col-lg-9 col-md-8 col-12">
@@ -39,7 +59,6 @@
                   <!-- Table Head -->
                   <thead class="bg-light">
                     <tr>
-                      <th>&nbsp;</th>
                       <th>Pedido</th>
                       <th>Pago</th>
                       <th>Date</th>
@@ -54,11 +73,8 @@
                     <!-- Table body -->
                     {% for order in orders %}
                     <tr>
-                      <td class="align-middle border-top-0 w-0">
-                        <a href="#"> <img src="./pedidos_files/product-img-1.jpg" alt="Ecommerce" class="icon-shape icon-xl"></a>
-                      </td>
                       <td class="align-middle border-top-0">
-                        <a href="#" class="text-inherit">#14899</a>
+                        <a href="#" class="text-inherit">#{{order.ref_code}}</a>
                       </td>
                       <td class="align-middle border-top-0">
                         <h6 class="mb-0">{{order.billing_address.payment_method}}</h6>

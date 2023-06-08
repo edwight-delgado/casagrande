@@ -17,7 +17,8 @@ from .views import (
     categories_api,
     shopping_card_api,
     BillingAddressView,
-    Pedidos
+    Pedidos,
+    MetodoPagoView
 )
 
 app_name = 'shopping'
@@ -26,6 +27,7 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('checkout/', CheckoutView.as_view(), name='checkout'),
     path('address', BillingAddressView.as_view(), name='address'),
+    path('metodopago', MetodoPagoView.as_view(), name='metodopago'),
     #path('pedidos', BillingAddressView.as_view(), name='pedidos'),
     path('category/<slug>/', CategoryView.as_view(), name='category'),
     path('product/<slug>/', ItemDetailView.as_view(), name='product'),

@@ -61,8 +61,8 @@ class CheckoutForm(forms.Form):
 
     #same_shipping_address = forms.BooleanField(required=False)
     save_info = forms.BooleanField(required=False)
-    payment_option = forms.ChoiceField(
-        widget=forms.Select, choices=PAYMENT_CHOICES)
+    #payment_option = forms.ChoiceField(
+    #    widget=forms.Select, choices=PAYMENT_CHOICES)
 
     payment_shipping = forms.ChoiceField(
         widget=forms.Select, choices=ADDRESS_CHOICES)

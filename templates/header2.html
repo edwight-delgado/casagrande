@@ -2,85 +2,17 @@
 {% load cart_template_tags %}
 <div class="border-bottom ">
   
-  <div class="bg-light py-1">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-12 text-center text-md-start"><span> Super Value Deals - Save more with
-            coupons</span>
-        </div>
-        <div class="col-6 text-end d-none d-md-block">
-          <div class="dropdown">
-            <a class="dropdown-toggle text-decoration-none  text-muted" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <span class="me-1">
-                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g clip-path="url(#selectedlang)">
-                    <path d="M0 0.5H16V12.5H0V0.5Z" fill="#012169"></path>
-                    <path d="M1.875 0.5L7.975 5.025L14.05 0.5H16V2.05L10 6.525L16 10.975V12.5H14L8 8.025L2.025 12.5H0V11L5.975 6.55L0 2.1V0.5H1.875Z" fill="white"></path>
-                    <path d="M10.6 7.525L16 11.5V12.5L9.225 7.525H10.6ZM6 8.025L6.15 8.9L1.35 12.5H0L6 8.025ZM16 0.5V0.575L9.775 5.275L9.825 4.175L14.75 0.5H16ZM0 0.5L5.975 4.9H4.475L0 1.55V0.5Z" fill="#C8102E"></path>
-                    <path d="M6.025 0.5V12.5H10.025V0.5H6.025ZM0 4.5V8.5H16V4.5H0Z" fill="white"></path>
-                    <path d="M0 5.325V7.725H16V5.325H0ZM6.825 0.5V12.5H9.225V0.5H6.825Z" fill="#C8102E"></path>
-                  </g>
-                  <defs>
-                    <clippath id="selectedlang">
-                      <rect width="16" height="12" fill="white" transform="translate(0 0.5)"></rect>
-                    </clippath>
-                  </defs>
-                </svg>
-              </span>English
-            </a>
-
-            <ul class="dropdown-menu">
-
-              <li><a class="dropdown-item " href="#"><span class="me-2">
-
-                    <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <g clip-path="url(#clip0_5543_19744)">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0.5H16V12.5H0V0.5Z" fill="white"></path>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0.5H5.3325V12.5H0V0.5Z" fill="#002654"></path>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.668 0.5H16.0005V12.5H10.668V0.5Z" fill="#CE1126"></path>
-                      </g>
-                      <defs>
-                        <clippath id="clip0_5543_19744">
-                          <rect width="16" height="12" fill="white" transform="translate(0 0.5)"></rect>
-                        </clippath>
-                      </defs>
-                    </svg>
-
-                  </span>Français</a></li>
-              <li><a class="dropdown-item " href="##"><span class="me-2">
-
-                    <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <g clip-path="url(#clip0_5543_19751)">
-                        <path d="M0 8.5H16V12.5H0V8.5Z" fill="#FFCE00"></path>
-                        <path d="M0 0.5H16V4.5H0V0.5Z" fill="black"></path>
-                        <path d="M0 4.5H16V8.5H0V4.5Z" fill="#DD0000"></path>
-                      </g>
-                      <defs>
-                        <clippath id="clip0_5543_19751">
-                          <rect width="16" height="12" fill="white" transform="translate(0 0.5)"></rect>
-                        </clippath>
-                      </defs>
-                    </svg>
-
-                  </span>Deutsch</a></li>
-
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="py-4 pt-lg-3 pb-lg-0">
     <div class="container">
       <div class="row w-100 align-items-center gx-lg-2 gx-0">
         <div class="col-xxl-2 col-lg-3">
-          <a class="navbar-brand d-none d-lg-block" href="#index.html">
+          <a class="navbar-brand d-none d-lg-block" href="{% url 'shopping:home' %}">
             <img src="./freshcart-logo.svg" alt="eCommerce HTML Template">
 
           </a>
           <div class="d-flex justify-content-between w-100 d-lg-none">
-            <a class="navbar-brand" href="#index.html">
-              <img src="./freshcart-logo.svg" alt="eCommerce HTML Template">
+            <a class="navbar-brand" href="{% url 'shopping:home' %}">
+              <img src="./freshcart-logo.svg" alt="CasaGrande">
 
             </a>
 
@@ -132,7 +64,7 @@
                 <div class="input-group ">
                 <input class="form-control rounded" type="search" placeholder="Encuetra tu producto" name="search">
                 <span class="input-group-append">
-                    <button class="btn bg-white border border-start-0 ms-n10 rounded-0 rounded-end" type="button">
+                    <button class="btn bg-white border border-start-0 ms-n10 rounded-0 rounded-end" type="button" style="padding-top: 4px;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -145,7 +77,7 @@
         </div>
         <div class="col-md-2 col-xxl-3 d-none d-lg-block">
           <!-- Button trigger modal -->
-          <button type="button" class="btn  btn-outline-gray-400 text-muted" data-bs-toggle="modal" data-bs-target="#locationModal">
+          <button type="button" class="btn  btn-outline-gray-400 text-muted" data-bs-toggle="modal" data-bs-target="#locationModal" onclick="codigo_barra()">
             <i class="fa-solid fa-barcode"></i> Escanear
           </button>
 
@@ -224,9 +156,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="d-block d-lg-none my-4">
-        <form action="##">
+        {% csrf_token %}
+        <form method="GET" action="/search">
           <div class="input-group ">
-            <input class="form-control rounded" type="search" placeholder="Search for products">
+            <input class="form-control rounded" type="search" placeholder="Encuetra tu producto">
             <span class="input-group-append">
               <button class="btn bg-white border border-start-0 ms-n10 rounded-0 rounded-end" type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
@@ -238,13 +171,13 @@
           </div>
         </form>
         <div class="mt-2">
-          <button type="button" class="btn  btn-outline-gray-400 text-muted w-100 " data-bs-toggle="modal" data-bs-target="#locationModal">
-            <i class="feather-icon icon-map-pin me-2"></i>Pick Location
+          <button type="button" class="btn  btn-outline-gray-400 text-muted w-100 " data-bs-toggle="modal" data-bs-target="#locationModal" onclick="codigo_barra()">
+            <i class="fa-solid fa-barcode"></i>Escanear
           </button>
         </div>
       </div>
       <div class="d-block d-lg-none mb-4">
-        <a class="btn btn-primary w-100 d-flex justify-content-center align-items-center" data-bs-toggle="collapse" href="##collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        <a class="btn btn-primary w-100 d-flex justify-content-center align-items-center" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
           <span class="me-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid">
               <rect x="3" y="3" width="7" height="7"></rect>
               <rect x="14" y="3" width="7" height="7"></rect>
@@ -255,13 +188,7 @@
         <div class="collapse mt-2" id="collapseExample">
           <div class="card card-body">
             <ul class="mb-0 list-unstyled">
-              <li><a class="dropdown-item" href="#">Dairy, Bread &amp; Eggs</a></li>
-              <li><a class="dropdown-item" href="#">Snacks &amp; Munchies</a></li>
-              <li><a class="dropdown-item" href="#">Fruits &amp; Vegetables</a></li>
-              <li><a class="dropdown-item" href="#">Cold Drinks &amp; Juices</a></li>
-              <li><a class="dropdown-item" href="#">Breakfast &amp; Instant Food</a></li>
-              <li><a class="dropdown-item" href="#">Bakery &amp; Biscuits</a></li>
-              <li><a class="dropdown-item" href="#">Chicken, Meat &amp; Fish</a></li>
+              
             </ul>
           </div>
         </div>
@@ -306,7 +233,7 @@
             <a class="nav-link" href="/dashboard">
                 Dashboard
             </a>
-			{% endif %}
+			      {% endif %}
 
           </li>
 
@@ -321,55 +248,44 @@
                 <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
                     <div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: auto; overflow: hidden;"><div class="simplebar-content" style="padding: 0px;">
         <ul class="navbar-nav ">
-          
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="##" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Shop
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Shop Grid - Filter</a></li>
-              <li><a class="dropdown-item" href="#pages/shop-grid-3-column.html">Shop Grid - 3 column</a>
-              </li>
-              <li><a class="dropdown-item" href="#pages/shop-list.html">Shop List - Filter</a></li>
-              <li><a class="dropdown-item" href="#pages/shop-filter.html">Shop - Filter</a></li>
-              <li><a class="dropdown-item" href="#pages/shop-fullwidth.html">Shop Wide</a></li>
-              <li><a class="dropdown-item" href="#pages/shop-single.html">Shop Single</a></li>
-              <li><a class="dropdown-item" href="#pages/shop-single-2.html">Shop Single v2<span class="badge bg-light-info text-dark-info ms-1">New</span></a></li>
-              <li><a class="dropdown-item" href="#pages/shop-wishlist.html">Shop Wishlist</a></li>
-              <li><a class="dropdown-item" href="#pages/shop-cart.html">Carrito de Compras</a></li>
-              <li><a class="dropdown-item" href="#pages/shop-checkout.html">Shop Checkout</a></li>
-            </ul>
-          </li>
-
-
-          
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="##" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Cuenta
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Sign in</a></li>
-              <li><a class="dropdown-item" href="#pages/signup.html">Signup</a></li>
-              <li><a class="dropdown-item" href="#pages/forgot-password.html">Forgot Password</a></li>
+                {% if request.user.is_authenticated %}
+                <li><a class="dropdown-item" href="/accounts/login/">Salir</a></li>
+		        {% else %}
+		        <li><a class="dropdown-item" href="/accounts/login/">Login</a></li>
+
+		        {% endif %}
+              <li><a class="dropdown-item" href="#">Registrarse</a></li>
+              <li><a class="dropdown-item" href="#">Forgot Password</a></li>
               <li class="dropdown-submenu dropend">
-                <a class="dropdown-item dropdown-list-group-item dropdown-toggle" href="##">
+                <a class="dropdown-item dropdown-list-group-item dropdown-toggle" href="#">
                   Mi Cuenta
                 </a>
+                {% if request.user.is_authenticated %}
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#pages/account-orders.html">Pedidos</a></li>
-                  <li><a class="dropdown-item" href="#pages/account-settings.html">Settings</a></li>
-                  <li><a class="dropdown-item" href="#pages/account-address.html">Dirección</a></li>
-                  <li><a class="dropdown-item" href="#pages/account-payment-method.html">Método de Pago</a>
+                  <li><a class="dropdown-item" href="/pedidos">Pedido</a></li>
+                  <li><a class="dropdown-item" href="#">Settings</a></li>
+                  <li><a class="dropdown-item" href="#">Dirección</a></li>
+                  <li><a class="dropdown-item" href="#">Método de Pago</a>
                   </li>
-                  <li><a class="dropdown-item" href="#pages/account-notification.html">Notification</a></li>
+                  
                 </ul>
+                {% endif %}
               </li>
             </ul>
           </li>
+          
           <li class="nav-item ">
-            <a class="nav-link" href="#dashboard/index.html">
-              Dashboard
+            {% if request.user.is_superuser %}
+            <a class="nav-link" href="/dashboard">
+                Dashboard
             </a>
+			      {% endif %}
+
           </li>
 
         </ul>

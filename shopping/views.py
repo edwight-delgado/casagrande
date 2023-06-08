@@ -9,17 +9,20 @@ from django.shortcuts import redirect
 from django.utils import timezone
 from .forms import CheckoutForm, CouponForm, RefundForm
 from .models import Item, OrderItem, Order, BillingAddress, Payment, Coupon, Refund, Category
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 #from django.shortcuts import render as render_to_response
 from django.http import HttpResponse, JsonResponse
+from django.core.paginator import Paginator
 # Create your views here.
 import random
 import string
 
+ITEMS_PER_PAGE = 10
 
-def create_ref_code():
-    return ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
-
+def create_ref_code(user_id, order_id):
+    rand_tail = ''.join(random.choices(string.digits, k=9))
+    return str(user_id)+ str(order_id) + rand_tail
 
 class PaymentView(View):
     def get(self, *args, **kwargs):
@@ -94,10 +97,13 @@ class ShopView(View):
     def get(self, request):
         try:
             items = Item.objects.all()
+            paginator = Paginator(items, ITEMS_PER_PAGE)
+            page_object = paginator.get_page(2)
+            context = {"items":items, "items_on_page": page_object}
         except Item.DoesNotExist:
             return HttpResponse("Item no encontrado")
-           
-        return render(self.request,'shop.html', {'items': items})
+        
+        return render(self.request,'shop.html', context)
 
        
 
@@ -124,11 +130,15 @@ class CategoryView(View):
         return render(self.request, "category.html", context)
 
 
-class CheckoutView(View):
+class MetodoPagoView(View):
     def get(self, *args, **kwargs):
         try:
             order = Order.objects.get(user=self.request.user, ordered=False)
-            billing_address = BillingAddress.objects.filter(user_id=self.request.user)
+            if self.request.user.is_superuser:
+                billing_address = BillingAddress.objects.all().order_by('-id')
+            else:
+                billing_address = BillingAddress.objects.filter(user_id=self.request.user).order_by('-id')
+            users = User.objects.filter(is_active=True)
             print(billing_address)
             form = CheckoutForm()
             context = {
@@ -136,6 +146,32 @@ class CheckoutView(View):
                 'billing_address':billing_address,
                 'couponform': CouponForm(),
                 'order': order,
+                'users':users,
+                'DISPLAY_COUPON_FORM': True
+            }
+            return render(self.request, "metodo_pago.html", context)
+
+        except ObjectDoesNotExist:
+            messages.info(self.request, "You do not have an active order")
+            return redirect("shopping:home")
+
+class CheckoutView(View):
+    def get(self, *args, **kwargs):
+        try:
+            order = Order.objects.get(user=self.request.user, ordered=False)
+            if self.request.user.is_superuser:
+                billing_address = BillingAddress.objects.all().order_by('-id')
+            else:
+                billing_address = BillingAddress.objects.filter(user_id=self.request.user).order_by('-id')
+            users = User.objects.filter(is_active=True)
+            print(billing_address)
+            form = CheckoutForm()
+            context = {
+                'form': form,
+                'billing_address':billing_address,
+                'couponform': CouponForm(),
+                'order': order,
+                'users':users,
                 'DISPLAY_COUPON_FORM': True
             }
             return render(self.request, "checkout.html", context)
@@ -149,9 +185,24 @@ class CheckoutView(View):
         try:
             if self.request.method == 'POST' and self.request.POST:
                 if self.request.POST.get('address_id'):
-
+                    print('............................')
+                    billing_address = BillingAddress.objects.get(id=self.request.POST['address_id'])
+                    print(self.request.POST)
+                    user = self.request.user
+                    if self.request.user.is_superuser:
+                        user = billing_address.user_id
+                    print('.........')
+                    print(user)
                     order = Order.objects.get(user=self.request.user, ordered=False)
-                    billing_address = BillingAddress.objects.get(user=self.request.user, id=self.request.POST['address_id'])
+                    order.user_id = user
+                    #order.OrderItem.
+                    order.save()
+                    order_item = OrderItem.objects.filter(
+                        user=self.request.user,
+                        ordered=False
+                    ).order_by('-id')[0]
+                    order_item.user_id = user
+                    order_item.save()
                     print(billing_address)
                     order.billing_address = billing_address
                         
@@ -159,16 +210,17 @@ class CheckoutView(View):
                     payment = Payment()
                     #ids = charge['id']
                     payment.stripe_charge_id = 1
-                    payment.user = self.request.user
+                    payment.user_id = user
+
                     payment.amount = order.get_total()
-                    payment.methods = billing_address.payment_method
+                    payment.methods = self.request.POST.get('payment_option')
                     payment.save()
 
                     # assign the payment to the order
                     order.ordered = True
-                    order.payment = payment
+                    order.payment_id = payment.id
                     #TODO : assign ref code
-                    order.ref_code = create_ref_code()
+                    order.ref_code = create_ref_code(user, order.id)
                     order.save()
 
                 
@@ -187,14 +239,19 @@ class BillingAddressView(View):
     def get(self, *args, **kwargs):
         try:
             order = Order.objects.get(user=self.request.user, ordered=False)
-            billing_address = BillingAddress.objects.filter(user_id=self.request.user)
+            if self.request.user.is_superuser:
+                billing_address = BillingAddress.objects.all().order_by('-id')
+            else:
+                billing_address = BillingAddress.objects.filter(user_id=self.request.user).order_by('-id')
             print(billing_address)
+            users = User.objects.filter(is_active=True)
             form = CheckoutForm()
             context = {
                 'form': form,
                 'billing_address':billing_address,
                 'couponform': CouponForm(),
                 'order': order,
+                'users':users,
                 'DISPLAY_COUPON_FORM': True
             }
             return render(self.request, "checkout.html", context)
@@ -204,12 +261,25 @@ class BillingAddressView(View):
             return redirect("shopping:home")
 
     def post(self, *args, **kwargs):
+        print('111111111111111111111111111')
         form = CheckoutForm(self.request.POST or None)
         try:
+            print('111111111111111111111111111........')
             order = Order.objects.get(user=self.request.user, ordered=False)
-           
+            latitude = 0
+            longitude = 0
             if form.is_valid():
+                print('111111111111111111111111111........2222222222222')
+                print(self.request.POST)
+                user = self.request.user
+                if self.request.user.is_superuser:
+                    #user recivido de Post
+                    user = self.request.POST.get('user')
                 tag = form.cleaned_data.get('tag')
+                print('------------------------')
+                print(self.request.POST)
+                print('............................')
+                print(user)
                 street_address = form.cleaned_data.get('street_address')
                 apartment_address = form.cleaned_data.get('apartment_address')
                 apartment_number = form.cleaned_data.get('apartment_number')
@@ -220,32 +290,36 @@ class BillingAddressView(View):
                 # same_shipping_address = form.cleaned_data.get(
                 #     'same_shipping_address')
                 # save_info = form.cleaned_data.get('save_info')
-                payment_option = form.cleaned_data.get('payment_option')
+                #payment_option = form.cleaned_data.get('payment_option')
                 payment_shipping = form.cleaned_data.get('payment_shipping')
+                print('guardado',street_address)
                 billing_address = BillingAddress(
-                    user=self.request.user,
+                    user_id=user,
+                    tag=tag,
                     street_address=street_address,
                     apartment_address=apartment_address,
                     number=apartment_number,
                     phone=phone ,
                     address_type=payment_shipping,
-                    payment_method=payment_option ,
-                    longitude=longitude,
-                    latitude=latitude
+                    #payment_method=payment_option ,
+                    #longitude=longitude,
+                    #latitude=latitude
                 )
                 billing_address.save()
+                print('eeeeeeeeeeeeeeeeeeeeeeeee')
+                print(billing_address)
                 order.billing_address = billing_address
                 
                 order.save()
 
                 
                 messages.success(self.request, "Su orden fue exitosa")
-                return redirect("shopping:address")
+                return redirect("shopping:checkout")
                 # end ----------------- nuevo --------------------
                 # add redirect to the selected payment option
         except ObjectDoesNotExist:
             messages.error(self.request, "No tienes una orden activa")
-            return redirect("shopping:address")
+            return redirect("shopping:checkout")
 
 
 # def home(request):
@@ -431,18 +505,26 @@ class RequestRefundView(View):
 
 @login_required
 def shopping_card_api(request):
-
+    ordered = 0
+    ordered = Order.objects.filter(user=request.user, ordered=True).latest('id').ordered
+    received = Order.objects.filter(user=request.user, ordered=True).latest('id').received
+    #return ordered
     try:
-        order = Order.objects.get(user=request.user, ordered=False)
-
+        #ordered = Order.objects.get(user=request.user, ordered=True).ordered
+        order = Order.objects.filter(user=request.user, ordered=False).latest('id')
+        #ordered = Order.objects.get(user=request.user, ordered=True).values('orderded')
         response = {
-                'items': list([ {'title':x.item.title, 'slug':x.item.slug, 'price':x.item.price, 'quantity':x.quantity, 'img':str(x.item.image)} for x in order.items.all()]),
+                'items': list([ {'title':x.item.title, 'slug':x.item.slug, 'price':x.item.price, 'quantity':x.quantity,'monto':(x.quantity*x.item.price), 'img':str(x.item.image)} for x in order.items.all()]),
+                'status_ordered': ordered,
+                'status_received':received,
                 'total': order.get_total(),
         }
         return JsonResponse(response)
     except:
         response = {
                 'items': 0,
+                'status_ordered': ordered,
+                'status_received':False,
                 'total': 0
                 
         }

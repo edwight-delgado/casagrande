@@ -7,11 +7,7 @@
 
 {% include 'header2.html' %}
 <!-- Modal -->
-<script>
-function getCurrentURL () {
-	return window.location.href
-  }
-</script>
+
 <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content p-4">
@@ -63,38 +59,7 @@ function getCurrentURL () {
 
 
 
-<!-- Shop Cart -->
-
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-header border-bottom">
-    <div class="text-start">
-      <h5 id="offcanvasRightLabel" class="mb-0 fs-4">Carrito de Compras</h5>
-      <small>Location in 382480</small>
-    </div>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-
-    <div class="">
-      <!-- alert -->
-      <div class="alert alert-danger p-2" role="alert">
-        You’ve got FREE delivery. Start <a href="#" class="alert-link">checkout now!</a>
-      </div>
-      <ul class="list-group list-group-flush" id="shopping_cart">
-
-       
-
-      </ul>
-	  
-      <!-- btn -->
-      <div class="d-flex justify-content-between mt-4">
-        <a href="/" class="btn btn-primary">Seguir comprando</a>
-        <a href="/checkout" class="btn btn-dark">Pagar</a>
-      </div>
-
-    </div>
-  </div>
-</div>
+{% include 'cart.html' %}
 
 <!-- Modal codigo de barra -->
 <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
@@ -105,43 +70,24 @@ function getCurrentURL () {
         <div class="d-flex justify-content-between align-items-start ">
           <div>
             <h5 class="mb-1" id="locationModalLabel">Escanea Codigo de Barra</h5>
-            <p class="mb-0 small">Enter your address and we will specify the offer you area. </p>
+            <p class="mb-0 small" id="resultado">Aqui aparecera su codigo </p>
           </div>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="code_bar_close"></button>
         </div>
         <div class="my-5">
           <input type="search" class="form-control" placeholder="Search your area">
         </div>
         <div class="d-flex justify-content-between align-items-center mb-2">
-          <h6 class="mb-0">Select Location</h6>
+          <h6 class="mb-0">Buscar por codigo</h6>
           <a href="#" class="btn btn-outline-gray-400 text-muted btn-sm">Clear All</a>
 
 
         </div>
         <div>
           <div data-simplebar="init" style="height:300px;"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer"></div></div><div class="simplebar-mask"><div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: auto; overflow: hidden;"><div class="simplebar-content" style="padding: 0px;">
-            <div class="list-group list-group-flush">
+            <div class="list-group list-group-flush" id="bar_code_contenedor">
 
-              <a href="#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action active">
-                <span>Alabama</span><span>Min:$20</span></a>
-              <a href="#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>Alaska</span><span>Min:$30</span></a>
-              <a href="#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>Arizona</span><span>Min:$50</span></a>
-              <a href="#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>California</span><span>Min:$29</span></a>
-              <a href="#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>Colorado</span><span>Min:$80</span></a>
-              <a href="#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>Florida</span><span>Min:$90</span></a>
-              <a href="#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>Arizona</span><span>Min:$50</span></a>
-              <a href="#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>California</span><span>Min:$29</span></a>
-              <a href="#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>Colorado</span><span>Min:$80</span></a>
-              <a href="#" class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>Florida</span><span>Min:$90</span></a>
+              
             </div>
           </div></div></div></div><div class="simplebar-placeholder" style="width: 0px; height: 0px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: hidden;"><div class="simplebar-scrollbar" style="height: 0px; display: none;"></div></div></div>
         </div>
@@ -185,172 +131,16 @@ function getCurrentURL () {
             </ul>
           </div>
 
-          <div class="mb-8">
-
-            <h5 class="mb-3">Stores</h5>
-            <div class="my-4">
-              <!-- input -->
-              <input type="search" class="form-control" placeholder="Search by store">
-            </div>
-            <!-- form check -->
-            <div class="form-check mb-2">
-              <!-- input -->
-              <input class="form-check-input" type="checkbox" value="" id="eGrocery" checked="">
-              <label class="form-check-label" for="eGrocery">
-                E-Grocery
-              </label>
-            </div>
-            <!-- form check -->
-            <div class="form-check mb-2">
-              <!-- input -->
-              <input class="form-check-input" type="checkbox" value="" id="DealShare">
-              <label class="form-check-label" for="DealShare">
-                DealShare
-              </label>
-            </div>
-            <!-- form check -->
-            <div class="form-check mb-2">
-              <!-- input -->
-              <input class="form-check-input" type="checkbox" value="" id="Dmart">
-              <label class="form-check-label" for="Dmart">
-                DMart
-              </label>
-            </div>
-            <!-- form check -->
-            <div class="form-check mb-2">
-              <!-- input -->
-              <input class="form-check-input" type="checkbox" value="" id="Blinkit">
-              <label class="form-check-label" for="Blinkit">
-                Blinkit
-              </label>
-            </div>
-            <!-- form check -->
-            <div class="form-check mb-2">
-              <!-- input -->
-              <input class="form-check-input" type="checkbox" value="" id="BigBasket">
-              <label class="form-check-label" for="BigBasket">
-                BigBasket
-              </label>
-            </div>
-            <!-- form check -->
-            <div class="form-check mb-2">
-              <!-- input -->
-              <input class="form-check-input" type="checkbox" value="" id="StoreFront">
-              <label class="form-check-label" for="StoreFront">
-                StoreFront
-              </label>
-            </div>
-            <!-- form check -->
-            <div class="form-check mb-2">
-              <!-- input -->
-              <input class="form-check-input" type="checkbox" value="" id="Spencers">
-              <label class="form-check-label" for="Spencers">
-                Spencers
-              </label>
-            </div>
-            <!-- form check -->
-            <div class="form-check mb-2">
-              <!-- input -->
-              <input class="form-check-input" type="checkbox" value="" id="onlineGrocery">
-              <label class="form-check-label" for="onlineGrocery">
-                Online Grocery
-              </label>
-            </div>
-
-          </div>
-          <div class="mb-8">
-            <!-- price -->
-            <h5 class="mb-3">Price</h5>
-            <div>
-              <!-- range -->
-              <div id="priceRange" class="mb-3 noUi-target noUi-ltr noUi-horizontal noUi-txt-dir-ltr"><div class="noUi-base"><div class="noUi-connects"><div class="noUi-connect" style="transform: translate(14.6259%, 0px) scale(0.510204, 1);"></div></div><div class="noUi-origin" style="transform: translate(-85.3741%, 0px); z-index: 5;"><div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0" role="slider" aria-orientation="horizontal" aria-valuemin="6.0" aria-valuemax="199.0" aria-valuenow="49.0" aria-valuetext="$49"><div class="noUi-touch-area"></div></div></div><div class="noUi-origin" style="transform: translate(-34.3537%, 0px); z-index: 4;"><div class="noUi-handle noUi-handle-upper" data-handle="1" tabindex="0" role="slider" aria-orientation="horizontal" aria-valuemin="49.0" aria-valuemax="300.0" aria-valuenow="199.0" aria-valuetext="$199"><div class="noUi-touch-area"></div></div></div></div></div>
-              <small class="text-muted">Price:</small> <span id="priceRange-value" class="small">$49 - $199</span>
-
-            </div>
-
-
-
-          </div>
-          <!-- rating -->
-          <div class="mb-8">
-
-            <h5 class="mb-3">Rating</h5>
-            <div>
-              <!-- form check -->
-              <div class="form-check mb-2">
-                <!-- input -->
-                <input class="form-check-input" type="checkbox" value="" id="ratingFive">
-                <label class="form-check-label" for="ratingFive">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning "></i>
-                  <i class="bi bi-star-fill text-warning "></i>
-                  <i class="bi bi-star-fill text-warning "></i>
-                  <i class="bi bi-star-fill text-warning "></i>
-                </label>
-              </div>
-              <!-- form check -->
-              <div class="form-check mb-2">
-                <!-- input -->
-                <input class="form-check-input" type="checkbox" value="" id="ratingFour" checked="">
-                <label class="form-check-label" for="ratingFour">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning "></i>
-                  <i class="bi bi-star-fill text-warning "></i>
-                  <i class="bi bi-star-fill text-warning "></i>
-                  <i class="bi bi-star text-warning"></i>
-                </label>
-              </div>
-              <!-- form check -->
-              <div class="form-check mb-2">
-                <!-- input -->
-                <input class="form-check-input" type="checkbox" value="" id="ratingThree">
-                <label class="form-check-label" for="ratingThree">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning "></i>
-                  <i class="bi bi-star-fill text-warning "></i>
-                  <i class="bi bi-star text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                </label>
-              </div>
-              <!-- form check -->
-              <div class="form-check mb-2">
-                <!-- input -->
-                <input class="form-check-input" type="checkbox" value="" id="ratingTwo">
-                <label class="form-check-label" for="ratingTwo">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                </label>
-              </div>
-              <!-- form check -->
-              <div class="form-check mb-2">
-                <!-- input -->
-                <input class="form-check-input" type="checkbox" value="" id="ratingOne">
-                <label class="form-check-label" for="ratingOne">
-                  <i class="bi bi-star-fill text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                  <i class="bi bi-star text-warning"></i>
-                </label>
-              </div>
-            </div>
-
-
-          </div>
           <div class="mb-8 position-relative">
             <!-- Banner Design -->
             <!-- Banner Content -->
             <div class="position-absolute p-5 py-8">
-              <h3 class="mb-0">Fresh Fruits </h3>
-              <p>Get Upto 25% Off</p>
-              <a href="#" class="btn btn-dark">Shop Now<i class="feather-icon icon-arrow-right ms-1"></i></a>
+              <h3 class="mb-0">Frutas Frescas</h3>
+              <a href="#" class="btn btn-dark">Compra Ahora<i class="feather-icon icon-arrow-right ms-1"></i></a>
             </div>
             <!-- Banner Content -->
             <!-- Banner Image -->
-            <!-- img --><img src="./assortment-citrus-fruits.png" alt="" class="img-fluid rounded ">
+            <!-- img --><img src="/media/menu-banner.jpg" alt="" class="img-fluid rounded ">
             <!-- Banner Image -->
           </div>
           </div>
@@ -365,7 +155,7 @@ function getCurrentURL () {
           <!-- list icon -->
           <div class="d-lg-flex justify-content-between align-items-center">
             <div class="mb-3 mb-lg-0">
-              <p class="mb-0"> <span class="text-dark">24 </span> Productos Encontrados </p>
+              <p class="mb-0"> <span class="text-dark">{{ items.count }}</span> Productos Encontrados </p>
             </div>
 
             <!-- icon -->
@@ -419,15 +209,15 @@ function getCurrentURL () {
                   <!-- badge -->
                   <div class="text-center position-relative " style="width: 160px; height: 172px;">
                     <div class=" position-absolute top-0 start-0">
-						{% if item.label == 'agotado' %}
-						<span class="badge bg-danger">{{item.label}}</span>
-						{% else %}
-						<span class="badge bg-success">{{item.label}}</span>
-						{% endif %}
+                      {% if item.quality == 0 %}
+                        <span class="badge bg-danger">{{item.label}}</span>
+                      {% else %}
+                        <span class="badge bg-success">{{item.label}}</span>
+                      {% endif %}
                       
                     </div>
                     <a href="#" onclick="get_details({{item.id}})"  data-bs-toggle="modal" data-bs-target="#quickViewModal">
-                      <!-- img --><img src="{{ item.image.url }}" alt="Grocery Ecommerce Template" class="mb-3 img-fluid"></a>
+                      <!-- img --><img src="{{ item.image.url }}" alt="{{item.title}}" class="mb-3 img-fluid"></a>
                     <!-- action btn -->
                     <div class="card-product-action">
                       <a href="#" class="btn-action" data-bs-toggle="modal" data-bs-target="#quickViewModal">
@@ -485,6 +275,24 @@ function getCurrentURL () {
                     </a>
                   </li>
                 </ul>
+
+                <div class="pagination">
+                  <span class="step-links">
+                      {% if items_on_page.has_previous %}
+                          <a href="?page=1">&laquo; first</a>
+                          <a href="?page={{ items_on_page.previous_page_number }}">&lsaquo; prev</a>
+                      {% endif %}
+              
+                      <span class="current-page">
+                          Page {{ items_on_page.number }} of {{ items_on_page.paginator.num_pages }}.
+                      </span>
+              
+                      {% if items_on_page.has_next %}
+                          <a href="?page={{ items_on_page.next_page_number }}">next &rsaquo;</a>
+                          <a href="?page={{ items_on_page.paginator.num_pages }}">last &raquo;</a>
+                      {% endif %}
+                  </span>
+              </div>
               </nav>
             </div>
           </div>
@@ -577,6 +385,21 @@ function getCurrentURL () {
   </div>
 </div>
 
+<div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+  <div class="toast" style="position: absolute; top: 0; right: 0;">
+    <div class="toast-header">
+      <img src="..." class="rounded mr-2" alt="...">
+      <strong class="mr-auto">Bootstrap</strong>
+      <small>11 mins ago</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      Hello, world! This is a toast message.
+    </div>
+  </div>
+</div>
 
 
 <script>
@@ -595,7 +418,7 @@ function getCurrentURL () {
                         template = `
 
 									<div class="ps-lg-8 mt-6 mt-lg-0">
-										<a href="http://localhost:8000/category/${res['data']['category_url']}" class="mb-4 d-block">${res['data']['category']}</a>
+										<a href="/category/${res['data']['category_url']}" class="mb-4 d-block">${res['data']['category']}</a>
 										<h2 class="mb-1 h1">${res['data']['title']}</h2>
 										<div class="mb-4">
 											<small class="text-warning">
@@ -758,82 +581,13 @@ function getCurrentURL () {
 </script>
 
 
-
-<script>
-	window.onload = function() {
-		
-            //e.preventDefault();
-            $.ajax({
-            url: "/shopping-card-api",
-            type: 'GET',
-            dataType: 'json', // added data type
-                success: function(res) {
-                    console.log(res);
-                    let template = ''
-                    document.getElementById("shopping_cart").innerHTML = template
-					//document.getElementById("shopping_cart_total").innerHTML = ''
-                    for (var key in res.items) {
-                        template = `
-						<!-- list group -->
-						<li class="list-group-item py-3 ps-0 border-top">
-						<!-- row -->
-						<div class="row align-items-center">
-							<div class="col-3 col-md-2">
-							<!-- img --> <img src="/media/${res.items[key]['img']}" alt="Ecommerce" class="img-fluid"></div>
-							<div class="col-4 col-md-6 col-lg-5">
-							<!-- title -->
-							<a href="#" class="text-inherit">
-								<h6 class="mb-0">${res.items[key]['title']}</h6>
-							</a>
-							<span><small class="text-muted">.98 / lb</small></span>
-							<!-- text -->
-							<div class="mt-2 small lh-1"> 
-								<a href="/remove-from-cart/${res.items[key]['slug']}/" class="text-decoration-none text-inherit"> <span class="me-1 align-text-bottom">
-									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-success">
-									<polyline points="3 6 5 6 21 6"></polyline>
-									<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-									</path>
-									<line x1="10" y1="11" x2="10" y2="17"></line>
-									<line x1="14" y1="11" x2="14" y2="17"></line>
-									
-									</svg></span><span class="text-muted">Remove</span></a></div>
-							</div>
-							<!-- input group -->
-							<div class="col-3 col-md-3 col-lg-3">
-							<!-- input -->
-							<!-- input -->
-							<div class="input-group input-spinner  ">
-								<a href="remove-item-from-cart/${res.items[key]['slug']}/">
-									<input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
-								</a>
-								<input type="number" step="1" max="10" value="${res.items[key]['quantity']}" name="quantity" class="quantity-field form-control-sm form-input   ">
-								<a href="/add-to-cart/${res.items[key]['slug']}/">
-									<input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
-								</a>
-							</div>
-
-							</div>
-							<!-- price -->
-							<div class="col-2 text-lg-end text-start text-md-end col-md-2">
-							<span class="fw-bold">$ ${res.items[key]['price']}</span>
-
-							</div>
-						</div>
-
-						</li>`; 
-                        
-                        document.getElementById("shopping_cart").innerHTML += template;
-					
-                    }
-					//document.getElementById("shopping_cart_total").innerHTML = res.total
-				}
-			})
-		}
-
-</script>
 <script src="https://unpkg.com/quagga@0.12.1/dist/quagga.min.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+
+  document.getElementById("code_bar_close").addEventListener("click", () => {
+    Quagga.stop()
+  });
+  var codigo_barra = function() {
 	const $resultados = document.querySelector("#resultado");
 	Quagga.init({
 		inputStream: {
@@ -862,7 +616,7 @@ function getCurrentURL () {
 		// Imprimimos todo el data para que puedas depurar
 		console.log(data);
 	});
-});
+};
 </script>
 {% endblock content %}
 
