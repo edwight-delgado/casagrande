@@ -5,7 +5,7 @@ from django.shortcuts import reverse
 #from pictures.models import PictureField
 from django.db import models
 from django.db.models import signals
-
+from datetime import date
 
 def update_order_items(sender, instance, **kwargs):
         #si entra al if es que su orden ha sido recivida
@@ -132,6 +132,11 @@ class Item(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def expiration(self):
+        if self.expiration_date:
+            return date.today() > self.expiration_date
 
     def get_absolute_url(self):
         return reverse("shopping:product", kwargs={

@@ -222,7 +222,13 @@ class CheckoutView(View):
                     #TODO : assign ref code
                     order.ref_code = create_ref_code(user, order.id)
                     order.save()
-
+                    #aqui modulo que envia msg a whatssapp
+                    # enviar -> billing_address
+                    # enviar -> user
+                    # enviar orderitem
+                    # enviar amount
+                    # enviar methods
+                    # enviar link
                 
                     messages.success(self.request, "Su orden fue exitosa Order Confirmation")
                     return redirect("/")
@@ -360,18 +366,18 @@ def add_to_cart(request, slug):
             else:
                 order_item.quantity += 1
             order_item.save()
-            messages.info(request, "Item qty was updated.")
+            messages.info(request, "La cantidad fue actualizada.")
             return redirect("shopping:home")
         else:
             order.items.add(order_item)
-            messages.info(request, "Item was added to your cart.")
+            messages.info(request, "El producto fue agregado al carrito de Compras")
             return redirect("shopping:home")
     else:
         ordered_date = timezone.now()
         order = Order.objects.create(
             user=request.user, ordered_date=ordered_date)
         order.items.add(order_item)
-        messages.info(request, "Item was added to your cart.")
+        messages.info(request, "El Producto fue agregado al carrito.")
     
 
     
@@ -395,7 +401,7 @@ def remove_from_cart(request, slug):
                 ordered=False
             )[0]
             order.items.remove(order_item)
-            messages.info(request, "Item was removed from your cart.")
+            messages.info(request, "El Producto fue eliminado de su carrito de compra.")
             return redirect("shopping:home")
         else:
             # add a message saying the user dosent have an order
@@ -403,7 +409,7 @@ def remove_from_cart(request, slug):
             return redirect("shopping:home", slug=slug)
     else:
         # add a message saying the user dosent have an order
-        messages.info(request, "u don't have an active order.")
+        messages.info(request, "No tiene una Orden activa")
         return redirect("shopping:home", slug=slug)
     return redirect("shopping:home", slug=slug)
 
@@ -428,7 +434,7 @@ def remove_single_item_from_cart(request, slug):
                 order_item.save()
             else:
                 order.items.remove(order_item)
-            messages.info(request, "This item qty was updated.")
+            messages.info(request, "La Cantidad fue actualizada.")
             return redirect("shopping:home")
         else:
             # add a message saying the user dosent have an order

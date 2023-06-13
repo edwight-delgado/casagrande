@@ -307,7 +307,7 @@ def received(request, order_id):
         order.save()
         #data = serialize("json", order_items, fields=('title', ''))
         
-        messages.error(request, "order update to received")
+        messages.error(request, "el pedido fue entregado exitosamente")
         return redirect("dashboard:ordered_items")
 
 

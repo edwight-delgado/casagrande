@@ -252,17 +252,18 @@
 						</div>
 					  </th>
 					  <th>Image</th>
-					  <th>Proudct Name</th>
-					  <th>Category</th>
+					  <th>Nombre de Producto</th>
+					  <th>Categoria</th>
 					  <th>Status</th>
-					  <th>Price</th>
+					  <th>Precio</th>
 					  <th>Cantidad</th>
+					  <th>Fecha de Expiración</th>
 					  <th></th>
 					</tr>
 				  </thead>
 				  <tbody>
 					{% for item in items %}
-					<tr>
+					<tr {% if item.expiration %} style="background-color: #ffc107" {% endif %}>
 
 					  <td>
 						<div class="form-check">
@@ -287,14 +288,15 @@
 					  </td>
 					  <td>${{item.price}}</td>
 					  <td>{{item.quantity}}</td>
+					  <td>{{item.expiration_date}}</td>
 					  <td>
 						<div class="dropdown">
-						  <a href="https://freshcart.codescandy.com/dashboard/products.html#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
+						  <a href="#" class="text-reset" data-bs-toggle="dropdown" aria-expanded="false">
 							<i class="feather-icon icon-more-vertical fs-5"></i>
 						  </a>
 						  <ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="https://freshcart.codescandy.com/dashboard/products.html#"><i class="bi bi-trash me-3"></i>Delete</a></li>
-							<li><a class="dropdown-item" href="https://freshcart.codescandy.com/dashboard/products.html#"><i class="bi bi-pencil-square me-3 "></i>Edit</a>
+							<li><a class="dropdown-item" href="#"><i class="bi bi-trash me-3"></i>Delete</a></li>
+							<li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square me-3 "></i>Edit</a>
 							</li>
 						  </ul>
 						</div>

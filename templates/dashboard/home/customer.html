@@ -275,7 +275,7 @@
 						<a href="{% url 'dashboard:dashboard_user_details' user.id %}"> 
 							<img src="media/" alt="" class="icon-shape icon-md"></a>
 					  </td>
-					  <td><a href="#" class="text-reset">{{user.username}}</a></td>
+					  <td><a href="{% url 'dashboard:dashboard_user_details' user.id %}" class="text-reset">{{user.username}}</a></td>
 					  <td>{{user.email}}</td>
 					  <td>
 						{% if user.is_active %}

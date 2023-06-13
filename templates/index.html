@@ -209,7 +209,7 @@
                   <!-- badge -->
                   <div class="text-center position-relative " style="width: 160px; height: 172px;">
                     <div class=" position-absolute top-0 start-0">
-                      {% if item.quality == 0 %}
+                      {% if item.is_active == 0 %}
                         <span class="badge bg-danger">{{item.label}}</span>
                       {% else %}
                         <span class="badge bg-success">{{item.label}}</span>
@@ -242,11 +242,21 @@
                     <div><span class="text-dark">${{item.price}}</span>
                     </div>
                     <!-- btn -->
-                    <div><a href="{{ item.get_add_to_cart_url }}" class="btn btn-primary btn-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
-                          <line x1="12" y1="5" x2="12" y2="19"></line>
-                          <line x1="5" y1="12" x2="19" y2="12"></line>
-                        </svg> Agregar</a></div>
+                    <div>
+                      {% if item.is_active == 0 %} 
+                        <a href="#" class="btn btn-danger btn-sm">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                          </svg> Agotado</a>
+                      {% else %}
+                        <a href="{{ item.get_add_to_cart_url }}" class="btn btn-primary btn-sm">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                          </svg> Agregar</a>
+                      {% endif %}
+                        </div>
                   </div>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<!-- saved from url=(0053)https://freshcart.codescandy.com/pages/shop-grid.html -->
+
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
@@ -35,15 +35,19 @@
   {
 
   height: 170px;
+
+ }
+ #notification{
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
  }
 </style>
 
 </head>
 
 <body>
+  {% include 'layout/messege.html' %}
     {% block content %} 
     {% endblock content %}
-
 
 
     
