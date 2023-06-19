@@ -233,6 +233,9 @@ class Order(models.Model):
             total -= self.coupon.amount
         return total
 
+    def get_quantity(self):
+        return self.items.count()
+
 
 class BillingAddress(models.Model):
     tag = models.CharField(max_length=100, default='domicilio')

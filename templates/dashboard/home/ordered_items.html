@@ -276,9 +276,9 @@
 						</div>
 					  </td>
 					  <td>
-						<a href="#!"> <img src="../assets/images/products/product-img-1.jpg" alt="" class="icon-shape icon-md"></a>
+						<a href="{% url 'dashboard:dashboard_user_details' order.user.id %}"> <img src="../assets/images/products/product-img-1.jpg" alt="" class="icon-shape icon-md"></a>
 					  </td>
-					  <td><a href="#" class="text-reset">FC#1007</a></td>
+					  <td><a href="#" class="text-reset">{{order.ref_code}}</a></td>
 					  <td>{{order.user}}</td>
 
 					  <td>{{order.ordered_date}}</td>

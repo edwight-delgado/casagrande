@@ -77,13 +77,13 @@
                         <a href="#" class="text-inherit">#{{order.ref_code}}</a>
                       </td>
                       <td class="align-middle border-top-0">
-                        <h6 class="mb-0">{{order.billing_address.payment_method}}</h6>
+                        <h6 class="mb-0">{{order.payment.methods}}</h6>
                       </td>
                       <td class="align-middle border-top-0">
                         {{order.ordered_date}}
                       </td>
                       <td class="align-middle border-top-0">
-                        1 {{order.orderItem.cuantity}}
+                        {{order.get_quantity}}
   
                       </td>
                       <td class="align-middle border-top-0">
@@ -97,7 +97,8 @@
                         ${{order.payment.amount}}
                       </td>
                       <td class="text-muted align-middle border-top-0">
-                        <a href="#" class="text-inherit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View"><i class="feather-icon icon-eye"></i></a>
+                        <a href="#" class="dropdown-item text-inherit" href="#" data-toggle="modal" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View" data-target="#exampleModalCenter" onclick="detalles({{order.id}})"><i class="feather-icon icon-eye"></i></a>
+                        
                       </td>
                     </tr>
                     {% endfor %}
@@ -111,6 +112,118 @@
       </div>
     </section>
   
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Historial de Productos order N° #123</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+          <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="table-responsive table-hover table-sales">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Img</th>
+                            <th>Titulo</th>
+                            <th>Precio</th>
+                            <th>Quantity</th>
+                            
+                          </tr>
+                        </thead>
+                        <tfoot>
+                          <tr>
+                            <th>Img</th>
+                            <th>Titulo</th>
+                            <th>Precio</th>
+                            <th>Quantity</th>
+                          </tr>
+                        </tfoot>
+                        <tbody id="detalles_items">
+                          
+                        
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      </div>
+    </div>
   </main>
 
+  {% include 'dashboard/includes/scripts.html' %}
+  	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="/static/assets/js/setting-demo.js"></script>
+	<script src="/static/assets/js/demo.js"></script>
+  <script>
+    function detalles(order_id) {
+        //e.preventDefault();
+        $.ajax({
+        url: "/dashboardorder_api/"+order_id,
+        type: 'GET',
+        dataType: 'json', // added data type
+            success: function(res) {
+                console.log(res.items);
+                let template = ''
+                document.getElementById("detalles_items").innerHTML = template
+                for (var key in res.items) {
+                    template = `
+                
+                        <tr>
+                            <td>
+                                <div class="flag">
+                                    <img src="/media/${res.items[key]['img']}" style="width: 60px;"> 
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                ${res.items[key]['title']}
+                            </td>
+                            <td class="text-right">
+                                ${res.items[key]['price']}
+                            </td>
+                            <td class="text-right">
+                                ${res.items[key]['quantity']}
+                            </td>
+                            
+                        </tr>`; 
+                    
+                    document.getElementById("detalles_items").innerHTML += template;
+                }
+                //document.getElementById("detalles_items").innerHTML = template;
+            }
+        })
+    }
+
+    //function update order
+    function updateOrder(order_id) {
+        template = `
+        <form class="form-group" method="get" action="/dashboardreceived/${order_id}">
+    {% csrf_token %}
+            <label for="exampleFormControlTextarea1">Nota de Entrega</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="note"></textarea>
+        
+            <div class="form-group">
+      <button type="submit" class="btn btn-secondary">Enviar</button>
+    </div>
+        </form>
+        `; 
+                    
+        document.getElementById("update_order_item").innerHTML = template;
+    }
+
+</script>
   {% endblock content %}

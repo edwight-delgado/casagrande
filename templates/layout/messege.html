@@ -5,7 +5,8 @@
             <div class="card card-lg mb-6">
                 <!-- card body -->
                 {% if message.tags == 'info' %}
-                <div class="card-body px-6 py-8" id="notification">
+                <div class="card-body px-6 py-8 notification" id="notification">
+                    <button type="button" class="btn-close" data-bs-dismiss="notification" aria-label="Close"></button>
                     <div class="d-flex align-items-center">
                         <div>
                             <!-- svg -->
@@ -16,14 +17,14 @@
                         <!-- text -->
                         <div class="ms-4">
                             <h5 class="mb-1">{{ message }}</h5>
-                            <p class="mb-0">You have <a class="link-info" href="#!">2 new
-                                    notification</a></p>
+                            
                         </div>
 
                     </div>
                 </div>
                 {% else %}
-                <div class="card-body px-6 py-8" id="notification">
+                <div class="card-body px-6 py-8 notification" id="notification">
+                    <button type="button" class="btn-close" data-bs-dismiss="notification" aria-label="Close"></button>
                     <div class="d-flex align-items-center">
                         <!-- svg -->
                         <div>
@@ -34,7 +35,7 @@
                         <!-- text -->
                         <div class="ms-4">
                             <h5 class="mb-1">{{ message }}</h5>
-                            <p class="mb-0"> <a class="link-info" href="#!">View Performance</a></p>
+                            
                         </div>
 
                     </div>
